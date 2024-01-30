@@ -23,11 +23,12 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.index, name='core'),
+    path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('', include('user_authentication.urls')),
     path('', include('staff_management.urls')),
     path('', include('ticket_purchase.urls')),
+    path('', include('core.urls')),
     
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

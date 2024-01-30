@@ -5,13 +5,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{% static 'assets/icon.png' %}" style="background-color: rgb(228, 0, 0); height: auto;">
+    <link rel="icon" href="{% static 'assets/icon.png' %}">
     <title>{% block title %}Sajilo Events | SEMS{% endblock %}</title>
 </head>
 
 <body>
     <header>
-        <img src="{% static 'assets/Logo.png' %}" alt="">
+        <div class="logo">
+            <a href="{% url 'index' %}"><img src="{% static 'assets/logo.png' %}" alt="Sajilo Events"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'events-and-tickets' %}">Events & Tickets</a></li>
+                <li><a href="{% url 'plan-your-visit' %}">Plan Your Visit</a></li>
+                <li><a href="{% url 'about-us' %}">About Us</a></li>
+            </ul>
+        </nav>
+        <button>
+            <a href="{% url 'login' %}">Sign in</a>
+        </button>
     </header>
     {% block content %}
     {% endblock content %}

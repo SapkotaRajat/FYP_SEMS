@@ -20,6 +20,7 @@ SECRET_KEY = 'django-insecure-3mmza4q5(^4@$73jl$6^!_x2s@+(s^xg1d@4hns0k0el2d^=jj
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     'user_authentication',
     'staff_management',
     'ticket_purchase',
+    'sems',
     
 ]
 
@@ -121,11 +123,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'

@@ -17,13 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 urlpatterns = [
     path('', views.index, name='core'),
     path('admin/', admin.site.urls),
-    path('user_authentication/', include('user_authentication.urls')),
-    path('staff_management/', include('staff_management.urls')),
-    path('ticket_purchase/', include('ticket_purchase.urls')),
+    path('', include('user_authentication.urls')),
+    path('', include('staff_management.urls')),
+    path('', include('ticket_purchase.urls')),
     
     
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+

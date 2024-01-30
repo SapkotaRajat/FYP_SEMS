@@ -74,13 +74,13 @@ WSGI_APPLICATION = 'SEMS.wsgi.application'
 
 DATABASES = {
      'default': {
-        'ENGINE':'django.db.backends.mysql',
-        'NAME':'semsdb',
-        'USER':'root',
-        'PASSWORD':'rajat59',
-        'HOST':'localhost',
-        'PORT':'3306',
-        'OPTIONS': {
+        'ENGINE':'django.db.backends.mysql', #database engine
+        'NAME':'semsdb', #database name
+        'USER':'root', #database user
+        'PASSWORD':'rajat59', #database password
+        'HOST':'localhost', #database host 
+        'PORT':'3306', #database port
+        'OPTIONS': { 
             'sql_mode': 'STRICT_TRANS_TABLES',
             },
     }

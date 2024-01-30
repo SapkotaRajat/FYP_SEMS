@@ -1,5 +1,5 @@
 """
-Django settings for SEMS project.
+Django settings for sems project.
 
 """
 
@@ -46,9 +46,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.staticfiles.middleware.StaticFilesMiddleware',
 ]
 
-ROOT_URLCONF = 'SEMS.urls'
+ROOT_URLCONF = 'sems.urls'
 
 TEMPLATES = [
     {
@@ -66,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'SEMS.wsgi.application'
+WSGI_APPLICATION = 'sems.wsgi.application'
 
 
 # Database
@@ -74,13 +75,13 @@ WSGI_APPLICATION = 'SEMS.wsgi.application'
 
 DATABASES = {
      'default': {
-        'ENGINE':'django.db.backends.mysql',
-        'NAME':'semsdb',
-        'USER':'root',
-        'PASSWORD':'rajat59',
-        'HOST':'localhost',
-        'PORT':'3306',
-        'OPTIONS': {
+        'ENGINE':'django.db.backends.mysql', #database engine
+        'NAME':'semsdb', #database name
+        'USER':'root', #database user
+        'PASSWORD':'rajat59', #database password
+        'HOST':'localhost', #database host 
+        'PORT':'3306', #database port
+        'OPTIONS': { 
             'sql_mode': 'STRICT_TRANS_TABLES',
             },
     }
@@ -127,3 +128,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'

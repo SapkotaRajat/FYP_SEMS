@@ -1,11 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>SajiloEvents | Login</title>
-</head>
-<body>
-    <h1><center>Login Page</center></h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block css_file_name %}{% static 'css/login.css' %}{% endblock %}
+{% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+<h2>User Login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ login_form }}
+    <button type="submit">Login</button>
+</form>
+{% endblock %}

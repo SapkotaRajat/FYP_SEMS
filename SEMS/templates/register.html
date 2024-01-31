@@ -3,13 +3,31 @@
 {% block css_file_name %}{% static 'css/register.css' %}{% endblock %}
 {% block content %}
 
-{% include 'header.html' %}
 <h2>User Registration</h2>
-<form method="post">
+<form method="post" class="registration_form">
     {% csrf_token %}
-    {{ form }}
+    <div class="input-wrapper">
+        {{ form.first_name }}
+    </div>
+    <div class="input-wrapper">
+        {{ form.last_name }}
+    </div>
+    <div class="input-wrapper">
+        {{ form.email }}
+    </div>
+    <div class="input-wrapper">
+        {{ form.contact_number }}
+    </div>
+    <div class="input-wrapper">
+        {{ form.dob }}
+    </div>
+    <div class="input-wrapper">
+        {{ form.password }}
+    </div>
+    <div class="input-wrapper">
+        {{ form.confirm_password }}
+    </div>
     <button type="submit">Register</button>
 </form>
 
-{% include 'footer.html' %}
 {% endblock %}

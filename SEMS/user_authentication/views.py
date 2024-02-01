@@ -21,7 +21,7 @@ def register(request):
 
 def login_request(request):
     if request.method == 'POST':
-        form = LoginForm(data=request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -29,10 +29,9 @@ def login_request(request):
 
             if user is not None:
                 login(request, user)
-                # Redirect to the home page or another page after successful login
+                messages.success(request, 'Login successful.')
                 return redirect('index')
             else:
-                # Add a message to indicate login failure if needed
                 messages.error(request, 'Invalid email or password')
         else:
             # Handle form validation errors

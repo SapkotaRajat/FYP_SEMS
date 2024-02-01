@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
-{% block css_file_name %}{% static 'css/register.css' %}{% endblock %}
+{% block css_file_name %}{% static 'css/forms.css' %}{% endblock %}
 {% block content %}
 
-<h2>User Registration</h2>
-<form method="post" class="registration_form">
+
+<form method="post" class="registration-form">
+    <h2>User Registration</h2>
     {% csrf_token %}
     <div class="input-wrapper">
         {{ form.first_name }}
@@ -28,6 +29,7 @@
         {{ form.confirm_password }}
     </div>
     <button type="submit">Register</button>
+    <p class="login-account">Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </form>
 
 {% endblock %}

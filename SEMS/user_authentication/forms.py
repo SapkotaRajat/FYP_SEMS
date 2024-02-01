@@ -46,6 +46,7 @@ class LoginForm(forms.Form):
         user = authenticate(email=email, password=password)
 
         if user is None:
+            print("user is none")
             raise forms.ValidationError('Invalid email or password.')
 
         return cleaned_data

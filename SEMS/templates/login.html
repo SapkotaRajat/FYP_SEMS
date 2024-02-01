@@ -2,13 +2,7 @@
 {% load static %}
 {% block css_file_name %}{% static 'css/forms.css' %}{% endblock %}
 {% block content %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-        {% endfor %}
-</ul>
-{% endif %}
+
 
 
 <form method="post" class="login-form">
@@ -20,6 +14,13 @@
     <div class="input-wrapper">
         {{ login_form.password }}
     </div>
+    {% if messages %}
+    <ul class="error-msg">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
     <a href="{% url 'forgot-password' %}" class="forgot-password">Forgot Password?</a>
     <button type="submit">Login</button>
     <p class="register-account">Don't have an account? <a href="{% url 'register' %}">Register</a></p>

@@ -29,7 +29,7 @@ form .input-wrapper {
   border-radius: 8px;
   background: #fff;
   border: none;
-  color: #a7a3ff;
+  color: #000000;
 }
 form button[type="submit"] {
   padding: 18px 36px;
@@ -76,3 +76,13 @@ p.register-account a {
   display: inline-block;
 }
 
+
+/* error */
+.error-msg{
+  color: #ef2b2b;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin-top: 20px;
+}

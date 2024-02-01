@@ -1,11 +1,24 @@
 form {
   margin: 0 auto;
   text-align: center;
-  width: 600px;
+  max-width: 500px;
+  width: 100%;
   border-radius: 50px;
   background: #2a2a2a;
   padding: 0 0 50px 0;
   margin-top: 50px;
+  box-shadow: 0 0 20px 0 #2a2a2a80;
+}
+.forgot-password-form{
+  margin-top: 20px;
+}
+.registration-form{
+  max-width: 600px; 
+}
+
+.registration-form .input-wrapper input{
+  max-width: 500px;
+  width: 100%;
 }
 form h2 {
   color: #f1f1f1;
@@ -17,7 +30,7 @@ form h2 {
   border-radius: 50px 50px 0 0;
 }
 form .input-wrapper {
-  margin-top: 32px;
+  margin-top: 35px;
 }
 
 .input-wrapper input {
@@ -98,4 +111,23 @@ p.register-account a {
 
 .error-msg .success{
   color: #00be9c;
+}
+.title{
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 20px;
+  padding: 20px 0;
+  color: #2a2a2a;
+  font-family: Poppins, sans-serif;
+}
+
+.info-text{
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 20px;
+  padding: 20px 0;
+  color: #2a2a2a;
+  font-family: Poppins, sans-serif; 
 }

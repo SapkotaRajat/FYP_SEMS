@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'staff_management',
     'ticket_purchase',
     'sems',
+    'allauth',
+    'allauth.account',
+    
     
 ]
 
@@ -48,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
+       
 ]
 
 ROOT_URLCONF = 'sems.urls'
@@ -110,6 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     'user_authentication.backends.EmailOrUsernameModelBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 
@@ -138,3 +144,13 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# settings.py
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'your-smtp-host'
+EMAIL_PORT = 587  # Use the appropriate port for your SMTP server
+EMAIL_USE_TLS = True  # Set to False if your server doesn't use TLS
+EMAIL_HOST_USER = 'sapkotaellen@gmail.com'
+EMAIL_HOST_PASSWORD = 'wearshoes'
+
+AUTH_USER_MODEL = 'user_authentication.CustomUser'

@@ -16,9 +16,15 @@ class RegistrationForm(UserCreationForm):
             'email': forms.EmailInput(attrs={'placeholder': 'Email', 'type': 'email', 'autofocus': True}),
             'contact_number': forms.TextInput(attrs={'placeholder': 'Contact Number', 'type': 'tel', 'autofocus': True}),
             'dob': forms.DateInput(attrs={'placeholder': 'DOB (DD/MM/YYYY)', 'type': 'date', 'autofocus': True}),
-            'password1': forms.PasswordInput(attrs={'placeholder': 'Password', 'type': 'password', 'autofocus': True}),
-            'password2': forms.PasswordInput(attrs={'placeholder': 'Confirm Password', 'type': 'password', 'autofocus': True}),
         }
+    password1 = forms.CharField(
+        strip=False,
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'type': 'password', 'autofocus': True}),
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password', 'type': 'password', 'autofocus': True}),
+        strip=False,
+    )
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -46,6 +52,7 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
     
 class LoginForm(forms.Form):
     # Field as username

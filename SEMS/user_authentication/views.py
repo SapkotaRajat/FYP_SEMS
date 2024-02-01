@@ -36,7 +36,7 @@ def login_request(request):
             
             if user is not None:
                 login(request, user)
-                return redirect('index')
+                return redirect('profile')
             else:
                 messages.error(request, 'Authentication failed')
         else:
@@ -59,9 +59,18 @@ def login_request(request):
 @login_required
 def logout_request(request):
     logout(request)
-    # Redirect to the home page or another page after successful logout
-    return redirect('index')
+    return redirect('login')
+
+@login_required
+def logout_confirmation(request):
+    return render(request, 'logout.html')
+
+
+    
 
 def forgot_password(request):
     # Implement your password reset logic here
     return render(request, 'forgot-password.html', {})
+
+def profile(request):
+    return render(request, 'profile.html', {})

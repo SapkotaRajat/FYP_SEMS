@@ -3,33 +3,92 @@
 {% block css_file_name %}{% static 'css/forms.css' %}{% endblock %}
 {% block content %}
 
-
 <form method="post" class="registration-form">
     <h2>User Registration</h2>
     {% csrf_token %}
     <div class="input-wrapper">
+        {{ form.username }}
+    </div>
+    {% if messages %}
+    <div class="error-msg">
+        {% for error in form.username.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="input-wrapper">
         {{ form.first_name }}
     </div>
+    {% if messages %}
+    <div class="error-msg">
+        {% for error in form.first_name.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="input-wrapper">
         {{ form.last_name }}
     </div>
+    {% if messages %}
+    <div class="error-msg">
+        {% for error in form.last_name.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="input-wrapper">
         {{ form.email }}
     </div>
+    {% if messages %}
+    <div class="error-msg">
+        {% for error in form.email.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="input-wrapper">
         {{ form.contact_number }}
     </div>
+    {% if messages %}
+    <div class="error-msg">
+        {% for error in form.contact_number.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="input-wrapper">
         {{ form.dob }}
     </div>
-    <div class="input-wrapper">
-        {{ form.password }}
+    {% if messages %}
+    <div class="error-msg">
+        {% for error in form.dob.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
     </div>
+    {% endif %}
     <div class="input-wrapper">
-        {{ form.confirm_password }}
+        {{ form.password1 }}
     </div>
+    {% if messages %}
+    <div class="error-msg">
+        {% for error in form.password.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="input-wrapper">
+        {{ form.password2 }}
+    </div>
+    {% if messages %}
+    <div class="error-msg">
+        {% for error in form.confirm_password.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
     <button type="submit">Register</button>
     <p class="login-account">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+
 </form>
 
 {% endblock %}

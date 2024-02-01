@@ -46,26 +46,21 @@ header .logo a img {
   width: 100%;
 }
 header .btn {
-  padding: 15px 30px;
-  background-color: #00BE9C;
-  color: #fff;
-  border-radius: 50px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: none;
   margin-left: 20px;
   cursor: pointer;
 }
 header .btn a {
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  font-weight: 500;
+  padding: 15px 30px;
+  background-color: #00BE9C;
   text-decoration: none;
   color: #fff;
   font-size: 18px;
 }
 
-
 /* Footer */
-
 footer {
   background-color: #2A2A2A;
   padding: 50px 0;

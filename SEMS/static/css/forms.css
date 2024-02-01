@@ -11,7 +11,7 @@ form h2 {
   color: #f1f1f1;
   font-size: 32px;
   font-weight: 400;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   padding: 20px 0;
   background-color: #00be9c;
   border-radius: 50px 50px 0 0;
@@ -85,4 +85,17 @@ p.register-account a {
   text-transform: uppercase;
   font-family: 'Source Sans Pro', sans-serif;
   margin-top: 20px;
+}
+.error{
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+  margin: 0 auto;
+}
+.err-center{
+  text-align: center;
+}
+
+.error-msg .success{
+  color: #00be9c;
 }

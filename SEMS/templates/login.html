@@ -9,7 +9,7 @@
     <h2>User Login</h2>
     {% csrf_token %}
     <div class="input-wrapper">
-        {{ login_form.email }}
+        {{ login_form.username }}
     </div>
     <div class="input-wrapper">
         {{ login_form.password }}
@@ -20,7 +20,7 @@
     {% if messages %}
     <div class="error-msg">
         {% for message in messages %}
-        <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+        <p{% if message.tags %} class="{{ message.tags }} err-center" {% endif %}>{{ message }}</p>
         {% endfor %}
     </div>
     {% endif %}

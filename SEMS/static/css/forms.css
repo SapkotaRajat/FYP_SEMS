@@ -44,7 +44,7 @@ form .input-wrapper {
   border: none;
   color: #000000;
 }
-form button[type="submit"] {
+form button[type="submit"]{
   padding: 18px 36px;
   background-color: #ef2b2b;
   color: #fff;
@@ -120,6 +120,7 @@ p.register-account a {
   padding: 20px 0;
   color: #2a2a2a;
   font-family: Poppins, sans-serif;
+  line-height: 1.5;
 }
 
 .info-text{
@@ -130,4 +131,46 @@ p.register-account a {
   padding: 20px 0;
   color: #2a2a2a;
   font-family: Poppins, sans-serif; 
+}
+
+/* reset password */
+.reset-password{
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px 0;
+}
+.checked-icon img{
+  width: 100px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  margin-top: 20px;
+}
+.reset-password h2{
+  margin: 0 0 20px 0;
+  padding: 15px 0;
+  border-bottom: #00be9c 2px solid;
+}
+.reset-password .info-text{
+  margin-top: 0;
+  padding: 15px 0;
+}
+
+.reset-password a.button{
+  margin-top: 20px;
+  padding: 18px 36px;
+  background-color: #00be9c;
+  color: #fff;
+  border-radius: 9px;
+  font-size: 18px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  display: inline-block;
 }

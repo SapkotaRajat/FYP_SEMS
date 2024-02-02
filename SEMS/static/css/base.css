@@ -6,8 +6,12 @@
 }
 
 header {
-  background-color: #2A2A2A;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 header .wrapper {
   display: flex;
@@ -37,10 +41,15 @@ header nav ul li a {
   font-size: 18px;
   transition: all 0.3s ease;
   font-family: 'Source Sans Pro', sans-serif;
+  padding-bottom: 10px;
+  position: relative;
+  border-bottom: 0;
 }
 header nav ul li a:hover {
-  color: #f44336;
+  border-bottom: 2px solid #00BE9C;
+  transition: border-bottom 0.3s ease-in-out;
 }
+
 header .logo a img {
   max-width: 300px;
   width: 100%;
@@ -58,6 +67,56 @@ header .btn a {
   text-decoration: none;
   color: #fff;
   font-size: 18px;
+}
+
+.full-page-image{
+  width: 100%;
+  height: 100vh;
+}
+.full-page-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-image{
+  width: 100%;
+  height: 450px;
+  position: relative;
+}
+.banner-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.banner-image h1{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 40px;
+  font-weight: 700;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.banner-image h1::after{
+  content: '';
+  display: block;
+  width: 100px;
+  height: 5px;
+  background-color: #00BE9C;
+  margin: 10px auto;
+}
+
+/* background overlay */
+.banner-image::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Footer */

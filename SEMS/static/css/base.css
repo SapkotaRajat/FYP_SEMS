@@ -155,6 +155,8 @@ footer .img-side-by-side{
   padding-bottom: 30px;
   border-bottom: 1px solid #000;
   width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 footer .img-side-by-side img{
   width: 250px;

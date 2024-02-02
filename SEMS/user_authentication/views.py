@@ -4,6 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm , LoginForm
 from django.contrib import messages
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.forms import PasswordResetForm
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from .models import CustomUser
 
 def register(request):
     if request.method == 'POST':
@@ -69,3 +75,30 @@ def profile(request):
 def change_password(request):
     # Implement your password reset logic here
     return render(request, 'change-password.html', {})
+
+
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'registration/password-reset.html'
+    success_url = reverse_lazy('password_reset_done')
+    email_template_name = 'registration/password_reset_email.html'
+    form_class = PasswordResetForm
+
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        # Add your custom validation logic here
+        email = form.cleaned_data['email']
+        print(email)
+        
+        # Check if the email exists in the database
+        if CustomUser.objects.filter(email=email).exists():
+            # User is registered, proceed with the default behavior
+            return super().form_valid(form)
+        else:
+            # User is not registered, add an error message
+            messages.error(self.request, 'Email address not found in our records.')
+            # Render the form again with the error message
+            return self.render_to_response(self.get_context_data(form=form))

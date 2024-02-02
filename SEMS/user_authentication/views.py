@@ -54,8 +54,6 @@ def login_request(request):
 
     return render(request, 'login.html', {'login_form': form})
 
-
-
 @login_required
 def logout_request(request):
     logout(request)
@@ -65,12 +63,9 @@ def logout_request(request):
 def logout_confirmation(request):
     return render(request, 'logout.html')
 
-
-    
-
-def forgot_password(request):
-    # Implement your password reset logic here
-    return render(request, 'forgot-password.html', {})
-
 def profile(request):
     return render(request, 'profile.html', {})
+
+def change_password(request):
+    # Implement your password reset logic here
+    return render(request, 'change-password.html', {})

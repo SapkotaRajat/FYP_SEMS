@@ -15,7 +15,7 @@
     <div class="input-wrapper">
         {{ login_form.password }}
     </div>
-    <a href="{% url 'forgot-password' %}" class="forgot-password">Forgot Password?</a>
+    <a href="{% url 'password_reset' %}" class="forgot-password">Forgot Password?</a>
     <button type="submit">Login</button>
     <p class="register-account">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
     {% if messages %}

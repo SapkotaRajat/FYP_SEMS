@@ -99,6 +99,6 @@ class CustomPasswordResetView(PasswordResetView):
             return super().form_valid(form)
         else:
             # User is not registered, add an error message
-            messages.error(self.request, 'Email address not found in our records.')
+            messages.error(self.request, 'No accounts found with that email address.')
             # Render the form again with the error message
             return self.render_to_response(self.get_context_data(form=form))

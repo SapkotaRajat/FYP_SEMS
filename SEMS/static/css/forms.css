@@ -9,14 +9,14 @@ form {
   margin-top: 50px;
   box-shadow: 0 0 20px 0 #2a2a2a80;
 }
-.forgot-password-form{
+.forgot-password-form {
   margin-top: 20px;
 }
-.registration-form{
-  max-width: 600px; 
+.registration-form {
+  max-width: 600px;
 }
 
-.registration-form .input-wrapper input{
+.registration-form .input-wrapper input {
   max-width: 500px;
   width: 100%;
 }
@@ -44,7 +44,7 @@ form .input-wrapper {
   border: none;
   color: #000000;
 }
-form button[type="submit"]{
+form button[type="submit"] {
   padding: 18px 36px;
   background-color: #ef2b2b;
   color: #fff;
@@ -62,7 +62,7 @@ form button[type="submit"]{
 }
 .login-form button[type="submit"] {
   margin-top: 18px;
-}   
+}
 a.forgot-password {
   color: #a7a3ff;
   font-size: 13px;
@@ -89,30 +89,32 @@ p.register-account a {
   display: inline-block;
 }
 
-
 /* error */
-.error-msg{
+.error-msg {
   color: #ef2b2b;
   font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   margin-top: 20px;
 }
-.error{
+.error-msg ul li {
+  list-style: none;
+}
+.error {
   max-width: 400px;
   width: 100%;
   text-align: left;
   margin: 0 auto;
 }
-.err-center{
+.err-center {
   text-align: center;
 }
 
-.error-msg .success{
+.error-msg .success {
   color: #00be9c;
 }
-.title{
+.title {
   text-align: center;
   font-size: 24px;
   font-weight: 400;
@@ -123,42 +125,42 @@ p.register-account a {
   line-height: 1.5;
 }
 
-.info-text{
+.info-text {
   text-align: center;
   font-size: 16px;
   font-weight: 400;
   margin-top: 20px;
   padding: 20px 0;
   color: #2a2a2a;
-  font-family: Poppins, sans-serif; 
+  font-family: Poppins, sans-serif;
 }
 
 /* reset password */
-.reset-password{
+.reset-password {
   max-width: 600px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
   padding: 20px 0;
 }
-.checked-icon img{
+.checked-icon img {
   width: 100px;
   height: auto;
   margin: 0 auto;
   display: block;
   margin-top: 20px;
 }
-.reset-password h2{
+.reset-password h2 {
   margin: 0 0 20px 0;
   padding: 15px 0;
   border-bottom: #00be9c 2px solid;
 }
-.reset-password .info-text{
+.reset-password .info-text {
   margin-top: 0;
   padding: 15px 0;
 }
 
-.reset-password a.button{
+.reset-password a.button {
   margin-top: 20px;
   padding: 18px 36px;
   background-color: #00be9c;

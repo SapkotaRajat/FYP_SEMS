@@ -1,0 +1,178 @@
+form {
+  margin: 0 auto;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  border-radius: 50px;
+  background: #2a2a2a;
+  padding: 0 0 50px 0;
+  margin-top: 50px;
+  box-shadow: 0 0 20px 0 #2a2a2a80;
+}
+.forgot-password-form {
+  margin-top: 20px;
+}
+.registration-form {
+  max-width: 600px;
+}
+
+.registration-form .input-wrapper input {
+  max-width: 500px;
+  width: 100%;
+}
+form h2 {
+  color: #f1f1f1;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  padding: 20px 0;
+  background-color: #00be9c;
+  border-radius: 50px 50px 0 0;
+}
+form .input-wrapper {
+  margin-top: 35px;
+}
+
+.input-wrapper input {
+  max-width: 400px;
+  width: 100%;
+  padding: 22px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  background: #fff;
+  border: none;
+  color: #000000;
+}
+form button[type="submit"] {
+  padding: 18px 36px;
+  background-color: #ef2b2b;
+  color: #fff;
+  border-radius: 9px;
+  font-size: 18px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  max-width: 400px;
+  width: 100%;
+  margin-top: 32px;
+}
+.login-form button[type="submit"] {
+  margin-top: 18px;
+}
+a.forgot-password {
+  color: #a7a3ff;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 400;
+  margin-top: 24px;
+  display: block;
+}
+p.login-account,
+p.register-account {
+  color: #a7a3ff;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 300;
+  margin-top: 24px;
+  display: inline-block;
+}
+p.login-account a,
+p.register-account a {
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 400;
+  display: inline-block;
+}
+
+/* error */
+.error-msg {
+  color: #ef2b2b;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-family: "Source Sans Pro", sans-serif;
+  margin-top: 20px;
+}
+.error-msg ul li {
+  list-style: none;
+}
+.error {
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+  margin: 0 auto;
+}
+.err-center {
+  text-align: center;
+}
+
+.error-msg .success {
+  color: #00be9c;
+}
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 20px;
+  padding: 20px 0;
+  color: #2a2a2a;
+  font-family: Poppins, sans-serif;
+  line-height: 1.5;
+}
+
+.info-text {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 20px;
+  padding: 20px 0;
+  color: #2a2a2a;
+  font-family: Poppins, sans-serif;
+}
+
+/* reset password */
+.reset-password {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px 0;
+}
+.checked-icon img {
+  width: 100px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  margin-top: 20px;
+}
+.reset-password h2 {
+  margin: 0 0 20px 0;
+  padding: 15px 0;
+  border-bottom: #00be9c 2px solid;
+}
+.reset-password .info-text {
+  margin-top: 0;
+  padding: 15px 0;
+}
+
+.reset-password a.button {
+  margin-top: 20px;
+  padding: 18px 36px;
+  background-color: #00be9c;
+  color: #fff;
+  border-radius: 9px;
+  font-size: 18px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  display: inline-block;
+}

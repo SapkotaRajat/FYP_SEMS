@@ -50,10 +50,12 @@ def login_request(request):
             non_field_errors = form.errors.get('__all__')
             if non_field_errors:
                 print(non_field_errors)
+                
             else:
                 for field, errors in form.errors.items():
+                    errors.append(errors[0])
                     print(field, errors)
-            messages.error(request, 'Form validation failed')
+            messages.error(request, form.errors['__all__'])
 
     else:
         form = LoginForm()
@@ -70,7 +72,7 @@ def logout_confirmation(request):
     return render(request, 'logout.html')
 
 def profile(request):
-    return render(request, 'profile.html', {})
+    return render(request, 'profile/profile.html', {})
 
 def change_password(request):
     # Implement your password reset logic here

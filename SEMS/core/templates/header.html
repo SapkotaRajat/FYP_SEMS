@@ -11,9 +11,18 @@
                 <li><a href="{% url 'plan-your-visit' %}">Plan Your Visit</a></li>
                 <li><a href="{% url 'about-us' %}">About Us</a></li>
             </ul>
+            {% if user.is_authenticated %}
+            <div class="user-profile">
+                <a href="{% url 'profile' %}">
+                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'assets/profile.svg' %}{% endif %}" alt="Profile Picture">
+                    <span>{{ user.username }}</span>
+                </a>
+            </div>
+            {% else %}
             <div class="btn">
                 <a href="{% url 'login' %}">Sign in</a>
             </div>
+            {% endif %}
         </nav>
     </div>
 </header>

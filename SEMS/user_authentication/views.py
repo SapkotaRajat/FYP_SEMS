@@ -70,10 +70,10 @@ def logout_request(request):
 @login_required
 def logout_confirmation(request):
     return render(request, 'logout.html')
-
+@login_required
 def profile(request):
     return render(request, 'profile/profile.html', {})
-
+@login_required
 def change_password(request):
     # Implement your password reset logic here
     return render(request, 'change-password.html', {})

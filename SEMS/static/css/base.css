@@ -37,17 +37,17 @@ header nav ul li {
 }
 header nav ul li a {
   text-decoration: none;
-  color: #F1F1F1;
+  color: #f1f1f1;
   font-size: 18px;
   transition: all 0.3s ease;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   padding-bottom: 10px;
   position: relative;
-  border-bottom: none;
+  border-bottom: 0 solid transparent;
 }
 header nav ul li a:hover {
-  border-bottom: 1px solid #00BE9C;
-  /* transition: border-bottom 0.3s ease-in-out; */
+  border-bottom: 1px solid #00be9c;
+  transition: border-bottom 0.3s ease-in-out;
 }
 
 header .logo a img {
@@ -63,33 +63,61 @@ header .btn a {
   border-radius: 50px;
   font-weight: 500;
   padding: 15px 30px;
-  background-color: #00BE9C;
+  background-color: #00be9c;
   text-decoration: none;
   color: #fff;
   font-size: 18px;
 }
+/* <div class="user-profile">
+                <!-- profile image and name with link to profile page use the profile picture availabe in the database if available else use default profile picture -->
+                <a href="{% url 'profile' %}">
+                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'assets/profile.svg' %}{% endif %}" alt="Profile Picture">
+                    <span>{{ user.username }}</span>
+                </a>
+            </div> */
 
-.full-page-image{
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-profile a {
+  text-decoration: none;
+  color: #00be9c;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Source Sans Pro", sans-serif;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+.full-page-image {
   width: 100%;
   height: 100vh;
 }
-.full-page-image img{
+.full-page-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.banner-image{
+.banner-image {
   width: 100%;
   height: 450px;
   position: relative;
 }
-.banner-image img{
+.banner-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.banner-image h1{
+.banner-image h1 {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -97,20 +125,20 @@ header .btn a {
   color: #fff;
   font-size: 40px;
   font-weight: 700;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
-.banner-image h1::after{
-  content: '';
+.banner-image h1::after {
+  content: "";
   display: block;
   width: 100px;
   height: 5px;
-  background-color: #00BE9C;
+  background-color: #00be9c;
   margin: 10px auto;
 }
 
 /* background overlay */
-.banner-image::before{
-  content: '';
+.banner-image::before {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -121,34 +149,34 @@ header .btn a {
 
 /* Footer */
 footer {
-  background-color: #2A2A2A;
+  background-color: #2a2a2a;
   padding: 50px 0;
   margin-top: 60px;
 }
-footer .wrapper{
+footer .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
   gap: 30px;
 }
-.follow-link p{
+.follow-link p {
   color: #fff;
   font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
-.follow-link a{
+.follow-link a {
   text-decoration: none;
   color: #fff;
   font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
-footer .img-side-by-side{
+footer .img-side-by-side {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -158,16 +186,16 @@ footer .img-side-by-side{
   flex-wrap: wrap;
   gap: 20px;
 }
-footer .img-side-by-side img{
+footer .img-side-by-side img {
   width: 250px;
   height: 250px;
   margin: 0 10px;
 }
 
-.copy-right p{ 
+.copy-right p {
   color: #fff;
   font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }

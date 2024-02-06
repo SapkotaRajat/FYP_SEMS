@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{% static 'assets/icon.png' %}">
-    <title>{% block title %}Sajilo Events | SEMS{% endblock %}</title>
+    <title>{% block title %} Sajilo Events | SEMS{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="{% block css_file_name %}{% endblock %}">
 </head>
@@ -14,9 +14,18 @@
 <body>
     <div class="container">
         {% include 'profile/header.html' %}
-        {% block content %}
-        {% endblock %}
-        {% include 'profile/footer.html' %}
+        <div class="content-wrap">
+            {% include 'profile/sidebar.html' %}
+            <div class="content">
+                <div class="title">
+                    <h2>{% block profile-title %}{% endblock %}</h2>
+                </div>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% include 'profile/footer.html' %}
     </div>
 </body>
 

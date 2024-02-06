@@ -2,15 +2,18 @@
 <header>
     <div class="wrapper">
         <div class="logo">
-            <a href="{% url 'index' %}"><img src="{% static 'assets/logo.png' %}" alt="Sajilo Events"></a>
+            <a href="{% url 'index' %}"><img src="{% static 'assets/logo-white.png' %}" alt="Sajilo Events"></a>
         </div>
-        <div class="profile">
-            <div class="profile-picture">
-                <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}" alt="Profile Picture">
-            </div>
-            <div class="profile-details">
-                <span>{{ user.first_name }}</span>
-            </div>
+        <div>
+            <a href=" {% url 'profile' %}" class="profile">
+                <div class="profile-picture">
+                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}"
+                        alt="Profile Picture">
+                </div>
+                <div class="profile-details">
+                    <span>{{ user.first_name }}</span>
+                </div>
+            </a>
         </div>
     </div>
 </header>

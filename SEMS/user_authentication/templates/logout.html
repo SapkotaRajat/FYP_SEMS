@@ -1,11 +1,13 @@
+{% extends 'profile/base.html' %}
+{% block title %}Logout{% endblock %}
+{% block profile-title %}Logout{% endblock %}
 
-<h1>
-    Sign Out
-</h1>
-<p>Are you sure you want to sign out?</p>
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">
-        Sign Out
-    </button>
-</form>
+{% block content %}
+<div class="logout">
+    <h2>Are you sure you want to logout?</h2>
+    <div class="buttons">
+        <a href="{% url 'logout' %}" class="btn btn-primary">Yes</a>
+        <a href="{% url 'profile' %}" class="btn btn-secondary">No</a>
+    </div>
+</div>
+{% endblock %}

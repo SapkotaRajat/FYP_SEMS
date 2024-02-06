@@ -77,8 +77,14 @@ def profile(request):
 def change_password(request):
     # Implement your password reset logic here
     return render(request, 'change-password.html', {})
-
-
+@login_required
+def edit_profile(request):
+    # Implement your profile edit logic here
+    return render(request, 'profile/edit-profile.html', {})
+@login_required
+def change_password(request):
+    # Implement your password reset logic here
+    return render(request, 'change-password.html', {})
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password-reset.html'

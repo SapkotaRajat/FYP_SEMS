@@ -68,17 +68,6 @@ header .btn a {
   color: #fff;
   font-size: 18px;
 }
-/* <div class="user-profile">
-                <a href="{% url 'profile' %}">
-                    <div class="username">
-                        <span>{{ user.first_name }}</span>
-                    </div>
-                    <div class="profile-picture">
-                        <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'assets/profile.svg' %}{% endif %}"
-                            alt="Profile Picture">
-                    </div>
-                </a>
-            </div> */
 
 .user-profile {
   cursor: pointer;
@@ -183,22 +172,6 @@ footer .wrapper {
   font-weight: 400;
   text-transform: uppercase;
   font-family: "Source Sans Pro", sans-serif;
-}
-
-footer .img-side-by-side {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding-bottom: 30px;
-  border-bottom: 1px solid #000;
-  width: 100%;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-footer .img-side-by-side img {
-  width: 250px;
-  height: 250px;
-  margin: 0 10px;
 }
 
 .copy-right p {

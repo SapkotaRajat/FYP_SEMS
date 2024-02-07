@@ -30,6 +30,7 @@ class CustomUser(AbstractUser):
     contact_number = models.CharField(max_length=15, null=True)
     dob = models.DateField(null=True)
     username = models.CharField(max_length=150, unique=True)  # Ensure uniqueness
+    address = models.TextField(null=True)
     USERNAME_FIELD = 'username'
         
     # Unique related names to resolve clashes

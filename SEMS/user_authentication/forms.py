@@ -72,5 +72,7 @@ class LoginForm(forms.Form):
 
         return cleaned_data
 
-
-    
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'email', 'contact_number', 'address']

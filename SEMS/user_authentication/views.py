@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from .models import CustomUser
+from .forms import UserProfileForm
 
 def register(request):
     if request.method == 'POST':
@@ -82,9 +83,15 @@ def edit_profile(request):
     # Implement your profile edit logic here
     return render(request, 'profile/edit-profile.html', {})
 @login_required
-def change_password(request):
-    # Implement your password reset logic here
-    return render(request, 'change-password.html', {})
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'profile/edit-profile.html', {'form': form})
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password-reset.html'

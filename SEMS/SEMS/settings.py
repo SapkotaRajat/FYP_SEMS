@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'sems',
     'allauth',
     'allauth.account',
+    'django_extensions',
     
     
 ]
@@ -113,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'user_authentication.backends.EmailOrUsernameModelBackend',
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
@@ -154,3 +154,8 @@ EMAIL_HOST_USER = 'sapkotarajat59@gmail.com'
 EMAIL_HOST_PASSWORD = 'mudi svos idef zigm'
 
 AUTH_USER_MODEL = 'user_authentication.CustomUser'
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

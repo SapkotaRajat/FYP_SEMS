@@ -167,6 +167,16 @@ a.profile {
   margin: 10px 0 5px 0;
   border-bottom: none;
 }
+.detail a {
+  color: #00be9c;
+  text-decoration: none;
+  transition: 0.5s;
+  display: inline-block;
+}
+.detail a:hover {
+  color: #00a88f;
+}
+
 .detail p {
   font-weight: 400;
   color: #2a2a2a;
@@ -228,7 +238,9 @@ a.profile {
   font-size: 24px;
 }
 
-
+.text-underline{
+  text-decoration: underline;
+}
 /* logout */
 .logout {
   padding: 30px;
@@ -246,6 +258,13 @@ a.profile {
   margin-bottom: 20px;
   text-align: center;
   padding-bottom: 20px;
+}
+.logout p {
+  font-size: 18px;
+  font-weight: 300;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.5;
 }
 .logout .buttons {
   display: flex;

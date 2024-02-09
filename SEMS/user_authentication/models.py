@@ -32,6 +32,8 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=150, unique=True)  # Ensure uniqueness
     address = models.TextField(null=True)
     USERNAME_FIELD = 'username'
+    # profile picture
+    profile_picture = models.ImageField(upload_to='static/profile_pictures/', null=True, blank=True)
         
     # Unique related names to resolve clashes
     groups = models.ManyToManyField(

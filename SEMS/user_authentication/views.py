@@ -87,6 +87,9 @@ def edit_profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
+            # save the user profile picture if uploaded
+            if 'profile_picture' in request.FILES:
+                request.user.profile_picture = request.FILES['profile_picture'] 
             form.save()
             return redirect('profile')
     else:

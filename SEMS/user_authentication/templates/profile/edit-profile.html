@@ -31,7 +31,18 @@
                 </div>
                 <div class="detail">
                     <label for="id_address">Address</label>
-                    <input type="text" name="address" id="id_address" value="{% if user.address %}{{ user.address }}{% else %}Kathmandu, Nepal{% endif %}">
+                    <input type="text" name="address" id="id_address"
+                        value="{% if user.address %}{{ user.address }}{% else %}Kathmandu, Nepal{% endif %}">
+                </div>
+                <!-- add profile picture -->
+                {% if user.profile_picture %}
+                <img class="profile-img-preview" src="/{{ user.profile_picture }}" alt="Profile Picture">
+                {% endif %}
+                <div class="detail">
+                    <label for="id_profile_picture">Profile Picture</label>
+                    <!-- sopports only image filetypes -->
+                    <input type="file" name="profile_picture" id="id_profile_picture" accept="image/*">
+                    <!-- if profile image exists  -->
                 </div>
                 <!-- Add more form fields as needed -->
                 <div class="btn-wrap">

@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'django_extensions',
-    
-    
+    'event_management',
 ]
 
 MIDDLEWARE = [

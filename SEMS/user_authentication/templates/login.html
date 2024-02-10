@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block css_file_name %}{% static 'css/forms.css' %}{% endblock %}
-{% block page_title  %}Login{% endblock %}
+{% block page_title %}Login{% endblock %}
 {% block content %}
 
 
@@ -21,9 +21,15 @@
     {% if messages %}
     <div class="error-msg">
         {% for message in messages %}
-        <p{% if message.tags %} class="{{ message.tags }} err-center" {% endif %}>{{ message }}</p>
+        {% if message.tags == 'success' %}
+        <p class="{{ message.tags }} err-center">{{ message }}</p>
+        {% endif %}
+        {% if message.tags == 'error' %}
+        <p class="{{ message.tags }} err-center">{{ message }}</p>
+        {% endif %}
         {% endfor %}
     </div>
     {% endif %}
 </form>
+
 {% endblock %}

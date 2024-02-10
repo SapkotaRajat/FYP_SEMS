@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'django_extensions',
     'event_management',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -155,6 +156,7 @@ EMAIL_HOST_PASSWORD = 'mudi svos idef zigm'
 AUTH_USER_MODEL = 'user_authentication.CustomUser'
 
 GRAPH_MODELS = {
-  'all_applications': True,
+  'all_applications': False,
   'group_models': True,
+  'app_labels': ["sems", "event_management"],
 }

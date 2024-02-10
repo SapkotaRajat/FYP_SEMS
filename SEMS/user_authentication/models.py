@@ -1,6 +1,7 @@
 # user_authentication/models.py
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
@@ -30,7 +31,7 @@ class CustomUser(AbstractUser):
     contact_number = models.CharField(max_length=15, null=True)
     dob = models.DateField(null=True)
     username = models.CharField(max_length=150, unique=True)  # Ensure uniqueness
-    address = models.TextField(null=True)
+    address = RichTextField(null=True)
     USERNAME_FIELD = 'username'
     # profile picture
     profile_picture = models.ImageField(upload_to='static/profile_pictures/', null=True, blank=True)

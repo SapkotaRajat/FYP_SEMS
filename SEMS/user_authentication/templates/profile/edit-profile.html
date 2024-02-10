@@ -34,6 +34,11 @@
                     <input type="text" name="address" id="id_address"
                         value="{% if user.address %}{{ user.address }}{% else %}Kathmandu, Nepal{% endif %}">
                 </div>
+                <!-- dob -->
+                <div class="detail">
+                    <label for="id_dob">Date of Birth</label>
+                    <input type="date" name="dob" id="id_dob" value="{{ user.dob }}">
+                </div>
                 <!-- add profile picture -->
                 {% if user.profile_picture %}
                 <img class="profile-img-preview" src="/{{ user.profile_picture }}" alt="Profile Picture">

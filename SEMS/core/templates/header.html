@@ -15,7 +15,7 @@
             <div class="user-profile">
                 <a href="{% url 'profile' %}">
                     <div class="profile-picture">
-                        <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}"
+                        <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}"
                             alt="Profile Picture">
                     </div>
                     <div class="username">

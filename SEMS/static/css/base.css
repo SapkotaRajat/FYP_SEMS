@@ -134,6 +134,30 @@ header .btn a {
   margin: 10px auto;
 }
 
+.banner-image-wrap{
+  position: relative;
+}
+.banner-image-wrap .menu ul {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  gap: 30px;
+}
+.banner-image-wrap .menu ul li {
+  list-style: none;
+}
+.banner-image-wrap .menu a {
+  text-decoration: none;
+  color: #A0A0A0;
+  font-size: 18px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
 /* background overlay */
 .banner-image::before {
   content: "";

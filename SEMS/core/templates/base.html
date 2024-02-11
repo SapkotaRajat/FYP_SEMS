@@ -14,16 +14,27 @@
 <body>
     <div class="container">
         {% include 'header.html' %}
-        {% if request.path == '/' %} 
-        <div class="full-page-image">
-            <img src="{% static 'assets/full-page-img-2.jpg' %}" alt="Full Page Image">
+        <div class="banner-image-wrap">
+
+            {% if request.path == '/' %}
+            <div class="full-page-image">
+                <img src="{% static 'assets/full-page-img-2.jpg' %}" alt="Full Page Image">
+            </div>
+            {% else %}
+            <div class="banner-image">
+                <img src="{% block banner_image_src %}{% static 'assets/placeholder-banner.png' %}{% endblock %}"
+                    alt="Banner Image">
+                <h1 class="title">{% block page_title %}{% endblock %}</h1>
+            </div>
+            {% endif %}
+            <!-- menu -->
+            <div class="menu">
+                <ul>
+                    {% block menu %}
+                    {% endblock %}
+                </ul>
+            </div>
         </div>
-        {% else %}
-        <div class="banner-image">
-            <img src="{% block banner_image_src %}{% static 'assets/placeholder-banner.png' %}{% endblock %}" alt="Banner Image">
-            <h1 class="title">{% block page_title %}{% endblock %}</h1>
-        </div>
-        {% endif %}
         {% block content %}
         {% endblock %}
         {% include 'footer.html' %}

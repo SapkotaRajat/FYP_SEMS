@@ -30,7 +30,8 @@ urlpatterns = [
     path('', include('staff_management.urls')),
     path('', include('ticket_purchase.urls')),
     path('', include('core.urls')),
-    path('accounts/', include('allauth.urls')),
+    path('', include('event_management.urls')),
+    # path('accounts/', include('allauth.urls')),
     
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

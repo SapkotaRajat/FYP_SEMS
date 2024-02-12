@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Events and Tickets{% endblock %}
+{% block page_title %}Events and Tickets{% endblock %}
+{% block css_file_name %}{% static 'css/events-and-tickets.css' %}{% endblock %}
+{% block menu %}
+<li><a href="{% url 'events-categories' %}">Events</a></li>
+<li><a href="{% url 'tickets' %}">Tickets</a></li>
+{% endblock %}
+{% block banner_image_src %}{% static 'assets/events-and-tickets-banner.webp' %}{% endblock %}
+
+{% block content %}
+<div class="information-wrap">
+    <div class="information">
+        <p>To purchase tickets to a show you can visit one of our ticket outlet locations below or purchase them <a
+                href="{% url 'tickets' %}">online</a></p>
+
+        <div class="ticket-outlet">
+            <h2>Sajilo Events</h2>
+            <p>Address: Naxal Kathmandu</p>
+            <p>Phone: 9861-813-697</p>
+            <p>Summer Hours: Sunday-Friday – 10am – 3pm</p>
+        </div>
+    </div>
+</div>
+<div class="upcoming-events">
+    <h2>Upcoming Events</h2>
+    <div class="event-card-wrap">
+        {% for event in upcoming_events %}
+        <div class="event-card">
+            <img src="{% static 'assets/event-01.webp' %}" alt="Event 1">
+            <h3>{{ event }}</h3>
+            <a href="{% url 'tickets' event_name=event %}">Buy Tickets</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

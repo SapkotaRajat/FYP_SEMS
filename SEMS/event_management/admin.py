@@ -7,7 +7,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'time', 'location', 'category', 'organizer')
+    list_display = ('title', 'date', 'start_time', 'end_time', 'location', 'category', 'organizer')
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):

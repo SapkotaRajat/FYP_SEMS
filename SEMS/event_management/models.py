@@ -1,18 +1,20 @@
 from django.conf import settings
 from django.db import models
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='static/category_images/')
     def __str__(self):
         return self.name
 
 class Event(models.Model):
-    title = models.CharField(max_length=200)
-    description = RichTextField()
+    title = models.CharField(max_length=200, unique=True)
+    image = models.ImageField(upload_to='static/event_images/')
+    description = CKEditor5Field()
     date = models.DateField()
-    time = models.TimeField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     location = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     organizer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

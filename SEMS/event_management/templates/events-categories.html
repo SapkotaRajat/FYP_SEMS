@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Events Categories{% endblock %}
+{% block page_title %}Events Categories{% endblock %}
+{% block css_file_name %}{% static 'css/events-and-tickets.css' %}{% endblock %}
+{% block menu %}
+<li><a href="{% url 'events-categories' %}">Events</a></li>
+<li><a href="{% url 'tickets' %}">Tickets</a></li>
+{% endblock %}
+{% block banner_image_src %}{% static 'assets/events-categories-banner.webp' %}{% endblock %}
+{% block content %}
+<div class="event-category-wrap">
+    {% for category in categories %}
+    <div class="event-cat-card">
+        <img src="{{ category.image.url }}" alt="{{category.name}}">
+        <a href="{% url 'events' category_name=category.name %}">
+            <h3>{{ category.name }}</h3>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

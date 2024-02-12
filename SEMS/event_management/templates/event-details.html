@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Event Details{% endblock %}
+{% block page_title %}Event Details{% endblock %}
+{% block css_file_name %}{% static 'css/event-details.css' %}{% endblock %}
+{% block menu %}
+<li><a href="{% url 'events-categories' %}">Events</a></li>
+<li><a href="{% url 'tickets' %}">Tickets</a></li>
+{% endblock %}
+{% block banner_image_src %}{% static 'assets/event-details-banner.webp' %}{% endblock %}
+{% block content %}
+<div class="event-details-wrap">
+    {% for event in events %}
+    <div class="event-details">
+        <img src="{% static 'assets/event-01.webp' %}" alt="Event 1">
+        <h3>{{ event.name }}</h3>
+        <a href="{% url 'tickets' %}">Buy Tickets</a>
+    </div>
+    {% endfor %}
+    
+</div>
+{% endblock %}

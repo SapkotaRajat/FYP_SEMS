@@ -6,14 +6,15 @@ form {
   border-radius: 50px;
   background: #2a2a2a;
   padding: 0 0 50px 0;
-  margin-top: 50px;
+  margin: 100px auto;
   box-shadow: 0 0 20px 0 #2a2a2a80;
 }
 .forgot-password-form {
   margin-top: 20px;
 }
 .registration-form {
-  max-width: 600px;
+  max-width: 650px;
+  width: 100%;
 }
 
 .registration-form .input-wrapper input {
@@ -58,7 +59,6 @@ form button[type="submit"] {
   cursor: pointer;
   max-width: 400px;
   width: 100%;
-  margin-top: 32px;
 }
 .login-form button[type="submit"] {
   margin-top: 18px;
@@ -88,6 +88,18 @@ p.register-account a {
   font-weight: 400;
   display: inline-block;
 }
+
+.left-field, .right-field {
+  display: inline-block;
+  width: calc(45%);
+}
+.left-field {
+  margin-right: 10px;
+}
+.right-field {
+  margin-left: 10px;
+}
+
 
 /* error */
 .error-msg {

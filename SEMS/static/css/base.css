@@ -89,8 +89,8 @@ header .btn a {
   font-weight: 400;
 }
 .profile-picture img {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -117,7 +117,7 @@ header .btn a {
 }
 .banner-image h1 {
   position: absolute;
-  top: 50%;
+  top: calc(50% + 50px);
   left: 50%;
   transform: translate(-50%, -50%);
   color: #fff;
@@ -152,7 +152,7 @@ header .btn a {
 }
 .banner-image-wrap .menu a {
   text-decoration: none;
-  color: #A0A0A0;
+  color: #f1f1f1;
   font-size: 18px;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -173,7 +173,6 @@ header .btn a {
 footer {
   background-color: #2a2a2a;
   padding: 50px 0;
-  margin-top: 60px;
 }
 footer .wrapper {
   display: flex;

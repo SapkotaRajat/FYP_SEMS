@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Events{% endblock %}
+{% block page_title %}Events{% endblock %}
+{% block css_file_name %}{% static 'css/events-and-tickets.css' %}{% endblock %}
+{% block menu %}
+<li><a href="{% url 'events-categories' %}">Events</a></li>
+<li><a href="{% url 'tickets' %}">Tickets</a></li>
+{% endblock %}
+{% block banner_image_src %}{% static 'assets/full-page-img-2.jpg' %}{% endblock %}
+{% block content %}
+<section class="events">
+    <div class="events-wrap">
+        <!-- Category -->
+        {% for event in events %}
+        <div class="events-card">
+            <div class="image">
+                <img src="{{ event.image.url }}" alt="{{ event.name }}">
+            </div>
+            <div class="details">
+                <p class="event-date">{{ event.date }}</p>
+                <h3>{{ event.title }}</h3>
+                <div class="btns">
+                    <a class="primary-btn" href="{% url 'tickets' event_name=event %}">Buy Tickets</a>
+                    <a class="secondary-btn" href="{% url 'event-details' %}">Information</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="not-available"><i class="fas fa-exclamation-circle"></i> No events available at the moment in this
+            category<a href="{% url 'events-categories' %}" class="primary-btn">Back to Categories</a></p>
+            
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -2,21 +2,43 @@
 {% load static %}
 {% block title %}Event Details{% endblock %}
 {% block page_title %}Event Details{% endblock %}
-{% block css_file_name %}{% static 'css/event-details.css' %}{% endblock %}
+{% block css_file_name %}{% static 'css/events-and-tickets.css' %}{% endblock %}
 {% block menu %}
 <li><a href="{% url 'events-categories' %}">Events</a></li>
 <li><a href="{% url 'tickets' %}">Tickets</a></li>
 {% endblock %}
-{% block banner_image_src %}{% static 'assets/event-details-banner.webp' %}{% endblock %}
+{% block banner_image_src %}{{ event.image.url }}{% endblock %}
 {% block content %}
 <div class="event-details-wrap">
-    {% for event in events %}
     <div class="event-details">
-        <img src="{% static 'assets/event-01.webp' %}" alt="Event 1">
-        <h3>{{ event.name }}</h3>
-        <a href="{% url 'tickets' %}">Buy Tickets</a>
+        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
+        <div class="event-info">
+            <h3 class="event-title">{{ event.title }}</h3>
+            <p class="event-description">{{ event.description|striptags }}</p>
+            <div class="event-meta">
+                <p>Date: {{ event.date }}</p>
+                <p>Time: {{ event.start_time }} - {{ event.end_time }}</p>
+                <p>Location: {{ event.location }}</p>
+                <p>Category: {{ event.category }}</p>
+                <p>Organizer: {{ event.organizer }}</p>
+                <!-- Additional Fields -->
+                <p>Ticket Price: {{ event.ticket_price }}</p>
+                <p>Ticket Availability: {% if event.ticket_available %}Available{% else %}Sold Out{% endif %}</p>
+                <p>Event Capacity: {{ event.capacity }}</p>
+                <p>Dress Code: {{ event.dress_code }}</p>
+                <p>Event Type:{{ event.event_type }}</p>
+                <p>Special Guests/Speakers: {{ event.special_guests }}</p>
+                <p>Parking Information: {{ event.parking_info }}</p>
+                <p>Transportation Options: {{ event.transportation_options }}</p>
+                <p>Accessibility Information: {{ event.accessibility_info }}</p>
+                <p>Food and Beverage: {{ event.food_and_beverage }}</p>
+                <p>Event Rules and Regulations: {{ event.rules_and_regulations }}</p>
+                <p>Event Sponsors: {{ event.sponsors }}</p>
+                <p>Contact Information: {{ event.contact_info }}</p>
+                <p>Social Media Links: {{ event.social_media_links }}</p>
+            </div>
+            <a href="{% url 'tickets' event_name=event.title %}" class="buy-tickets-btn">Buy Tickets</a>
+        </div>
     </div>
-    {% endfor %}
-    
 </div>
 {% endblock %}

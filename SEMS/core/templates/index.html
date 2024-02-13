@@ -1,10 +1,56 @@
-{% extends "base.html" %} 
-{% load static %} 
+{% extends "base.html" %}
+{% load static %}
 {% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
+
 {% block content %}
-<section>
-    <h1>
-        Welcome to the home page!
-    </h1>
+
+<section class="events">
+    <div class="events-wrap">
+        <!-- Category -->
+        {% if latest_event %}
+        <div class="events-card">
+            <div class="image">
+                <img src="{{ latest_event.image.url }}" alt="{{ latest_event.name }}">
+            </div>
+            <div class="details">
+                <p class="event-date">{{ latest_event.date }}</p>
+                <h3>{{ latest_event.title }}</h3>
+                <div class="btns">
+                    <a class="primary-btn" href="{% url 'buy-tickets' event_name=latest_event %}">Buy Tickets</a>
+                    <a class="secondary-btn" href="{% url 'event-details' event_id=latest_event.id %}">Information</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p>No upcoming events</p>
+        {% endif %}
+    </div>
 </section>
+<section>
+    <div class="upcoming-events">
+        <h2>Upcoming Events</h2>
+        <div class="event-card-wrap">
+            {% for event in upcoming_events %}
+            <div class="event-card">
+                <img src="{% static 'assets/event-01.webp' %}" alt="Event 1">
+                <h3>{{ event }}</h3>
+                <a href="{% url 'buy-tickets' event_name=event %}">Buy Tickets</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="about"  style="background-image: url({% static 'assets/about.jpg' %})">
+    <div class="about-overlay"></div>
+    <div class="about-wrap">
+        <div class="about-text">
+            <h2>About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </div>
+</section>
+
+
+
 {% endblock content %}

@@ -17,14 +17,14 @@ def events_categories(request):
 
 def event_details(request, event_id):
     event = Event.objects.get(pk=event_id)
-    return render(request, 'events_details.html', {'event': event})
-
+    print(event)
+    return render(request, 'event-details.html', {'event': event})
 
 def events(request, category_name):
     category = Category.objects.get(name=category_name)
     events = Event.objects.filter(category=category)
     print(events)
-    return render(request, 'events.html', {'events': events})
+    return render(request, 'events.html', {'events': events , 'category': category})
 @login_required
 def tickets(request,event_name):
     return render(request, 'tickets.html')

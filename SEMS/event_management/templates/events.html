@@ -7,7 +7,7 @@
 <li><a href="{% url 'events-categories' %}">Events</a></li>
 <li><a href="{% url 'tickets' %}">Tickets</a></li>
 {% endblock %}
-{% block banner_image_src %}{% static 'assets/full-page-img-2.jpg' %}{% endblock %}
+{% block banner_image_src %}{{ category.image.url }}{% endblock %}
 {% block content %}
 <section class="events">
     <div class="events-wrap">
@@ -22,7 +22,7 @@
                 <h3>{{ event.title }}</h3>
                 <div class="btns">
                     <a class="primary-btn" href="{% url 'tickets' event_name=event %}">Buy Tickets</a>
-                    <a class="secondary-btn" href="{% url 'event-details' %}">Information</a>
+                    <a class="secondary-btn" href="{% url 'event-details' event_id=event.id %}">Information</a>
                 </div>
             </div>
         </div>

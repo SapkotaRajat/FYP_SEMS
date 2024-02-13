@@ -60,6 +60,10 @@ form button[type="submit"] {
   max-width: 400px;
   width: 100%;
 }
+.submit button{
+  margin-top: 10px;
+}
+
 .login-form button[type="submit"] {
   margin-top: 18px;
 }
@@ -91,10 +95,12 @@ p.register-account a {
 
 .left-field, .right-field {
   display: inline-block;
-  width: calc(45%);
+  width: 280px;
+
 }
 .left-field {
   margin-right: 10px;
+
 }
 .right-field {
   margin-left: 10px;

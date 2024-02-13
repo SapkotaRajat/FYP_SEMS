@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block css_file_name %}{% static 'css/forms.css' %}{% endblock %}
-{% block page_title  %}Register{% endblock %}
+{% block page_title %}Register{% endblock %}
 {% block content %}
 
 <form method="post" class="registration-form">
@@ -87,8 +87,8 @@
         {% endfor %}
     </div>
     {% endif %}
-    <div class="input-wrapper">
-    <button type="submit">Register</button>
+    <div class="input-wrapper submit">
+        <button type="submit">Register</button>
     </div>
 
     <p class="login-account">Already have an account? <a href="{% url 'login' %}">Login</a></p>

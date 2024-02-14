@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Schedule{% endblock %}
+{% block page_title %}Schedule{% endblock %}
+{% block css_file_name %}{% static 'css/schedule.css' %}{% endblock %}
+{% block menu %}
+<li><a href="{% url 'events-categories' %}">Events</a></li>
+<li><a href="{% url 'tickets' %}">Tickets</a></li>
+
+{% endblock %}
+{% block banner_image_src %}{% static 'assets/calendar.jpg' %}{% endblock %}
+
+{% block content %}
+<section>
+    <div class="schedule">
+        <table class="event-table">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr class="event-row">
+                    <td>{{ event.title }}</td>
+                    <td>{{ event.date }}</td>
+                    <td>{{ event.start_time }}</td>
+                    <td>{{ event.end_time }}</td>
+                    <td>{{ event.location }}</td>
+                    <td>
+                        <a href="{% url 'buy-tickets' event_name=event.title %}" class="buy-tickets-btn">Buy Tickets</a>
+                        <a href="{% url 'event-details' event_id=event.id %}" class="event-details-btn">Event Details</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No events scheduled.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+{% endblock %}

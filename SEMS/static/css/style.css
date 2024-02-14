@@ -19,7 +19,6 @@ section.events {
   align-items: center;
   flex-wrap: wrap;
   gap: 60px;
-  max-width: 1394px;
   width: 100%;
   margin: 0 auto;
   padding: 0 20px;
@@ -130,28 +129,34 @@ section.events {
 }
 
 .upcoming-events h2 {
-  font-size: 28px;
-  font-weight: 400;
+  font-size: 40px;
+  font-weight: 600;
   line-height: 1.2;
-  margin-bottom: 5px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+.upcoming-events h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background-color: #00be9c;
+  margin: 20px auto 0;
 }
 .upcoming-events {
   background-color: #f3f3f3;
-  padding: 40px 0;
-}
-.upcoming-events h2 {
-  text-align: center;
+  padding: 60px 0;
 }
 
 .event-card-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 980px;
+  max-width: 1180px;
   width: 100%;
   margin: 40px auto;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 60px;
 }
 
 .event-card {
@@ -197,62 +202,156 @@ section.events {
 .event-card a:hover {
   background-color: #00a17c;
 }
+.upcoming-events .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+}
 
-/* about
-
-<section class="about">
-    <div class="about-wrap">
-        <div class="about-text">
-            <h2>About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
-        <div class="about-image">
-            <img src="{% static 'assets/about.webp' %}" alt="About Us">
-        </div>
-    </div>
-</section>
-
-*/
+.upcoming-events .btn a {
+  text-decoration: none;
+  color: #f1f1f1;
+  background-color: #ef2b2b;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-size: 24px;
+  font-weight: 400;
+}
 
 .about {
   background-color: #f3f3f3;
-  padding: 40px 0;
+  padding: 80px 0;
   position: relative;
   min-height: 200px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
 }
 .about-wrap {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  max-width: 1394px;
+  max-width: 1180px;
   width: 100%;
   margin: 0 auto;
   padding: 0 20px;
   gap: 60px;
   flex-wrap: wrap;
 }
-
-.about-overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
+@media (max-width: 768px) {
+  .about-wrap {
+    justify-content: center;
+  }
+  .about-wrap .about-text {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+  }
+}
+
+.about-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
 }
 .about-text {
-    color: #f1f1f1;
-    position: relative;
-    z-index: 2;
+  width: 50%;
+  color: #f1f1f1;
+  position: relative;
+  z-index: 2;
 }
 .about-text h2 {
   font-size: 50px;
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 5px;
+}
+
+.about-text p {
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
+.more-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  margin-top: 80px;
+}
+
+.ticket-purchase-success-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 80px 20px;
+}
+
+.ticket-purchase-success{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ticket-purchase-success i{
+  font-size: 60px;
+  color: #00be9c;
+
+}
+.ticket-purchase-success h2 {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.ticket-purchase-success p {
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.ticket-purchase-success-wrap .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.ticket-purchase-success-wrap .btn a {
+  text-decoration: none;
+  color: #f1f1f1;
+  background-color: #00be9c;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.ticket-purchase-success-wrap .btn a:hover {
+  background-color: #00a17c;
+}
+
+@media (max-width: 768px) {
+  .ticket-purchase-success-wrap .btn a {
+    font-size: 15px;
+  }
+  .ticket-purchase-success-wrap .btn{
+    gap: 10px;
+  }
 }

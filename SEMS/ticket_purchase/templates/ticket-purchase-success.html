@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Ticket Purchase{% endblock %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
+
+{% block page_title %}Ticket Purchase{% endblock %}
+{% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
+{% block menu %}
+<li><a href="{% url 'events-categories' %}">Events</a></li>
+<li><a href="{% url 'tickets' %}">Tickets</a></li>
+{% endblock %}
+{% block content %}
+<div class="ticket-purchase-success-wrap">
+    <div class="ticket-purchase-success">
+        <i class="fas fa-check-circle"></i>
+        <h2>Ticket Purchase Successful</h2>
+        <p>Your ticket purchase was successful. You will receive an email with your ticket details.</p>
+    </div>
+    <div class="btn">
+        <a href="{% url 'tickets' %}">Buy More Tickets</a>
+        <a href="{% url 'events-categories' %}">Back to Events</a>
+    </div>
+</div>
+
+{% endblock content %}

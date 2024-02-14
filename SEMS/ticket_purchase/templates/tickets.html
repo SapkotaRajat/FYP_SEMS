@@ -1,18 +1,13 @@
-{% extends "base.html" %} 
-{% load static %} 
+{% extends "base.html" %}
+{% load static %}
 {% block title %}Ticket Purchase{% endblock %}
 {% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
 
-{% block page_title  %}Ticket Purchase{% endblock %}
+{% block page_title %}Ticket Purchase{% endblock %}
 {% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
 {% block menu %}
 <li><a href="{% url 'events-categories' %}">Events</a></li>
 <li><a href="{% url 'tickets' %}">Tickets</a></li>
 {% endblock %}
 {% block content %}
-<section>
-    <h1>
-        Welcome to the Ticket Purchase page!
-    </h1>
-</section>
 {% endblock content %}

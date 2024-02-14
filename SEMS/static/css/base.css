@@ -12,30 +12,31 @@ header {
   z-index: 1000;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 header .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 0;
+  padding: 30px 20px 30px 0;
   max-width: 1180px;
   margin: 0 auto;
   width: 100%;
 }
-header nav {
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-header nav ul {
+nav ul {
   display: flex;
   justify-content: space-between;
 }
-header nav ul li {
+ul li {
   list-style: none;
   margin-left: 20px;
 }
-header nav ul li a {
+ul li a {
   text-decoration: none;
   color: #f1f1f1;
   font-size: 18px;
@@ -45,7 +46,7 @@ header nav ul li a {
   position: relative;
   border-bottom: 0 solid transparent;
 }
-header nav ul li a:hover {
+ul li a:hover {
   border-bottom: 1px solid #00be9c;
   transition: border-bottom 0.3s ease-in-out;
 }
@@ -67,6 +68,15 @@ header .btn a {
   text-decoration: none;
   color: #fff;
   font-size: 18px;
+}
+/* Hamburger menu icon */
+.menu-icon {
+  display: none; /* Hide by default on larger screens */
+  cursor: pointer;
+  font-size: 24px;
+}
+#menu-toggle {
+  display: none; /* Hide checkbox */
 }
 
 .user-profile {
@@ -124,6 +134,8 @@ header .btn a {
   font-size: 40px;
   font-weight: 700;
   font-family: "Source Sans Pro", sans-serif;
+  text-align: center;
+  width: 100%;
 }
 .banner-image h1::after {
   content: "";
@@ -134,7 +146,7 @@ header .btn a {
   margin: 10px auto;
 }
 
-.banner-image-wrap{
+.banner-image-wrap {
   position: relative;
 }
 .banner-image-wrap .menu ul {
@@ -203,4 +215,93 @@ footer .wrapper {
   font-weight: 400;
   text-transform: uppercase;
   font-family: "Source Sans Pro", sans-serif;
+}
+
+
+/* Media query for smaller screens */
+@media only screen and (max-width: 768px) {
+  header .logo a img {
+    max-width: 240px;
+    width: 100%;
+  }
+  .menu-icon {
+    display: block; /* Show hamburger menu on smaller screens */
+    position: absolute;
+    right: 20px;
+    top: 54px;
+    transform: translate(-50%, -50%);
+    color: #f1f1f1;
+    font-size: 32px;
+  }
+
+  header nav {
+    display: none; /* Hide menu by default on smaller screens */
+    position: absolute;
+    top: 90%;
+    right: 0;
+    background-color: #4d4d4d;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    width: 100%;
+    z-index: 900;
+    transition: all 0.3s ease;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav ul li {
+    margin: 0;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: #f1f1f1;
+    font-size: 18px;
+    transition: all 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    color: rgb(0, 190, 156,0.5);
+  }
+  header .btn {
+    padding: 15px 20px;
+    margin: 0;
+    background-color: #00be9c;
+  }
+
+  header .btn a{
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+  }
+  nav .user-profile {
+    margin: 0;
+    padding: 15px 20px;
+  }
+  nav .user-profile a{
+    justify-content: flex-start;
+  }
+  nav .user-profile img{
+    display: none;
+  }
+
+  #menu-toggle:checked + .menu-icon {
+    color: #00be9c;
+  }
+  #menu-toggle:checked + .menu-icon ~ nav {
+    display: block; /* Show menu when checkbox is checked */
+  }
+  .banner-image{
+    height: 300px;
+  }
+  .banner-image h1{
+    font-size: 28px;
+    top: calc(50% + 30px);
+  }
 }

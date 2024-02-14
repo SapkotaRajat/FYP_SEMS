@@ -37,7 +37,7 @@
                 <p>Contact Information: {{ event.contact_info }}</p>
                 <p>Social Media Links: {{ event.social_media_links }}</p>
             </div>
-            <a href="{% url 'tickets' event_name=event.title %}" class="buy-tickets-btn">Buy Tickets</a>
+            <a href="{% url 'buy-tickets' event_name=event.title %}" class="buy-tickets-btn">Buy Tickets</a>
         </div>
     </div>
 </div>

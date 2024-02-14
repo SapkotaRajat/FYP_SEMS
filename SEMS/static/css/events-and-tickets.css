@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   margin: 40px 0;
+  padding: 0 20px;
 }
 
 .information p {
@@ -19,30 +20,39 @@
   margin-top: 20px;
   font-family: "Poppins", sans-serif;
 }
-.ticket-outlet h2 ,.upcoming-events h2{
-  font-size: 24px;
+.ticket-outlet h2,
+.upcoming-events h2 {
+  font-size: 40px;
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 5px;
 }
 .upcoming-events {
-  margin: 40px 0;
   background-color: #f3f3f3;
-  padding: 40px 0;
+  padding: 60px 0;
 }
 .upcoming-events h2 {
   text-align: center;
 }
 
+.upcoming-events h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background-color: #00be9c;
+  margin: 20px auto 0;
+}
+
 .event-card-wrap {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  max-width: 980px;
+  max-width: 1180px;
   width: 100%;
-  margin: 40px auto;
+  margin: 60px auto;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 60px;
 }
 
 .event-card {
@@ -89,6 +99,23 @@
   background-color: #00a17c;
 }
 
+.upcoming-events .btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-TOP: 40px;
+}
+
+.upcoming-events .btn a{
+  text-decoration: none;
+  color: #f1f1f1;
+  background-color: #ef2b2b;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-size: 24px;
+  font-weight: 400;
+}
+
 /* event-category-wrap */
 
 .event-category-wrap {
@@ -100,7 +127,7 @@
   max-width: 1580px;
   width: 100%;
   margin: 0 auto;
-  padding: 100px 0 40px;
+  padding: 100px 20px;
 }
 
 .event-cat-card {
@@ -109,6 +136,7 @@
   height: 300px;
   border-radius: 9px;
   overflow: hidden;
+  box-shadow: 0 28px 57px 28px rgba(53, 53, 53, 0.31);
 }
 
 .event-cat-card img {
@@ -148,8 +176,8 @@
 }
 
 /* events */
-section.events{
-  background-color: #F3F3F3;
+section.events {
+  background-color: #f3f3f3;
 }
 .events-wrap {
   display: flex;
@@ -175,11 +203,6 @@ section.events{
   flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-  .events .events-wrap .image, .events .events-wrap .details{
-    width: 100%;
-  }
-}
 .events-wrap .image {
   width: 50%;
   height: auto;
@@ -274,10 +297,11 @@ section.events{
 
 .not-available i {
   color: #ef2b2b;
-  font-size: 80px; 
+  font-size: 80px;
 }
 
-.not-available a,.buy-tickets-btn {
+.not-available a,
+.buy-tickets-btn {
   text-decoration: none;
   color: #f1f1f1;
   font-size: 20px;
@@ -287,7 +311,8 @@ section.events{
   background-color: #00be9c;
 }
 
-.not-available a:hover,.buy-tickets-btn:hover {
+.not-available a:hover,
+.buy-tickets-btn:hover {
   background-color: #00a17c;
 }
 
@@ -339,10 +364,10 @@ section.events{
 }
 
 .event-meta {
-  margin-top: 20px; 
-  background-color: #f9f9f9; 
-  padding: 20px; 
-  border-radius: 5px; 
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -350,10 +375,17 @@ section.events{
   margin: 10px 0;
 }
 
-.buy-tickets-btn{
+.buy-tickets-btn {
   display: block;
   text-align: center;
   max-width: 180px;
   width: 100%;
   margin: 20px auto;
+}
+
+@media (max-width: 768px) {
+  .events .events-wrap .image,
+  .events .events-wrap .details {
+    width: 100%;
+  }
 }

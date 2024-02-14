@@ -3,7 +3,7 @@ form {
   text-align: center;
   max-width: 500px;
   width: 100%;
-  border-radius: 50px;
+  border-radius: 12px;
   background: #2a2a2a;
   padding: 0 0 50px 0;
   margin: 100px auto;
@@ -28,7 +28,7 @@ form h2 {
   margin-bottom: 20px;
   padding: 20px 0;
   background-color: #00be9c;
-  border-radius: 50px 50px 0 0;
+  border-radius: 12px 12px 0 0;
 }
 form .input-wrapper {
   margin-top: 35px;
@@ -60,13 +60,10 @@ form button[type="submit"] {
   max-width: 400px;
   width: 100%;
 }
-.submit button{
+.submit button {
   margin-top: 10px;
 }
 
-.login-form button[type="submit"] {
-  margin-top: 18px;
-}
 a.forgot-password {
   color: #a7a3ff;
   font-size: 13px;
@@ -93,7 +90,8 @@ p.register-account a {
   display: inline-block;
 }
 
-.left-field, .right-field {
+.left-field,
+.right-field {
   display: inline-block;
   width: 280px;
 
@@ -193,4 +191,83 @@ p.register-account a {
   cursor: pointer;
   margin-top: 20px;
   display: inline-block;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 20px;
+  }
+  form {
+    border-radius: 12px;
+  }
+  form h2 {
+    font-size: 24px;
+    border-radius: 12px 12px 0 0;
+    padding: 16px 0;
+    margin-bottom: 35px;
+  }
+  form .input-wrapper {
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+  .input-wrapper input {
+    padding: 16px;
+  }
+
+  .left-field,
+  .right-field {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+  .left-field {
+    margin-bottom: 10px;
+  }
+  .right-field {
+    margin-top: 10px;
+  }
+  .error-msg {
+    max-width: 100%;
+  }
+  .error-msg ul li {
+    list-style: none;
+  }
+  .error {
+    max-width: 100%;
+  }
+  .err-center {
+    text-align: center;
+  }
+  .error-msg .success {
+    color: #00be9c;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .info-text {
+    font-size: 14px;
+  }
+  .reset-password {
+    max-width: 100%;
+  }
+  .checked-icon img {
+    width: 80px;
+    height: auto;
+    margin-top: 20px;
+  }
+  .reset-password h2 {
+    font-size: 24px;
+  }
+  .reset-password .info-text {
+    font-size: 14px;
+  }
+  .reset-password a.button {
+    margin-top: 20px;
+    padding: 18px 36px;
+    font-size: 16px;
+  }
+  input[type="submit"] {
+    max-width: 100%;
+    
+  }
 }

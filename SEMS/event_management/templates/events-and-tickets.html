@@ -30,9 +30,14 @@
         <div class="event-card">
             <img src="{% static 'assets/event-01.webp' %}" alt="Event 1">
             <h3>{{ event }}</h3>
-            <a href="{% url 'tickets' event_name=event %}">Buy Tickets</a>
+            <a href="{% url 'buy-tickets' event_name=event %}">Buy Tickets</a>
         </div>
+        {% empty %}
+        <p>No upcoming events</p>
         {% endfor %}
+    </div>
+    <div class="btn">
+        <a href="{% url 'schedules' %}">See Full Schedule</a>
     </div>
 </div>
 {% endblock %}

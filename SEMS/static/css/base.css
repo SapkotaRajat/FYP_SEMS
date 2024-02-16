@@ -69,6 +69,10 @@ header .btn a {
   color: #fff;
   font-size: 18px;
 }
+
+header .btn a:hover {
+  background-color: #00a17c;
+}
 /* Hamburger menu icon */
 .menu-icon {
   display: none; /* Hide by default on larger screens */
@@ -192,31 +196,23 @@ footer .wrapper {
   align-items: center;
   flex-direction: column;
   gap: 30px;
+  text-transform: uppercase;
+  font-size: 13px;
 }
 .follow-link p {
-  color: #fff;
-  font-size: 14px;
+  color: #d4d4d4;
   font-weight: 400;
-  text-transform: uppercase;
-  font-family: "Source Sans Pro", sans-serif;
 }
 .follow-link a {
   text-decoration: none;
-  color: #fff;
-  font-size: 14px;
+  color: #d4d4d4;
   font-weight: 400;
-  text-transform: uppercase;
-  font-family: "Source Sans Pro", sans-serif;
 }
 
 .copy-right p {
-  color: #fff;
-  font-size: 14px;
+  color: #d4d4d4;
   font-weight: 400;
-  text-transform: uppercase;
-  font-family: "Source Sans Pro", sans-serif;
 }
-
 
 /* Media query for smaller screens */
 @media only screen and (max-width: 768px) {

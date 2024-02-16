@@ -7,92 +7,93 @@
 <form method="post" class="registration-form">
     <h2>User Registration</h2>
     {% csrf_token %}
-    <div class="input-wrapper left-field">
-        {{ form.first_name }}
-    </div>
-    {% if messages %}
-    <div class="error-msg">
-        {% for error in form.first_name.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div class="input-wrapper right-field">
-        {{ form.last_name }}
-    </div>
-    {% if messages %}
-    <div class="error-msg">
-        {% for error in form.last_name.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div class="input-wrapper left-field">
-        {{ form.username }}
-    </div>
-    {% if messages %}
-    <div class="error-msg">
-        {% for error in form.username.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div class="input-wrapper right-field">
-        {{ form.email }}
-    </div>
-    {% if messages %}
-    <div class="error-msg">
-        {% for error in form.email.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div class="input-wrapper left-field">
-        {{ form.contact_number }}
-    </div>
-    {% if messages %}
-    <div class="error-msg">
-        {% for error in form.contact_number.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div class="input-wrapper right-field">
-        {{ form.dob }}
-    </div>
-    {% if messages %}
-    <div class="error-msg">
-        {% for error in form.dob.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div class="input-wrapper left-field">
-        {{ form.password1 }}
-    </div>
-    {% if messages %}
-    <div class="error-msg">
-        {% for error in form.password1.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div class="input-wrapper right-field">
-        {{ form.password2 }}
-    </div>
-    {% if messages %}
-    <div class="error-msg">
-        {% for error in form.password2.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div class="input-wrapper submit">
-        <button type="submit">Register</button>
-    </div>
+    <div class="registration-form-contents">
+        <div class="input-wrapper left-field">
+            {{ form.first_name }}
+        </div>
+        {% if messages %}
+        <div class="error-msg">
+            {% for error in form.first_name.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="input-wrapper right-field">
+            {{ form.last_name }}
+        </div>
+        {% if messages %}
+        <div class="error-msg">
+            {% for error in form.last_name.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="input-wrapper left-field">
+            {{ form.username }}
+        </div>
+        {% if messages %}
+        <div class="error-msg">
+            {% for error in form.username.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="input-wrapper right-field">
+            {{ form.email }}
+        </div>
+        {% if messages %}
+        <div class="error-msg">
+            {% for error in form.email.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="input-wrapper left-field">
+            {{ form.contact_number }}
+        </div>
+        {% if messages %}
+        <div class="error-msg">
+            {% for error in form.contact_number.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="input-wrapper right-field">
+            {{ form.dob }}
+        </div>
+        {% if messages %}
+        <div class="error-msg">
+            {% for error in form.dob.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="input-wrapper left-field">
+            {{ form.password1 }}
+        </div>
+        {% if messages %}
+        <div class="error-msg">
+            {% for error in form.password1.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="input-wrapper right-field">
+            {{ form.password2 }}
+        </div>
+        {% if messages %}
+        <div class="error-msg">
+            {% for error in form.password2.errors %}
+            <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="input-wrapper submit">
+            <button type="submit">Register</button>
+        </div>
 
-    <p class="login-account">Already have an account? <a href="{% url 'login' %}">Login</a></p>
-
+        <p class="login-account">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
 </form>
 
 {% endblock %}

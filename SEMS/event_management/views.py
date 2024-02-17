@@ -2,7 +2,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Event
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def events_and_tickets(request):

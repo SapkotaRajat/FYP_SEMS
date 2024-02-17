@@ -6,7 +6,7 @@ class Staff(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='staff_profile')
     work_experience = models.CharField(max_length=100, blank=True, null=True)
     qualifications = models.CharField(max_length=255, blank=True, null=True)
-    # Add other fields as needed
+    
 
     def __str__(self):
         return self.user.username

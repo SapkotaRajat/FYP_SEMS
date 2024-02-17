@@ -3,77 +3,82 @@ form {
   text-align: center;
   max-width: 500px;
   width: 100%;
-  border-radius: 50px;
-  background: #2a2a2a;
+  border-radius: 4px;
   padding: 0 0 50px 0;
-  margin-top: 50px;
+  margin: 100px auto;
   box-shadow: 0 0 20px 0 #2a2a2a80;
 }
 .forgot-password-form {
   margin-top: 20px;
 }
 .registration-form {
-  max-width: 600px;
-}
-
-.registration-form .input-wrapper input {
-  max-width: 500px;
+  max-width: 650px;
   width: 100%;
 }
+
 form h2 {
-  color: #f1f1f1;
+  color: #000;
   font-size: 32px;
-  font-weight: 400;
-  margin-bottom: 20px;
-  padding: 20px 0;
-  background-color: #00be9c;
-  border-radius: 50px 50px 0 0;
+  font-weight: 600;
+  padding: 30px 0 10px  0;
 }
+
+.login-form-contents,
+.registration-form-contents {
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.registration-form-contents {
+  max-width: 630px;
+}
+
 form .input-wrapper {
-  margin-top: 35px;
+  margin-top: 24px;
 }
 
 .input-wrapper input {
-  max-width: 400px;
   width: 100%;
-  padding: 22px;
+  padding: 16px;
   font-size: 16px;
   transition: all 0.3s ease;
-  border-radius: 8px;
+  border-radius: 4px;
   background: #fff;
-  border: none;
+  border: 1px solid #e0e0e0;
   color: #000000;
 }
 form button[type="submit"] {
-  padding: 18px 36px;
-  background-color: #ef2b2b;
+  padding: 14px 0;
+  background-color: #00be9c;
   color: #fff;
-  border-radius: 9px;
-  font-size: 18px;
+  font-size: 20px;
   font-family: "Source Sans Pro", sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   text-decoration: none;
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
   max-width: 400px;
   width: 100%;
-  margin-top: 32px;
+  text-transform: uppercase;
 }
-.login-form button[type="submit"] {
-  margin-top: 18px;
+form button[type="submit"]:hover {
+  background-color: #00a17c;
 }
+
 a.forgot-password {
-  color: #a7a3ff;
-  font-size: 13px;
+  color: #808080;
+  font-size: 12px;
   text-decoration: none;
   font-weight: 400;
   margin-top: 24px;
   display: block;
+  text-align: right;
 }
 p.login-account,
 p.register-account {
-  color: #a7a3ff;
+  color: #808080;
   font-size: 16px;
   text-decoration: none;
   font-weight: 300;
@@ -82,11 +87,24 @@ p.register-account {
 }
 p.login-account a,
 p.register-account a {
-  color: #ffffff;
+  color: #000;
   font-size: 16px;
   text-decoration: none;
   font-weight: 400;
   display: inline-block;
+}
+
+.left-field,
+.right-field {
+  display: inline-block;
+  max-width: 270px;
+  width: 100%;
+}
+.left-field {
+  margin-right: 10px;
+}
+.right-field {
+  margin-left: 10px;
 }
 
 /* error */
@@ -175,4 +193,66 @@ p.register-account a {
   cursor: pointer;
   margin-top: 20px;
   display: inline-block;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 20px;
+  }
+  .registration-form-contents {
+    max-width: 440px;
+  }
+  .left-field,
+  .right-field {
+    display: block;
+    max-width: 400px;
+    width: 100%;
+    margin: 0;
+  }
+  .left-field {
+    margin-bottom: 10px;
+  }
+  .right-field {
+    margin-top: 10px;
+  }
+  .error-msg {
+    max-width: 100%;
+  }
+  .error-msg ul li {
+    list-style: none;
+  }
+  .error {
+    max-width: 100%;
+  }
+  .err-center {
+    text-align: center;
+  }
+  .error-msg .success {
+    color: #00be9c;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .info-text {
+    font-size: 14px;
+  }
+  .reset-password {
+    max-width: 100%;
+  }
+  .checked-icon img {
+    width: 80px;
+    height: auto;
+    margin-top: 20px;
+  }
+  .reset-password h2 {
+    font-size: 24px;
+  }
+  .reset-password .info-text {
+    font-size: 14px;
+  }
+  .reset-password a.button {
+    margin-top: 20px;
+    padding: 18px 36px;
+    font-size: 16px;
+  }
 }

@@ -18,14 +18,22 @@ class Event(models.Model):
     location = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     organizer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ticket_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    ticket_available = models.BooleanField(default=True)
+    capacity = models.PositiveIntegerField(blank=True, null=True)
+    dress_code = models.CharField(max_length=100, blank=True, null=True)
+    special_guests = models.TextField(blank=True, null=True)
+    parking_info = models.CharField(max_length=200, blank=True, null=True)
+    transportation_options = models.TextField(blank=True, null=True)
+    accessibility_info = models.TextField(blank=True, null=True)
+    food_and_beverage = models.TextField(blank=True, null=True)
+    rules_and_regulations = models.TextField(blank=True, null=True)
+    sponsors = models.TextField(blank=True, null=True)
+    contact_info = models.CharField(max_length=200, blank=True, null=True)
+    social_media_links = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
-
-class Ticket(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    is_paid = models.BooleanField(default=False)
 
 class Attendee(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

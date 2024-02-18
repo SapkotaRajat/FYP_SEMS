@@ -328,17 +328,17 @@ section.events {
 }
 
 .event-details {
+  max-width: 700px;
   width: 100%;
-  max-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
   gap: 20px;
   padding: 0 20px;
 }
 
 .event-details img {
+  max-width: 700px;
   width: 100%;
   height: auto;
   border-radius: 5px;

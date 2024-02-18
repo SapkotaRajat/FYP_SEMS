@@ -22,23 +22,46 @@
                 <p>Category: {{ event.category }}</p>
                 <p>Organizer: {{ event.organizer }}</p>
                 <!-- Additional Fields -->
+                {% if event.ticket_price %}
                 <p>Ticket Price: {{ event.ticket_price }}</p>
+                {% endif %}
                 <p>Ticket Availability: {% if event.ticket_available %}Available{% else %}Sold Out{% endif %}</p>
+                {% if event.capacity %}
                 <p>Event Capacity: {{ event.capacity }}</p>
+                {% endif %}
+                {% if event.dress_code %}
                 <p>Dress Code: {{ event.dress_code }}</p>
-                <p>Event Type:{{ event.event_type }}</p>
+                {% endif %}
+                {% if event.event_type %}
+                <p>Event Type: {{ event.event_type }}</p>
+                {% endif %}
+                {% if event.special_guests %}
                 <p>Special Guests/Speakers: {{ event.special_guests }}</p>
+                {% endif %}
+                {% if event.parking_info %}
                 <p>Parking Information: {{ event.parking_info }}</p>
+                {% endif %}
+                {% if event.transportation_options %}
                 <p>Transportation Options: {{ event.transportation_options }}</p>
+                {% endif %}
+                {% if event.accessibility_info %}
                 <p>Accessibility Information: {{ event.accessibility_info }}</p>
+                {% endif %}
+                {% if event.food_and_beverage %}
                 <p>Food and Beverage: {{ event.food_and_beverage }}</p>
+                {% endif %}
+                {% if event.rules_and_regulations %}
                 <p>Event Rules and Regulations: {{ event.rules_and_regulations }}</p>
+                {% endif %}
+                {% if event.sponsors %}
                 <p>Event Sponsors: {{ event.sponsors }}</p>
+                {% endif %}
                 <p>Contact Information: {{ event.contact_info }}</p>
                 <p>Social Media Links: {{ event.social_media_links }}</p>
             </div>
             <a href="{% url 'buy-tickets' event_name=event.title %}" class="buy-tickets-btn">Buy Tickets</a>
         </div>
+
     </div>
 </div>
 {% endblock %}

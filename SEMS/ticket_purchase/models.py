@@ -1,21 +1,20 @@
 from django.db import models
 from django.conf import settings
 from django_ckeditor_5.fields import CKEditor5Field
+from event_management.models import Event
 
-# Create your models here.
 class Ticket(models.Model):
-    event_name = models.CharField(max_length=100)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
     ticket_price = models.DecimalField(max_digits=10, decimal_places=2)
     ticket_quantity_available = models.IntegerField()
     ticket_type = models.CharField(max_length=100)
-    ticket_description = CKEditor5Field
-    ticket_image = models.ImageField(upload_to='images/')
+    ticket_description = CKEditor5Field()
     ticket_date = models.DateField()
     ticket_time = models.TimeField()
     
-    
     def __str__(self):
-        return self.event_name
+        return self.event.title
+
     
 class Payment(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)

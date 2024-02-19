@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Ticket Purchase{% endblock %}
-{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
-
+{% block css_file_name %}{% static 'css/tickets.css' %}{% endblock %}
 {% block page_title %}Ticket Purchase{% endblock %}
 {% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
 {% block menu %}
@@ -10,4 +9,29 @@
 <li><a href="{% url 'tickets' %}">Tickets</a></li>
 {% endblock %}
 {% block content %}
-{% endblock content %}
+<section class="ticket-purchase-wrap">
+    <h2>Available Tickets</h2>
+    <div class="ticket-list">
+        {% if tickets %}
+        <ul>
+            {% for ticket in tickets %}
+            <li>
+                <h3>{{ ticket.event.title }}</h3>
+                <p>Date: {{ ticket.event.date }}</p>
+                <p>Time: {{ ticket.event.start_time }} - {{ ticket.event.end_time }}</p>
+                <p>Location: {{ ticket.event.location }}</p>
+                <p>Ticket Price: ${{ ticket.price }}</p>
+                <p>Ticket Availability: {% if ticket.available_quantity %}Available{% else %}Sold Out{% endif %}</p>
+                <div class="ticket-actions">
+                    <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
+                    <a href="{% url 'event-details' ticket.event.id %}" class="view-event-btn">View Event</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No tickets available at the moment.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Event, Ticket, Attendee, StaffAssignment
+from .models import Category, Event, TicketDetails, Attendee, StaffAssignment, Organizer
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -9,7 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'start_time', 'end_time', 'location', 'category', 'organizer')
 
-@admin.register(Ticket)
+@admin.register(TicketDetails)
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('event', 'user', 'is_paid')
 
@@ -24,3 +24,11 @@ class StaffAssignmentAdmin(admin.ModelAdmin):
     def get_staff_names(self, obj):
         return ', '.join([staff.username for staff in obj.staff.all()])
     get_staff_names.short_description = 'Staff'
+    
+@admin.register(Organizer)
+class OrganizerAdmin(admin.ModelAdmin):
+    list_display = ('user', 'organization')
+    
+    def user(self, obj):
+        return obj.user.username
+    

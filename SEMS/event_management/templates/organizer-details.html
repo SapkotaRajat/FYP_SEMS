@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Organizer Details{% endblock %}
+{% block page_title %}Organizer Details{% endblock %}
+{% block css_file_name %}{% static 'css/organizer-details.css' %}{% endblock %}
+{% block menu %}
+<li><a href="{% url 'events-categories' %}">Events</a></li>
+<li><a href="{% url 'tickets' %}">Tickets</a></li>
+{% endblock %}
+{% block banner_image_src %}{{ organizer.organization_image.url }}{% endblock %}
+{% block content %}
+<div class="organizer-details-wrap">
+    <div class="organizer-details">
+        <h2>{{ organizer.organization }}</h2>
+        {% if organizer.organization_image %}
+        <div class="organization-image">
+            <img src="{{ organizer.organization_image.url }}" alt="{{ organizer.organization }}">
+        </div>
+        {% endif %}
+        <div class="organization-description">
+            <p>{{ organizer.organization_description | safe }}</p>
+        </div>        
+        {% if organizer.organization_website %}
+        <div class="organization-website">
+            Website: <a href="{{ organizer.organization_website }}" target="_blank">{{ organizer.organization_website }}</a>
+        </div>
+        {% endif %}
+        {% if organizer.organization_email %}
+        <div class="organization-email">
+            Email: <a href="mailto:{{ organizer.organization_email }}">{{ organizer.organization_email }}</a>
+        </div>
+        {% endif %}
+        {% if organizer.organization_phone %}
+        <div class="organization-phone">
+            Phone: {{ organizer.organization_phone }}
+        </div>
+        {% endif %}
+
+        <!-- button to go the the previous page -->
+        <div class="back-button">
+            <a href="javascript:history.back()">Go Back to Event</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 # event_management/views.py
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Event
+from .models import Category, Event , Organizer
 from django.utils import timezone
 # Create your views here.
 
@@ -25,3 +25,7 @@ def events(request, category_name):
 def schedules(request):
     events = Event.objects.all()
     return render(request, 'schedules.html' , {'events': events})
+
+def organizer_details(request, organizer_name):
+    organizer = get_object_or_404(Organizer, organization=organizer_name)
+    return render(request, 'organizer-details.html', {'organizer': organizer})

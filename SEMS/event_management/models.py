@@ -7,6 +7,19 @@ class Category(models.Model):
     image = models.ImageField(upload_to='static/category_images/')
     def __str__(self):
         return self.name
+    
+class Organizer(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    organization = models.CharField(max_length=200)
+    organization_image = models.ImageField(upload_to='static/organizer_images/')
+    organization_description = CKEditor5Field()
+    organization_website = models.URLField(blank=True, null=True)
+    organization_email = models.EmailField(blank=True, null=True)
+    organization_phone = models.CharField(max_length=15, blank=True, null=True)
+    
+    
+    def __str__(self):
+        return self.organization
 
 class Event(models.Model):
     title = models.CharField(max_length=200, unique=True)
@@ -17,23 +30,25 @@ class Event(models.Model):
     end_time = models.TimeField()
     location = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    organizer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
     ticket_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     ticket_available = models.BooleanField(default=True)
-    capacity = models.PositiveIntegerField(blank=True, null=True)
-    dress_code = models.CharField(max_length=100, blank=True, null=True)
-    special_guests = models.TextField(blank=True, null=True)
+    capacity = models.CharField(max_length=100, blank=True, null=True)
+    special_guests = CKEditor5Field(blank=True, null=True)
     parking_info = models.CharField(max_length=200, blank=True, null=True)
-    transportation_options = models.TextField(blank=True, null=True)
-    accessibility_info = models.TextField(blank=True, null=True)
-    food_and_beverage = models.TextField(blank=True, null=True)
-    rules_and_regulations = models.TextField(blank=True, null=True)
-    sponsors = models.TextField(blank=True, null=True)
-    contact_info = models.CharField(max_length=200, blank=True, null=True)
-    social_media_links = models.TextField(blank=True, null=True)
+    transportation_options = CKEditor5Field(blank=True, null=True)
+    food_and_beverage = CKEditor5Field(blank=True, null=True)
+    rules_and_regulations = CKEditor5Field(blank=True, null=True)
+    sponsors = CKEditor5Field(blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+
+class TicketDetails(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    is_paid = models.BooleanField(default=False)
 
 class Attendee(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

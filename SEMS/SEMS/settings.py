@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-3mmza4q5(^4@$73jl$6^!_x2s@+(s^xg1d@4hns0k0el2d^=jj
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.101.6','127.0.0.1',
+    '192.168.101.6','127.0.0.1','192.168.101.8',
 ]
 
 SITE_NAME = 'Sajilo Events'
@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'staff_management',
     'ticket_purchase',
     'sems',
-    'allauth',
-    'allauth.account',
     'django_extensions',
     'event_management',
     'django_ckeditor_5',
@@ -55,7 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware'
        
 ]
 
@@ -118,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 LOGIN_URL = '/login/'

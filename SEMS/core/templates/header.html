@@ -21,7 +21,9 @@
                             alt="Profile Picture">
                     </div>
                     <div class="username">
-                        <span>{{ user.first_name }}</span>
+                        <span>
+                            {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}
+                        </span>
                     </div>
                 </a>
             </div>

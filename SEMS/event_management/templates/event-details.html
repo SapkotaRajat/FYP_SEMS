@@ -11,53 +11,108 @@
 {% block content %}
 <div class="event-details-wrap">
     <div class="event-details">
+        <h3 class="event-title">{{ event.title }}</h3>
         <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
         <div class="event-info">
-            <h3 class="event-title">{{ event.title }}</h3>
             <p class="event-description">{{ event.description|striptags }}</p>
             <div class="event-meta">
-                <p>Date: {{ event.date }}</p>
-                <p>Time: {{ event.start_time }} - {{ event.end_time }}</p>
-                <p>Location: {{ event.location }}</p>
-                <p>Category: {{ event.category }}</p>
-                <p>Organizer: {{ event.organizer }}</p>
-                <!-- Additional Fields -->
-                {% if event.ticket_price %}
-                <p>Ticket Price: {{ event.ticket_price }}</p>
-                {% endif %}
-                <p>Ticket Availability: {% if event.ticket_available %}Available{% else %}Sold Out{% endif %}</p>
-                {% if event.capacity %}
-                <p>Event Capacity: {{ event.capacity }}</p>
-                {% endif %}
-                {% if event.dress_code %}
-                <p>Dress Code: {{ event.dress_code }}</p>
-                {% endif %}
-                {% if event.event_type %}
-                <p>Event Type: {{ event.event_type }}</p>
-                {% endif %}
-                {% if event.special_guests %}
-                <p>Special Guests/Speakers: {{ event.special_guests }}</p>
-                {% endif %}
-                {% if event.parking_info %}
-                <p>Parking Information: {{ event.parking_info }}</p>
-                {% endif %}
-                {% if event.transportation_options %}
-                <p>Transportation Options: {{ event.transportation_options }}</p>
-                {% endif %}
-                {% if event.accessibility_info %}
-                <p>Accessibility Information: {{ event.accessibility_info }}</p>
-                {% endif %}
-                {% if event.food_and_beverage %}
-                <p>Food and Beverage: {{ event.food_and_beverage }}</p>
-                {% endif %}
-                {% if event.rules_and_regulations %}
-                <p>Event Rules and Regulations: {{ event.rules_and_regulations }}</p>
-                {% endif %}
-                {% if event.sponsors %}
-                <p>Event Sponsors: {{ event.sponsors }}</p>
-                {% endif %}
-                <p>Contact Information: {{ event.contact_info }}</p>
-                <p>Social Media Links: {{ event.social_media_links }}</p>
+                <table>
+                    <tr>
+                        <td><strong>Date:</strong></td>
+                        <td>{{ event.date }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time:</strong></td>
+                        <td>{{ event.start_time }} - {{ event.end_time }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location:</strong></td>
+                        <td>{{ event.location }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Category:</strong></td>
+                        <td>{{ event.category }}</td>
+                    </tr>
+                    <!-- Additional Fields -->
+                    {% if event.ticket_price %}
+                    <tr>
+                        <td><strong>Ticket Price:</strong></td>
+                        <td>${{ event.ticket_price }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td><strong>Ticket Availability:</strong></td>
+                        <td>{% if event.ticket_available %}Available{% else %}Sold Out{% endif %}</td>
+                    </tr>
+                    {% if event.capacity %}
+                    <tr>
+                        <td><strong>Event Capacity:</strong></td>
+                        <td>{{ event.capacity }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.dress_code %}
+                    <tr>
+                        <td><strong>Dress Code:</strong></td>
+                        <td>{{ event.dress_code }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.event_type %}
+                    <tr>
+                        <td><strong>Event Type:</strong></td>
+                        <td>{{ event.event_type }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.special_guests %}
+                    <tr>
+                        <td><strong>Special Guests/Speakers:</strong></td>
+                        <td>{{ event.special_guests }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.parking_info %}
+                    <tr>
+                        <td><strong>Parking Information:</strong></td>
+                        <td>{{ event.parking_info }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.transportation_options %}
+                    <tr>
+                        <td><strong>Transportation Options:</strong></td>
+                        <td>{{ event.transportation_options }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.accessibility_info %}
+                    <tr>
+                        <td><strong>Accessibility Information:</strong></td>
+                        <td>{{ event.accessibility_info }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.food_and_beverage %}
+                    <tr>
+                        <td><strong>Food and Beverage:</strong></td>
+                        <td>{{ event.food_and_beverage }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.rules_and_regulations %}
+                    <tr>
+                        <td><strong>Event Rules and Regulations:</strong></td>
+                        <td>{{ event.rules_and_regulations }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if event.sponsors %}
+                    <tr>
+                        <td><strong>Event Sponsors:</strong></td>
+                        <td>{{ event.sponsors }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td><strong>Organizer:</strong></td>
+                        <td>{{ event.organizer }}
+                            <!-- learn more  -->
+                            <a href="{% url 'organizer-details' organizer_name=event.organizer %}" class="learn-more">Learn More</a>
+                        </td>
+
+                    </tr>
+                </table>
             </div>
             <a href="{% url 'buy-tickets' event_name=event.title %}" class="buy-tickets-btn">Buy Tickets</a>
         </div>

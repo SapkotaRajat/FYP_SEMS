@@ -38,8 +38,9 @@
             </div>
             {% endfor %}
         </div>
-        <div class="btn">
-            <a href="{% url 'schedules' %}">See Full Schedule</a>
+        <div class="btn-wrap">
+            <a href="{% url 'events-categories' %}" class="btn">Explore More Events</a>
+            <a href="{% url 'schedules' %}" class="btn">See Full Schedule</a>
         </div>
     </div>
 </section>

@@ -202,21 +202,31 @@ section.events {
 .event-card a:hover {
   background-color: #00a17c;
 }
-.upcoming-events .btn {
+.upcoming-events .btn-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
   padding-top: 40px;
+  flex-wrap: wrap;
+
 }
 
-.upcoming-events .btn a {
+.upcoming-events .btn-wrap a {
   text-decoration: none;
   color: #f1f1f1;
-  background-color: #ef2b2b;
+  background-color: #EF2B2B;
+  max-width: 220px;
   padding: 15px 25px;
+  width: 100%;
+  text-align: center;
   border-radius: 50px;
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 18px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.upcoming-events .btn-wrap a:hover {
+  background-color: #d21f1f;
 }
 
 .about {

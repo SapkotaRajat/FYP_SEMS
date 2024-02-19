@@ -9,63 +9,143 @@
 {% endblock %}
 {% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
 {% block content %}
-<div class="buy-tickets-wrap">
+<section class="buy-tickets-wrap">
     <div class="buy-tickets">
-        <h2>{{ event_name }}</h2>
-        <form id="buy-tickets-form" action="{% url 'buy-tickets' event_name=event_name %}" method="post"
-            enctype="multipart/form-data">
+        <h2>{{ event.title }}</h2>
+        <!-- Display relevant event details -->
+        <table class="event-details-table">
+            {% if event.ticket_price %}
+            <tr>
+                <td><strong>Ticket Price:</strong></td>
+                <td>${{ event.ticket_price|floatformat:0 }} per ticket</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td><strong>Ticket Price:</strong></td>
+                <td>Free</td>
+            </tr>
+            {% endif %}
+            {% if event.capacity %}
+            <tr>
+                <td><strong>Event Capacity:</strong></td>
+                <td>{{ event.capacity }} seats</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td><strong>Tickets Available:</strong></td>
+                <td>
+                    {% if event.ticket_available %}
+                    <span class="available">Available</span>
+                    {% else %}
+                    <span class="not-available">Not Available</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    {% if event.ticket_price %}
+    {% if event.ticket_available %}
+    <div class="buy-tickets-form">
+        <form action="{% url 'buy-tickets' event.id %}" method="post">
             {% csrf_token %}
-            <div id="step-1">
-                <div class="form-group">
-                    <label for="ticket_quantity">Ticket Quantity</label>
-                    {{ ticket_purchase_form.ticket_quantity }}
-                </div>
-                <div class="form-group">
-                    <label for="payment_method">Payment Method</label>
-                    {{ ticket_purchase_form.payment_method }}
-                </div>
-                <button type="button" onclick="nextStep()">Next</button>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity" id="quantity" min="1" max="{{ event.ticket_available }}" value="0"
+                    required>
+            </div>
+            <!-- total price  -->
+            <div class="form-group">
+                <label for="total_price">Total Price:</label>
+                <input type="text" name="total_price" id="total_price" value="0" readonly>
+            </div>
+            <!-- select field -->
+            <div class="form-group">
+                <label for="payment_method">Payment Method:</label>
+                <select name="payment_method" id="payment_method" required>
+                    <option value="select_method">Select Method</option>
+                    <option value="paypal">Paypal</option>
+                </select>
             </div>
 
-            <div id="step-2-qr" style="display: none;">
-                <div class="form-group">
-                    <label for="qr_code_image">QR Code Image</label>
-                    <img src="{% static 'assets/qr-code.png' %}" alt="QR Code">
-                </div>
-                <div class="form-group">
-                    <label for="qr_code_image">Screenshot of Payment</label>
-                    {{ ticket_purchase_form.qr_code_image }}
-                </div>
-            </div>
-            <div id="step-2-card" style="display: none;">
-                <div class="form-group">
-                    <label for="card_holder_name">Card Holder Name</label>
-                    {{ ticket_purchase_form.card_holder_name }}
-                </div>
-                <div class="form-group">
-                    <label for="card_number">Card Number</label>
-                    {{ ticket_purchase_form.card_number }}
-                </div>
-                <div class="form-group">
-                    <label for="expiry_date">Expiry Date</label>
-                    {{ ticket_purchase_form.expiry_month }}
-                    {{ ticket_purchase_form.expiry_year }}
-
-                </div>
-                <div class="form-group">
-                    <label for="cvv">CVV</label>
-                    {{ ticket_purchase_form.cvv }}
-                </div>
-                <div class="form-group">
-                    <label for="payment amount">Payment Amount</label>
-                    {{ ticket_purchase_form.payment_amount.value }}
-
-                </div>
-            </div>
-
-            <button type="submit" class="primary-btn" id="submit-btn" style="display: none;">Buy Tickets</button>
+            <div id="paypal-button-container"></div>
         </form>
     </div>
-</div>
-<script src="{% static 'js/buy-tickets.js' %}"></script>
+    {% else %}
+    <p class="not-available-message">Tickets for this event not available at the moment.</p>
+    {% endif %}
+    {% else %}
+    <p class="free-ticket-message">This event is free to attend.</p>
+    {% endif %}
+    {% if event.ticket_price %}
+    {% if event.ticket_available %}
+    <script src="{% static 'js/buy-tickets.js' %}"></script>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AbSH0Uc8z71rIeTg8ECQP3ObKRNgjVDYMYufDQcI3TZHRaNHXmYlHYP-b-9NyMR8qltZ10uBnYXdILOh&currency=USD"></script>
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            style: {
+                color: 'blue',
+                shape: 'pill',
+                label: 'pay',
+                height: 55
+            },
+
+            // Call your server to set up the transaction
+            createOrder: function (data, actions) {
+                return fetch('/demo/checkout/api/paypal/order/create/', {
+                    method: 'post'
+                }).then(function (res) {
+                    return res.json();
+                }).then(function (orderData) {
+                    return orderData.id;
+                });
+            },
+
+            // Call your server to finalize the transaction
+            onApprove: function (data, actions) {
+                return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+                    method: 'post'
+                }).then(function (res) {
+                    return res.json();
+                }).then(function (orderData) {
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show confirmation or thank you
+
+                    // This example reads a v2/checkout/orders capture response, propagated from the server
+                    // You could use a different API or structure for your 'orderData'
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        return actions.restart(); // Recoverable state, per:
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+                    }
+
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+        }).render('#paypal-button-container');
+    </script>
+    {% endif %}
+    {% endif %}
+</section>
 {% endblock %}

@@ -214,6 +214,19 @@ footer .wrapper {
   font-weight: 400;
 }
 
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #00be9c;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
 /* Media query for smaller screens */
 @media only screen and (max-width: 768px) {
   header .logo a img {

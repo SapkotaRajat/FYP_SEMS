@@ -38,6 +38,10 @@
   font-weight: 600;
   color: #272727;
 }
+.event-details-table td:first-child {
+  width: 30%;
+}
+
 
 .event-details-table tr:last-child td {
   border-bottom: none;
@@ -98,16 +102,6 @@
 
 .form-group input[type="text"]:focus, .form-group input[type="email"]:focus, .form-group input[type="number"]:focus, .form-group select:focus{
   border-color: #818181;
-}
-
-.form-group select{
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23272727" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 10px top 50%;
-  background-size: 24px;
 }
 
 #paypal-button-container{

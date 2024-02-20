@@ -34,10 +34,7 @@ header .logo a img {
   display: flex;
   align-items: center;
   margin-right: 20px;
-}
-
-a.profile {
-  text-decoration: none;
+  cursor: pointer;
 }
 
 .profile-picture img {
@@ -55,14 +52,72 @@ a.profile {
   object-fit: cover;
 }
 
-.profile-details span {
-  font-size: 28px;
+.profile-details a{
   font-weight: 400;
+  font-size: 28px;
   color: #fff;
+  text-decoration: none;
+  transition: 0.5s;
 }
 
 .profile-details span:hover {
-  color: #cfcece;
+  color: #f3f3f3;
+}
+.modal-content{
+  position: relative;
+}
+.close{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.close:hover{
+  color: #d41f1f;
+}
+
+.modal-content h2{
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.modal-content form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-content form input{
+  padding: 10px 15px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.modal-content form button{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: 0.5s;
+  text-decoration: none;
+  background-color: #00be9c;
+  color: #fff;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
 }
 
 .content-wrap {
@@ -307,4 +362,77 @@ a.btn,
 }
 .btn-secondary:hover {
   background-color: #d41f1f;
+}
+
+
+@media (max-width: 768px) {
+  .content-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sidebar {
+    display: none;
+    width: 100%;
+    height: auto;
+    position: relative;
+    /* order: 2; */
+  }
+  .sidebar.open{
+    display: block;
+  }
+  .content {
+    margin-left: 0;
+  }
+  .cards {
+    padding: 0 20px;
+  }
+  .card {
+    width: 100%;
+  }
+  .profile-details span {
+    font-size: 24px;
+  }
+  .profile-picture img {
+    width: 40px;
+    height: 40px;
+  }
+  .profile-details span {
+    font-size: 24px;
+  }
+  .title h2 {
+    font-size: 28px;
+  }
+  .card-header h2 {
+    font-size: 20px;
+  }
+  .detail {
+    font-size: 18px;
+  }
+  .detail p.label {
+    font-size: 14px;
+  }
+  .detail p {
+    font-size: 16px;
+  }
+  .detail input {
+    font-size: 16px;
+  }
+  .modal-content p {
+    font-size: 20px;
+  }
+  .modal-buttons {
+    font-size: 20px;
+  }
+  .logout h2 {
+    font-size: 20px;
+  }
+  .logout p {
+    font-size: 16px;
+  }
+  a.btn,
+  .btn,
+  .modal-buttons button {
+    padding: 8px 16px;
+    font-size: 16px;
+  }
 }

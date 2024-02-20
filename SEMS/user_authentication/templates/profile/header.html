@@ -5,14 +5,56 @@
             <a href="{% url 'index' %}"><img src="{% static 'assets/logo-white.png' %}" alt="Sajilo Events"></a>
         </div>
         <div>
-            <a href=" {% url 'profile' %}" class="profile">
+            <div class="profile">
                 <div class="profile-picture">
-                    <img src="{% if user.profile_picture %}/{{ user.profile_picture }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}" alt="p_p">
+                    <img src="{% if user.userprofile.profile_picture %}/{{ user.userprofile.profile_picture }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}"
+                        alt="p_p">
                 </div>
                 <div class="profile-details">
-                    <span>{{ user.first_name }}</span>
+                    <a href="{% url 'profile' %}">
+                        {% if not user.first_name %}
+                        <span>{{ user.username }}</span>
+                        {% else %}
+                        <span>{{ user.first_name }}</span>
+                        {% endif %}
+                    </a>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
+    <!-- open a modal which wil allow user to change the profile picture when the user clicks on profile picture -->
+    <div class="change-picture-modal modal" id="change-profile-picture">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Change Profile Picture</h2>
+            <form action="{% url 'change_profile_picture' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="profile_picture" id="profile_picture" required>
+                <button type="submit">Change</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById('change-profile-picture');
+            var profilePicture = document.querySelector('.profile-picture');
+            var closeButton = document.querySelector('.close');
+
+            profilePicture.addEventListener('click', function () {
+                modal.style.display = "block";
+            });
+
+            closeButton.addEventListener('click', function () {
+                modal.style.display = "none";
+            });
+
+            window.addEventListener('click', function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+
+    </script>
+
 </header>

@@ -10,7 +10,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from .models import CustomUser
-from .forms import UserProfileForm
+from .forms import UserProfileForm , ProfilePictureForm
+from .models import UserProfile
 
 def register(request):
     if request.method == 'POST':
@@ -78,18 +79,12 @@ def profile(request):
 def change_password(request):
     # Implement your password reset logic here
     return render(request, 'change-password.html', {})
-@login_required
-def edit_profile(request):
-    # Implement your profile edit logic here
-    return render(request, 'profile/edit-profile.html', {})
+
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            # save the user profile picture if uploaded
-            if 'profile_picture' in request.FILES:
-                request.user.profile_picture = request.FILES['profile_picture'] 
             form.save()
             return redirect('profile')
     else:
@@ -120,3 +115,19 @@ class CustomPasswordResetView(PasswordResetView):
             messages.error(self.request, 'No accounts found with that email address.')
             # Render the form again with the error message
             return self.render_to_response(self.get_context_data(form=form))
+@login_required
+def change_profile_picture(request):
+    try:
+        profile = request.user.userprofile  # Try to get the UserProfile instance
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=request.user)  # Create a new UserProfile instance if it does not exist
+
+    if request.method == 'POST':
+        form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Redirect to the profile page after successful profile picture update
+    else:
+        form = ProfilePictureForm(instance=profile)
+    
+    return render(request, 'profile.html', {'form': form})

@@ -23,5 +23,6 @@ urlpatterns = [
         ), name='password_reset_complete'),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('change-password/', views.change_password, name='change_password'),
+    path('change_profile_picture/', views.change_profile_picture, name='change_profile_picture'),
     
 ]

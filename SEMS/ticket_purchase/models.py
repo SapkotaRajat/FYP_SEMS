@@ -1,6 +1,7 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from event_management.models import Event
+from django.conf import settings
 
 class Ticket(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -11,3 +12,18 @@ class Ticket(models.Model):
     
     def __str__(self):
         return self.event.title
+    
+
+
+class TicketPurchase(models.Model):
+    order_id = models.CharField(max_length=100)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    payment_method = models.CharField(max_length=100)
+    payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.ticket.event.title} - {self.date}"

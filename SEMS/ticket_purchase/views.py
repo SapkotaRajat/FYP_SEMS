@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import BuyTicketsForm
 from .models import Ticket 
 from event_management.models import Event
+from django.http import JsonResponse
+from .models import TicketPurchase
+import json
 
 # Create your views here.
 def ticket_purchase(request):
@@ -17,3 +20,24 @@ def buy_tickets(request, event_name):
 @login_required
 def ticket_purchase_success(request):
     return render(request, 'ticket-purchase-success.html')
+
+
+
+def paypal_transaction_complete(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        order_id = data.get('orderID')
+        payment_amount = data.get('paymentAmount')
+        payment_method = 'PayPal'
+        quantity = data.get('quantity')
+        ticket = Ticket.objects.get(event = data.get('event'))
+        event = ticket.event
+        
+        # Save the transaction details to the database
+        ticket_purchase = TicketPurchase(order_id=order_id, user=request.user, ticket=ticket, quantity=quantity, payment_method=payment_method, payment_amount=payment_amount, event=event)
+        ticket_purchase.save()
+        
+        return JsonResponse({'message': 'Transaction completed successfully'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
+    

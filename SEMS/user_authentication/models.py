@@ -33,8 +33,6 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=150, unique=True)  # Ensure uniqueness
     address = CKEditor5Field(null=True)
     USERNAME_FIELD = 'username'
-    # profile picture
-    profile_picture = models.ImageField(upload_to='static/profile_pictures/', null=True, blank=True)
         
     # Unique related names to resolve clashes
     groups = models.ManyToManyField(
@@ -56,3 +54,15 @@ class CustomUser(AbstractUser):
     
     def __str__(self):
         return self.username
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    bio = CKEditor5Field(null=True)
+    profile_picture = models.ImageField(upload_to='static/profile_pictures/', null=True, blank=True)
+    attended_events = models.ManyToManyField('event_management.Event', blank=True)  # Many to many relationship with Event model
+    ticket_purchases = models.ManyToManyField('ticket_purchase.Ticket', blank=True)  # Many to many relationship with Ticket model
+    
+
+    def __str__(self):
+        return self.user.username   

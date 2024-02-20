@@ -1,12 +1,26 @@
 {% load static %}
 <!-- profile/sidebar.html -->
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
     <ul>
-        
         <li><a href="{% url 'profile' %}">Profile</a></li>
-        <li><a href="#">Attended Events</a></li>
-        <li><a href="#">Ticket History</a></li>
-        <li><a href="#">Account Settings</a></li>
+        
+        {% if user.is_staff %}
+            <!-- Display staff-specific options -->
+            <li><a href="#">Assigned Tasks</a></li>
+            <li><a href="#">Clock In/Out</a></li>
+            <li><a href="#">Work History</a></li>
+            <li><a href="#">Training & Development</a></li>
+            <li><a href="#">Manage Users</a></li>
+            <li><a href="#">Manage Events</a></li>
+            <li><a href="#">Manage Tickets</a></li>
+            <!-- active status -->
+        {% else %}
+            <!-- Display end user-specific options -->
+            <li><a href="#">Attended Events</a></li>
+            <li><a href="#">Ticket History</a></li>
+            <li><a href="#">Account Settings</a></li>
+        {% endif %}
+        
         <li><a href="{% url 'logout_confirmation' %}">Logout</a></li>
     </ul>
 </div>

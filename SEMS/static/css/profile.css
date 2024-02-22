@@ -70,7 +70,7 @@ header .logo a img {
   position: absolute;
   top: 20px;
   right: 20px;
-  font-size: 24px;
+  font-size: 32px;
   cursor: pointer;
   transition: 0.5s;
 }

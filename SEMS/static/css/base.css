@@ -4,7 +4,9 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
+body {
+  overflow-x: hidden;
+}
 header {
   background-color: rgba(0, 0, 0, 0.1);
   position: absolute;
@@ -30,25 +32,39 @@ nav {
 }
 nav ul {
   display: flex;
+  gap: 25px;
   justify-content: space-between;
 }
 ul li {
   list-style: none;
-  margin-left: 20px;
 }
+
 ul li a {
   text-decoration: none;
   color: #f1f1f1;
-  font-size: 18px;
+  font-size: 20px;
   transition: all 0.3s ease;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: Inter, sans-serif;
   padding-bottom: 10px;
   position: relative;
-  border-bottom: 0 solid transparent;
+  border-bottom-style: none;
 }
-ul li a:hover {
-  border-bottom: 1px solid #00be9c;
-  transition: border-bottom 0.3s ease-in-out;
+
+header nav a::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 0%;
+  height: 1.5px;
+  background-color: currentColor;
+  transition: width 0.4s ease-in-out;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+  left: 0;
+  right: auto;
 }
 
 header .logo a img {
@@ -73,14 +89,13 @@ header .btn a {
 header .btn a:hover {
   background-color: #00a17c;
 }
-/* Hamburger menu icon */
 .menu-icon {
-  display: none; /* Hide by default on larger screens */
+  display: none;
   cursor: pointer;
   font-size: 24px;
 }
 #menu-toggle {
-  display: none; /* Hide checkbox */
+  display: none;
 }
 
 .user-profile {
@@ -89,22 +104,22 @@ header .btn a:hover {
 }
 .user-profile a {
   text-decoration: none;
-  color: #00be9c;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 }
 .user-profile a:hover .username {
-  color: grey;
+  color: #f3f3f3;
 }
 .user-profile a .username {
   font-size: 20px;
   font-weight: 400;
 }
 .profile-picture img {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -214,17 +229,15 @@ footer .wrapper {
   font-weight: 400;
 }
 
-
 /* scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #00be9c;
-  border-radius: 10px;
+  background-color: #2a2a2a;
 }
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  background-color: #fff;
 }
 
 /* Media query for smaller screens */
@@ -276,7 +289,7 @@ footer .wrapper {
   }
 
   nav ul li a:hover {
-    color: rgb(0, 190, 156,0.5);
+    color: rgb(0, 190, 156, 0.5);
   }
   header .btn {
     padding: 15px 20px;
@@ -284,7 +297,7 @@ footer .wrapper {
     background-color: #00be9c;
   }
 
-  header .btn a{
+  header .btn a {
     background-color: transparent;
     padding: 0;
     margin: 0;
@@ -293,10 +306,10 @@ footer .wrapper {
     margin: 0;
     padding: 15px 20px;
   }
-  nav .user-profile a{
+  nav .user-profile a {
     justify-content: flex-start;
   }
-  nav .user-profile img{
+  nav .user-profile img {
     display: none;
   }
 
@@ -306,10 +319,10 @@ footer .wrapper {
   #menu-toggle:checked + .menu-icon ~ nav {
     display: block; /* Show menu when checkbox is checked */
   }
-  .banner-image{
+  .banner-image {
     height: 300px;
   }
-  .banner-image h1{
+  .banner-image h1 {
     font-size: 28px;
     top: calc(50% + 30px);
   }

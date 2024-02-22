@@ -14,8 +14,8 @@
 </head>
 
 <body>
+    {% include 'header.html' %}
     <div class="container">
-        {% include 'header.html' %}
         <div class="banner-image-wrap">
 
             {% if request.path == '/' %}
@@ -41,8 +41,8 @@
             {% block content %}
             {% endblock %}
         </div>
-            {% include 'footer.html' %}
     </div>
+    {% include 'footer.html' %}
 </body>
 
 </html>

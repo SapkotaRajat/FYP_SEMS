@@ -2,28 +2,28 @@
 <header>
     <div class="wrapper">
         <div class="logo">
-            <a href="{% url 'index' %}"><img src="{% static 'assets/logo.png' %}" alt="Sajilo Events"></a>
+            <a href="{% url 'index' %}"><img src="{% static 'assets/logo-white.png' %}" alt="Sajilo Events"></a>
         </div>
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="menu-icon">&#9776;</label>
         <nav>
             <ul>
                 <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'events-and-tickets' %}">Events & Tickets</a></li>
+                <li><a href="{% url 'events-categories' %}">Events & Tickets</a></li>
                 <li><a href="{% url 'plan-your-visit' %}">Plan Your Visit</a></li>
                 <li><a href="{% url 'about-us' %}">About Us</a></li>
             </ul>
             {% if user.is_authenticated %}
             <div class="user-profile">
                 <a href="{% url 'profile' %}">
-                    <div class="profile-picture">
-                        <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}"
-                            alt="Profile Picture">
-                    </div>
                     <div class="username">
                         <span>
                             {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}
                         </span>
+                    </div>
+                    <div class="profile-picture">
+                        <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}"
+                            alt="Profile Picture">
                     </div>
                 </a>
             </div>

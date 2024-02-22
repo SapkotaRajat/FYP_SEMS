@@ -12,11 +12,46 @@
 <div class="event-category-wrap">
     {% for category in categories %}
     <div class="event-cat-card">
+        <!-- number of events -->
+        <p class="event-count">{{ category.event_set.count }} Events</p>
         <img src="{{ category.image.url }}" alt="{{category.name}}">
+        <h3>{{ category.name }}</h3>
         <a href="{% url 'events' category_name=category.name %}">
-            <h3>{{ category.name }}</h3>
+            Learn More <i class="fas fa-arrow-right"></i>
         </a>
     </div>
     {% endfor %}
+    <div class="scroll-btns">
+        <button class="scroll-btn" id="scroll-left">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="scroll-btn" id="scroll-right">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.querySelector('.event-category-wrap');
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+
+        // Function to handle left scroll
+        scrollLeftBtn.addEventListener('click', function () {
+            container.scrollBy({
+                left: -200, // Adjust the scroll distance as needed
+                behavior: 'smooth'
+            });
+        });
+
+        // Function to handle right scroll
+        scrollRightBtn.addEventListener('click', function () {
+            container.scrollBy({
+                left: 200, // Adjust the scroll distance as needed
+                behavior: 'smooth'
+            });
+        });
+    });
+
+</script>
 {% endblock %}

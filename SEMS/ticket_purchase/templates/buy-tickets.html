@@ -50,6 +50,7 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="quantity">Quantity:</label>
+                <!-- get the available quantity of ticket -->
                 <input type="number" name="quantity" id="quantity" min="1" max="{{ event.capacity }}" value="1"
                     required>
             </div>
@@ -112,7 +113,7 @@
                 return actions.order.capture().then(function (details) {
                     console.log("Capture result: ", details, JSON.stringify(details, null, 2));
                     var transaction = details.purchase_units[0].payments.captures[0];
-                    
+
 
                     // Send a POST request to your Django view to save the transaction details
                     fetch('/paypal-transaction-complete/', {
@@ -123,11 +124,15 @@
                         },
                         body: JSON.stringify({
                             orderID: data.orderID,
-                            paymentAmount : totalPrice,
-                            event : '{{ event.id }}',
-                            ticketID : '{{ event.ticket}}',
-                            quantity : document.getElementById('quantity').value
-
+                            paymentAmount: transaction.amount.value,
+                            event: '{{ event.id }}',
+                            ticketID: '{{ event.ticket}}',
+                            quantity: document.getElementById('quantity').value,
+                            payerID: details.payer.payer_id,
+                            payerName: details.payer.name.given_name,
+                            payerSurname: details.payer.name.surname,
+                            payeeEmail: details.payer.email_address,
+                            payeeCountry: details.payer.address.country_code,
                         })
                     }).then(function (response) {
                         // Handle the response as needed

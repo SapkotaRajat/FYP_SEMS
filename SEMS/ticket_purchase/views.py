@@ -32,10 +32,17 @@ def paypal_transaction_complete(request):
         quantity = data.get('quantity')
         ticket = Ticket.objects.get(event = data.get('event'))
         event = ticket.event
-        
+        email = data.get('payeeEmail')
+        payer_name = data.get('payerName') + ' ' + data.get('payerSurname')
+        payee_country = data.get('payeeCountry')
+               
         # Save the transaction details to the database
-        ticket_purchase = TicketPurchase(order_id=order_id, user=request.user, ticket=ticket, quantity=quantity, payment_method=payment_method, payment_amount=payment_amount, event=event)
+        ticket_purchase = TicketPurchase(order_id=order_id, user=request.user, ticket=ticket, quantity=quantity, payment_method=payment_method, payment_amount=payment_amount, event=event, email=email, payer_name=payer_name, payee_country=payee_country)
         ticket_purchase.save()
+        
+        # reduce the available quantity from the ticket table in the database 
+        ticket.available_quantity -= int(quantity)
+        ticket.save()
         
         return JsonResponse({'message': 'Transaction completed successfully'})
     else:

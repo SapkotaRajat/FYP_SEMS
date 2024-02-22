@@ -24,6 +24,10 @@ class TicketPurchase(models.Model):
     payment_method = models.CharField(max_length=100)
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    email = models.EmailField()
+    payer_name = models.CharField(max_length=100)
+    payee_country = models.CharField(max_length=100)
+    
     
     def __str__(self):
         return f"{self.user.username} - {self.ticket.event.title} - {self.date}"

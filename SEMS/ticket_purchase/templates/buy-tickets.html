@@ -43,6 +43,22 @@
             </tr>
         </table>
     </div>
+    {% if user_has_purchased_tickets %}
+    <p class="already-purchased-message">You have purchased {{ ticket_purchased }} tickets for this event.
+        <a href="{% url 'ticket_history' %}">View Tickets
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M6.5 4a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V4.5H7a.5.5 0 01-.5-.5z"
+                    clip-rule="evenodd"></path>
+                <path fill-rule="evenodd"
+                    d="M12.354 3.646a.5.5 0 010 .708l-9 9a.5.5 0 01-.708-.708l9-9a.5.5 0 01.708 0z" clip-rule="evenodd">
+                </path>
+            </svg>
+        </a>
+    </p>
+
+    {% endif %}
     {% if event.ticket_price %}
     {% if event.ticket_available %}
     <div class="buy-tickets-form">
@@ -137,19 +153,61 @@
                     }).then(function (response) {
                         // Handle the response as needed
                         if (response.ok) {
-                            alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                            document.getElementById('success-modal').style.display = 'block';
                         } else {
-                            alert('Transaction failed: ' + transaction.status + '\n\nSee console for all available details');
-
+                            document.getElementById('error-modal').style.display = 'block';
                         }
                     }).catch(function (error) {
                         console.error('Error:', error);
+                        // Display error modal with generic error message
+                        document.getElementById('error-message').innerText = 'An error occurred while processing your payment.';
+                        document.getElementById('error-modal').style.display = 'block';
                     });
                 });
             }
         }).render('#paypal-button-container');
+
+
     </script>
     {% endif %}
     {% endif %}
+    <!-- success and error modal -->
+    <div class="modal-wrap" id="success-modal" style="display: none;">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="success-modal">
+            <div class="modal-content">
+                <span id="close-success-modal" class="close">&times;</span>
+                <img src="{% static 'assets/success-green-check-mark-icon.webp' %}" alt="success">
+                <p>Payment Successful</p>
+                <!-- view ticket history in the profile -->
+                <a href="{% url 'ticket_history' %}">View Tickets</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-wrap" id="error-modal" style="display: none;">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="error-modal">
+            <div class="modal-content">
+                <span id="close-error-modal" class="close">&times;</span>
+                <i class="fas fa-exclamation-circle"></i>
+                <p id="error-message">Ticket Purchase Failed</p>
+                <a href="{% url 'buy-tickets' event.title %}">Try again</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // close the modal when the close button is clicked
+        document.getElementById('close-success-modal').addEventListener('click', function () {
+            closeModal('success-modal');
+        });
+        document.getElementById('close-error-modal').addEventListener('click', function () {
+            closeModal('error-modal');
+        });
+        function closeModal(modalId) {
+            location.reload();
+        }
+    </script>
 </section>
 {% endblock %}

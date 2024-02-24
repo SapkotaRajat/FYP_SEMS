@@ -44,7 +44,7 @@ header .logo a img {
   margin-right: 10px;
   object-fit: cover;
 }
-.profile-img-preview{
+.profile-img-preview {
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -52,7 +52,7 @@ header .logo a img {
   object-fit: cover;
 }
 
-.profile-details a{
+.profile-details a {
   font-weight: 400;
   font-size: 28px;
   color: #fff;
@@ -63,10 +63,10 @@ header .logo a img {
 .profile-details span:hover {
   color: #f3f3f3;
 }
-.modal-content{
+.modal-content {
   position: relative;
 }
-.close{
+.close {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -75,11 +75,11 @@ header .logo a img {
   transition: 0.5s;
 }
 
-.close:hover{
+.close:hover {
   color: #d41f1f;
 }
 
-.modal-content h2{
+.modal-content h2 {
   font-size: 32px;
   font-weight: 400;
   margin-bottom: 20px;
@@ -88,13 +88,13 @@ header .logo a img {
   border-bottom: 1px solid #2a2a2a;
 }
 
-.modal-content form{
+.modal-content form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.modal-content form input{
+.modal-content form input {
   padding: 10px 15px;
   border: 1px solid #dedede;
   border-radius: 5px;
@@ -104,7 +104,7 @@ header .logo a img {
   cursor: pointer;
 }
 
-.modal-content form button{
+.modal-content form button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -303,7 +303,7 @@ header .logo a img {
   font-size: 24px;
 }
 
-.text-underline{
+.text-underline {
   text-decoration: underline;
 }
 /* logout */
@@ -364,20 +364,18 @@ a.btn,
   background-color: #d41f1f;
 }
 
-
 @media (max-width: 768px) {
   .content-wrap {
     flex-direction: column;
     align-items: center;
   }
   .sidebar {
-    display: none;
     width: 100%;
     height: auto;
     position: relative;
-    /* order: 2; */
+    order: 2;
   }
-  .sidebar.open{
+  .sidebar.open {
     display: block;
   }
   .content {
@@ -435,4 +433,64 @@ a.btn,
     padding: 8px 16px;
     font-size: 16px;
   }
+}
+
+/* misc */
+
+.primary-btn {
+  text-decoration: none;
+  color: #2a2a2a;
+  background-color: #fff;
+  max-width: 220px;
+  padding: 15px 25px;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 20px;
+}
+
+.no-tickets,
+.no-attended-events {
+  margin: 20px 0;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.no-tickets p,
+.no-attended-events p {
+  margin-bottom: 40px;
+}
+
+.no-tickets a,
+.no-attended-events a {
+  text-decoration: none;
+  color: #fff;
+  background-color: #393939;
+  font-size: 14px;
+  padding: 15px 25px;
+  border-radius: 5px;
+  transition: 0.5s;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+.no-tickets a:hover,
+.no-attended-events a:hover {
+  background-color: #272727;
+}
+
+
+input[type="date" i] {
+  padding: 10px 15px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  transition: 0.5s;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
 }

@@ -206,9 +206,6 @@ section.events {
   transform: scale(1.1);
 }
 
-.event-card:hover h3 {
-}
-
 
 .schedule {
   background-color: #39393a;

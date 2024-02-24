@@ -1,0 +1,63 @@
+{% extends "profile/base.html" %}
+{% load static %}
+{% block title %}Account Settings{% endblock %}
+{% block profile-title %}Account Settings{% endblock %}
+{% block content %}
+<div class="cards">
+    <div class="card">
+        <div class="card-header">
+            <h2>Edit Basic Information</h2>
+        </div>
+        <div class="card-body">
+            <form id="editProfileForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Add form fields for editing basic information here -->
+                <div class="detail">
+                    <label for="id_first_name">First Name</label>
+                    <input type="text" name="first_name" id="id_first_name" value="{{ user.first_name }}">
+                </div>
+                <div class="detail">
+                    <label for="id_last_name">Last Name</label>
+                    <input type="text" name="last_name" id="id_last_name" value="{{ user.last_name }}">
+                </div>
+                <div class="detail">
+                    <label for="id_email">Email</label>
+                    <input type="email" name="email" id="id_email" value="{{ user.email }}">
+                </div>
+                <div class="detail">
+                    <label for="id_contact_number">Contact Number</label>
+                    <input type="text" name="contact_number" id="id_contact_number" value="{{ user.contact_number }}">
+                </div>
+                <div class="detail">
+                    <label for="id_address">Address</label>
+                    <input type="text" name="address" id="id_address"
+                        value="{% if user.address %}{{ user.address }}{% else %}Kathmandu, Nepal{% endif %}">
+                </div>
+                <!-- dob -->
+                <div class="detail">
+                    <label for="id_dob">Date of Birth</label>
+                    <input type="date" name="dob" id="id_dob" value="{{ user.dob|date:'Y-m-d' }}">
+                </div>
+                <!-- Add more form fields as needed -->
+                <div class="btn-wrap">
+                    <button type="button" class="btn btn-primary btn-center" id="confirmModalBtn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Add more cards for other sections of the profile to be edited -->
+</div>
+
+<!-- Modal for confirmation -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to save changes?</p>
+        <div class="modal-buttons">
+            <button id="confirmBtn" class="btn-primary">Yes</button>
+            <button id="cancelBtn" class="btn-secondary">No</button>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock content %}

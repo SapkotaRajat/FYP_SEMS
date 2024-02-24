@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Successful</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .text-upper {
+            text-transform: uppercase;
+        }
+        ul li{
+            margin-bottom: 4px;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Dear <span class="text-upper">{{ user.username }}</span>,</p>
+        <p>We are pleased to inform you that your purchase was successful.</p>
+        <p>Details of your purchase:</p>
+        <ul>
+            <li><strong>Event:</strong> {{ event_title }}</li>
+            <li><strong>Quantity:</strong> {{ quantity }}</li>
+            <li><strong>Total Payment Amount:</strong> ${{ payment_amount }}</li>
+        </ul>
+        <p>Please find the attached PDF/QR code for your ticket.</p>
+        <p>Thank you for choosing our service.</p>
+        <p>Best regards,</p>
+        <p>Sajilo Events <br>Staff & Event Management System</p>
+
+        <!-- qr image -->
+        <img src="{{ qr_code_image }}" alt="QR Code" style="width: 100px; height: 100px;">
+    </div>
+</body>
+</html>

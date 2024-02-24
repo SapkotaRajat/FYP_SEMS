@@ -13,6 +13,7 @@ from .models import CustomUser
 from .forms import UserProfileForm , ProfilePictureForm
 from .models import UserProfile
 
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -80,16 +81,7 @@ def change_password(request):
     # Implement your password reset logic here
     return render(request, 'change-password.html', {})
 
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')
-    else:
-        form = UserProfileForm(instance=request.user)
-    return render(request, 'profile/edit-profile.html', {'form': form})
+
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password-reset.html'
@@ -131,3 +123,27 @@ def change_profile_picture(request):
         form = ProfilePictureForm(instance=profile)
     
     return render(request, 'profile.html', {'form': form})
+
+
+
+def get_ticket_details(request, ticket_id):
+    ticket = get_object_or_404(TicketPurchase, id=ticket_id)
+    # Assuming you have a serializer to serialize ticket data into JSON
+    # Format the start and end time objects as strings
+    start_time_str = ticket.event.start_time.strftime("%I:%M %p")
+    end_time_str = ticket.event.end_time.strftime("%I:%M %p")
+    
+    # Construct the time range string
+    time_range_str = f"{start_time_str} - {end_time_str}"
+    ticket_data = {
+        'event': {
+            'title': ticket.event.title,
+            'date': ticket.event.date,
+            'time': time_range_str,
+            'location': ticket.event.location,
+            'ticket_price': ticket.event.ticket_price,
+        },
+        'quantity': ticket.quantity,
+        'payment_amount': ticket.payment_amount,
+    }
+    return JsonResponse(ticket_data)

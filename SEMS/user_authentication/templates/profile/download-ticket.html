@@ -1,0 +1,25 @@
+{% extends "profile/base.html" %}
+{% load static %}
+{% block title %}Download Ticket{% endblock %}
+{% block profile-title %}Download Ticket{% endblock %}
+{% block content %}
+<div class="cards">
+    <div class="card">
+        <div class="card-header">
+            <h2>Download Ticket</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="detail">
+                    <label for="id_ticket_id">Ticket ID</label>
+                    <input type="text" name="ticket_id" id="id_ticket_id" value="{{ ticket_id }}">
+                </div>
+                <div class="btn-wrap">
+                    <button type="submit" class="btn btn-primary btn-center">Download</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

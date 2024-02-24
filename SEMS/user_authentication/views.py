@@ -12,6 +12,15 @@ from django.views.decorators.cache import never_cache
 from .models import CustomUser
 from .forms import UserProfileForm , ProfilePictureForm
 from .models import UserProfile
+from ticket_purchase.models import TicketPurchase
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.db.models import Sum
+import qrcode
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
 
 
 def register(request):
@@ -124,6 +133,16 @@ def change_profile_picture(request):
     
     return render(request, 'profile.html', {'form': form})
 
+@login_required
+def account_settings(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'profile/account-settings.html', { 'form': form})
 
 @login_required
 def ticket_history(request):

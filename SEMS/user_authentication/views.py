@@ -125,6 +125,32 @@ def change_profile_picture(request):
     return render(request, 'profile.html', {'form': form})
 
 
+@login_required
+def ticket_history(request):
+    # Get all ticket purchases for the current user
+    ticket_purchases = TicketPurchase.objects.filter(user=request.user)
+
+    # Handle filtering options
+    sort_by = request.GET.get('sort_by')
+    if sort_by == 'date':
+        ticket_purchases = ticket_purchases.order_by('event__date')
+    elif sort_by == 'event_title':
+        ticket_purchases = ticket_purchases.order_by('event__title')
+    elif sort_by == 'total_cost':
+        ticket_purchases = ticket_purchases.annotate(total_cost=Sum('payment_amount')).order_by('total_cost')
+
+    # Group ticket purchases by event ID
+    grouped_ticket_purchases = {}
+    for ticket_purchase in ticket_purchases:
+        event_id = ticket_purchase.event.id
+        if event_id not in grouped_ticket_purchases:
+            grouped_ticket_purchases[event_id] = [ticket_purchase]
+        else:
+            grouped_ticket_purchases[event_id].append(ticket_purchase)
+    print(grouped_ticket_purchases)
+
+    return render(request, 'profile/ticket-history.html', {'grouped_ticket_purchases': grouped_ticket_purchases})
+
 
 def get_ticket_details(request, ticket_id):
     ticket = get_object_or_404(TicketPurchase, id=ticket_id)

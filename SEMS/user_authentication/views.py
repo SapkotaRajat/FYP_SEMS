@@ -151,6 +151,42 @@ def ticket_history(request):
 
     return render(request, 'profile/ticket-history.html', {'grouped_ticket_purchases': grouped_ticket_purchases})
 
+@login_required
+def download_ticket(request, ticket_id):
+    ticket = TicketPurchase.objects.get(id=ticket_id)
+    
+    # Generate QR Code for the ticket
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(f'Ticket ID: {ticket_id}')
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="black", back_color="white")
+    
+    # Render ticket details and QR code into a PDF
+    ticket_pdf_path = f'ticket_{ticket_id}.pdf'
+    with open(ticket_pdf_path, 'wb') as pdf_file:
+        pdf = canvas.Canvas(pdf_file, pagesize=letter)
+
+        pdf.drawString(100, 750, f"Event: {ticket.event.title}")
+        
+        # Add other ticket details to the PDF
+        
+        img_path = f'qr_{ticket_id}.png'
+        img.save(img_path)
+        pdf.drawInlineImage(img_path, 100, 550, width=100, height=100)  # Draw QR code
+
+        pdf.showPage()
+        pdf.save()
+
+    # Return a response with the PDF file
+    return FileResponse(open(ticket_pdf_path, 'rb'), as_attachment=True)
+
+
 
 def get_ticket_details(request, ticket_id):
     ticket = get_object_or_404(TicketPurchase, id=ticket_id)

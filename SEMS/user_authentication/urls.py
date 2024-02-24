@@ -21,8 +21,15 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(
         template_name='registration/password-reset-complete.html'
         ), name='password_reset_complete'),
-    path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('change-password/', views.change_password, name='change_password'),
     path('change_profile_picture/', views.change_profile_picture, name='change_profile_picture'),
+    path('account-settings/', views.account_settings, name='account_settings'),
+    path('ticket-history/', views.ticket_history, name='ticket_history'),
+    path('attended-events/', views.attended_events, name='attended_events'),
+    path('assigned-tasks/', views.assigned_tasks, name='assigned_tasks'),
+    path('work_history/', views.work_history, name='work_history'),
+    path('download-ticket/<int:ticket_id>', views.download_ticket, name='download-ticket'),
+    path('api/tickets/<int:ticket_id>/', views.get_ticket_details, name='get_ticket_details'),
+    
     
 ]

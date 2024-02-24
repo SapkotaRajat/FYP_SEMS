@@ -151,6 +151,20 @@ def ticket_history(request):
 
     return render(request, 'profile/ticket-history.html', {'grouped_ticket_purchases': grouped_ticket_purchases})
 
+
+
+@login_required
+def attended_events(request):
+    return render(request, 'profile/attended-events.html', {})
+
+@login_required
+def assigned_tasks(request):
+    return render(request, 'profile/assigned-tasks.html', {})
+
+@login_required
+def work_history(request):
+    return render(request, 'profile/work-history.html', {})
+
 @login_required
 def download_ticket(request, ticket_id):
     ticket = TicketPurchase.objects.get(id=ticket_id)

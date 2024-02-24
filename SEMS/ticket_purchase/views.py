@@ -1,11 +1,9 @@
-from django.shortcuts import render, redirect
+import os
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import BuyTicketsForm
 from .models import Ticket 
 from event_management.models import Event
-from django.http import JsonResponse
 from .models import TicketPurchase
-import json
 
 # Create your views here.
 def ticket_purchase(request):
@@ -14,13 +12,20 @@ def ticket_purchase(request):
 
 @login_required
 def buy_tickets(request, event_name):
-    event = Event.objects.get(title=event_name)    
-    return render(request, 'buy-tickets.html', { 'event': event})
+    event = Event.objects.get(title=event_name)
+    user_has_purchased_tickets = TicketPurchase.objects.filter(event=event, user=request.user).exists()
+    ticket_purchases = TicketPurchase.objects.filter(event=event, user=request.user)
+    # total count of the tickets purchased by the user for the event can be multiple entries in the database 
+    ticket_purchased = 0 
+    for ticket_purchase in ticket_purchases:
+        ticket_purchased += ticket_purchase.quantity
+    
+    return render(request, 'buy-tickets.html', { 'event': event, 'user_has_purchased_tickets': user_has_purchased_tickets, 'ticket_purchased': ticket_purchased})
+
 
 @login_required
 def ticket_purchase_success(request):
     return render(request, 'ticket-purchase-success.html')
-
 
 
 def paypal_transaction_complete(request):
@@ -47,4 +52,3 @@ def paypal_transaction_complete(request):
         return JsonResponse({'message': 'Transaction completed successfully'})
     else:
         return JsonResponse({'error': 'Invalid request method'})
-    

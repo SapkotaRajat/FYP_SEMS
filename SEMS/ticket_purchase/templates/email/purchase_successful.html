@@ -1,55 +1,52 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Successful</title>
-    <style>
-        /* Your CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        p {
-            margin-bottom: 20px;
-        }
-        .text-upper {
-            text-transform: uppercase;
-        }
-        ul li{
-            margin-bottom: 4px;
-            list-style: none;
-        }
-    </style>
+    <title>Ticket Purchase Confirmation</title>
 </head>
-<body>
-    <div class="container">
-        <p>Dear <span class="text-upper">{{ user.username }}</span>,</p>
-        <p>We are pleased to inform you that your purchase was successful.</p>
-        <p>Details of your purchase:</p>
-        <ul>
-            <li><strong>Event:</strong> {{ event_title }}</li>
-            <li><strong>Quantity:</strong> {{ quantity }}</li>
-            <li><strong>Total Payment Amount:</strong> ${{ payment_amount }}</li>
-        </ul>
-        <p>Please find the attached PDF/QR code for your ticket.</p>
-        <p>Thank you for choosing our service.</p>
-        <p>Best regards,</p>
-        <p>Sajilo Events <br>Staff & Event Management System</p>
 
-        <!-- qr image -->
-        <img src="{{ qr_code_image }}" alt="QR Code" style="width: 100px; height: 100px;">
+<body style="font-family: Arial, sans-serif; background-color: #f7f7f7; color: #333; margin: 0; padding: 20px;">
+
+    <div
+        style="max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <div style="margin-bottom: 20px; line-height: 1.5;">
+            <p>Dear {{payer_name}},</p>
+            <p>We are pleased to inform you that your purchase for the event "{{ event_title }}" has been successful.
+            </p>
+            <p><strong>Order details:</strong></p>
+            <ul style="padding-left: 20px;">
+                <li><strong>Order ID:</strong> {{order_id}}</li>
+                <li><strong>Event:</strong> {{event_title}}</li>
+                <li><strong>Date & Time:</strong> {{date}} at {{time}}</li>
+                <li><strong>Quantity:</strong> {{quantity}}</li>
+                <li><strong>Total Payment Amount:</strong> $ {{payment_amount|floatformat:0}}</li>
+            </ul>
+            <p>Please find your ticket(s) attached as a PDF file. The attached QR code allows you to easily access the
+                event.</p>
+            <p>Thank you for choosing Sajilo Events. We hope you enjoy the event!</p>
+            <p>Below is the QR code for your ticket:</p>
+            <img src="{{ qr_code_image }}" alt="QR Code" style="display: block; margin: 20px auto; width: 200px; height: 200px;">
+        </div>
+
+        <!-- Logo -->
+        <img src="{% static 'assets/logo.png' %}" alt="logo" style="display: block; margin: 20px auto; width: 150px;">
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 20px;">
+            <p><a href="http://127.0.0.1:8000/"
+                    style="color: #333; text-decoration: none; border-bottom: 1px solid #333; padding-bottom: 2px;">Website</a>
+                | <a href="mailto:sajiloevents@gmail.com"
+                    style="color: #333; text-decoration: none; border-bottom: 1px solid #333; padding-bottom: 2px;">Email</a>
+            </p>
+            <p>&copy; Sajilo Events <span id="date" style="margin-bottom: 10px;">date</span></p>
+        </div>
     </div>
+    <script>
+        document.getElementById('date').innerText = new Date().getFullYear();
+    </script>
 </body>
+
 </html>

@@ -1,12 +1,24 @@
 from django.conf import settings
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from django.utils.html import mark_safe
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='static/category_images/')
     def __str__(self):
         return self.name
+    
+    def image_tag(self):
+        if self.image: 
+            return mark_safe('<img src="{url}" width="{width}" height="{height}" style="object-fit: cover;" />'.format(
+                url=self.image.url,
+                width=100,
+                height=100,
+            ))
+        else:
+            return None 
+    image_tag.short_description = 'Image'
     
 class Organizer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -15,11 +27,21 @@ class Organizer(models.Model):
     organization_description = CKEditor5Field()
     organization_website = models.URLField(blank=True, null=True)
     organization_email = models.EmailField(blank=True, null=True)
-    organization_phone = models.CharField(max_length=15, blank=True, null=True)
-    
+    organization_phone = models.CharField(max_length=15, blank=True, null=True)    
     
     def __str__(self):
         return self.organization
+    
+    def image_tag(self):
+        if self.organization_image:
+            return mark_safe('<img src="{url}" width="{width}" height="{height}" style="object-fit: cover;" />'.format(
+                url=self.organization_image.url,
+                width=100,
+                height=100,
+            ))
+        else:
+            return None
+    image_tag.short_description = 'Image'
 
 class Event(models.Model):
     title = models.CharField(max_length=200, unique=True)
@@ -43,7 +65,17 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
-
+    
+    def image_tag(self):
+        if self.image:
+            return mark_safe('<img src="{url}" width="{width}" height="{height}" style="object-fit: cover;" />'.format(
+                url=self.image.url,
+                width=100,
+                height=100,
+            ))
+        else:
+            return None
+    image_tag.short_description = 'Image'
 
 class TicketDetails(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

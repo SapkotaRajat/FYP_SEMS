@@ -2,11 +2,16 @@
 {% load static %} 
 {% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
 {% block page_title  %}About Us{% endblock %}
+{% block menu %}
+<li><a href="{% url 'policies' %}">Policies</a></li>
+<li><a href="{% url 'specifications' %}">Specifications</a></li>
+<li><a href="{% url 'venue-booking' %}">Venue Booking</a></li>
+<li><a href="{% url 'employment' %}">Employment</a></li>
+{% endblock %}
 {% block content %}
 <section class="about">
     <div class="about-wrap">
         <div class="about-text">
-            <h2>About Sajilo Events</h2>
             <p>Sajilo Events is an advanced platform designed to facilitate seamless planning, organization, and execution of events. Built with the needs of event organizers and staff in mind, Sajilo Events offers a range of powerful features to simplify event management tasks.</p>
             <h3>Key Features:</h3>
             <ul>

@@ -1,4 +1,23 @@
 {% load static %}
+{% load custom_tags %}
+{% upcoming_events as footer_upcoming_events %}
+{% if request.path != '/' %}
+<section>
+    <div class="upcoming-events">
+        <h2>Upcoming Events</h2>
+        <div class="event-card-wrap">
+            {% if footer_upcoming_events %}
+            {% for event in footer_upcoming_events %}
+            <div class="event-card">
+                <img src="{{ event.image.url }}" alt="{{ event }}">
+                <h3>{{ event }}</h3>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
 <footer>
     <div class="wrapper">
         <div class="follow-link">

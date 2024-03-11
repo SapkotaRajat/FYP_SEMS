@@ -2,6 +2,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from django.utils.html import mark_safe
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
@@ -58,11 +59,22 @@ class CustomUser(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    bio = CKEditor5Field(null=True)
+    bio = CKEditor5Field(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='static/profile_pictures/', null=True, blank=True)
-    attended_events = models.ManyToManyField('event_management.Event', blank=True)  # Many to many relationship with Event model
-    ticket_purchases = models.ManyToManyField('ticket_purchase.Ticket', blank=True)  # Many to many relationship with Ticket model
+    attended_events = models.ManyToManyField('event_management.Event', blank=True)
+    ticket_purchases = models.ManyToManyField('ticket_purchase.Ticket', blank=True) 
     
 
     def __str__(self):
         return self.user.username   
+    
+    def image_tag(self):
+        if self.profile_picture:
+            return mark_safe('<img src="{url}" width="{width}" height="{height}" style="object-fit: cover;"/>'.format(
+                url=self.profile_picture.url,
+                width=100,
+                height=100,
+            ))
+            
+        else:
+            return None

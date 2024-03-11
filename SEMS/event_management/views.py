@@ -6,7 +6,8 @@ from django.utils import timezone
 
 def events_and_tickets(request):
     upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('date')[:3]
-    return render(request, 'events-and-tickets.html', {'upcoming_events': upcoming_events})
+    categories = Category.objects.all()
+    return render(request, 'events-and-tickets.html', {'upcoming_events': upcoming_events , 'categories': categories})
 
 def events_categories(request):
     categories = Category.objects.all()

@@ -1,0 +1,90 @@
+[
+    {
+        "model": "ticket_purchase.ticket",
+        "pk": 1,
+        "fields": {
+            "event": 1,
+            "price": 250,
+            "available_quantity": 500,
+            "ticket_description": "Join industry leaders and innovators for the latest trends in technology and entrepreneurship.",
+            "ticket_date": "2024-03-15"
+        }
+    },
+    {
+        "model": "ticket_purchase.ticket",
+        "pk": 2,
+        "fields": {
+            "event": 2,
+            "price": 100,
+            "available_quantity": 20,
+            "ticket_description": "Learn advanced photography techniques from acclaimed professionals.",
+            "ticket_date": "2024-04-05"
+        }
+    },
+    {
+        "model": "ticket_purchase.ticket",
+        "pk": 3,
+        "fields": {
+            "event": 3,
+            "price": 0,
+            "available_quantity": 100,
+            "ticket_description": "Gain insights into effective financial planning strategies for a secure future.",
+            "ticket_date": "2024-05-20"
+        }
+    },
+    {
+        "model": "ticket_purchase.ticket",
+        "pk": 4,
+        "fields": {
+            "event": 4,
+            "price": 20,
+            "available_quantity": 200,
+            "ticket_description": "Explore stunning artworks from local and international artists.",
+            "ticket_date": "2024-06-10"
+        }
+    },
+    {
+        "model": "ticket_purchase.ticket",
+        "pk": 5,
+        "fields": {
+            "event": 5,
+            "price": 0,
+            "available_quantity": 9999,
+            "ticket_description": "Indulge in a variety of delicious cuisines from food trucks across the city.",
+            "ticket_date": "2024-07-15"
+        }
+    },
+    {
+        "model": "ticket_purchase.ticket",
+        "pk": 6,
+        "fields": {
+            "event": 6,
+            "price": 50,
+            "available_quantity": 1000,
+            "ticket_description": "Enjoy live performances by top artists in pop, rock, and hip-hop.",
+            "ticket_date": "2024-08-20"
+        }
+    },
+    {
+        "model": "ticket_purchase.ticket",
+        "pk": 7,
+        "fields": {
+            "event": 7,
+            "price": 25,
+            "available_quantity": 300,
+            "ticket_description": "Participate in a fun run to raise funds for local charities.",
+            "ticket_date": "2024-09-10"
+        }
+    },
+    {
+        "model": "ticket_purchase.ticket",
+        "pk": 8,
+        "fields": {
+            "event": 8,
+            "price": 20,
+            "available_quantity": 150,
+            "ticket_description": "Connect with professionals from various industries in a relaxed atmosphere.",
+            "ticket_date": "2024-10-05"
+        }
+    }
+]

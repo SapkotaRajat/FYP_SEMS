@@ -12,6 +12,7 @@ from reportlab.lib.pagesizes import letter
 from io import BytesIO
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet
+from django.core.files import File
 
 # Create your views here.
 def ticket_purchase(request):
@@ -23,12 +24,13 @@ def buy_tickets(request, event_name):
     event = Event.objects.get(title=event_name)
     user_has_purchased_tickets = TicketPurchase.objects.filter(event=event, user=request.user).exists()
     ticket_purchases = TicketPurchase.objects.filter(event=event, user=request.user)
+    ticket_available = Ticket.objects.get(event=event).available_quantity
     # total count of the tickets purchased by the user for the event can be multiple entries in the database 
     ticket_purchased = 0 
     for ticket_purchase in ticket_purchases:
         ticket_purchased += ticket_purchase.quantity
     
-    return render(request, 'buy-tickets.html', { 'event': event, 'user_has_purchased_tickets': user_has_purchased_tickets, 'ticket_purchased': ticket_purchased})
+    return render(request, 'buy-tickets.html', { 'event': event, 'user_has_purchased_tickets': user_has_purchased_tickets, 'ticket_purchased': ticket_purchased, 'ticket_available': ticket_available})
 
 
 @login_required
@@ -73,6 +75,9 @@ def paypal_transaction_complete(request):
         img = qr.make_image(fill_color="black", back_color="white")
         img_path = f'qr_{payer_name}_{event}_{ticket}.png'  # Adjusted the file name format
         img.save(img_path)
+        # save the qr code image path to the database
+        ticket_purchase.ticket_qr.save(f'qr_{payer_name}_{order_id}_{ticket}.png', File(open(img_path, 'rb')))
+        ticket_purchase.save()
         # Generate PDF for the ticket
         pdf_content = generate_pdf(order_id, data.get('payerName'), event.title, quantity, payment_amount, event.date, event.start_time, img_path)
 

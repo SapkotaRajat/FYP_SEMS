@@ -1,7 +1,12 @@
-{% extends "profile/base.html" %}
+{% extends "base.html" %}
 {% load static %}
-{% block title %}Ticket History{% endblock %}
-{% block profile-title %}Ticket History{% endblock %}
+{% block title %}Ticket History | SEMS{% endblock %}
+{% block page_title %}Ticket History{% endblock %}
+{% block css_file_name %}{% static 'css/profile.css' %}{% endblock %}
+{% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
+{% block menu %}
+{% include 'profile/sidebar.html' %}
+{% endblock %}
 {% block content %}
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -1,6 +1,11 @@
-{% extends 'profile/base.html' %}
+{% extends 'base.html' %}
+{% load static %}
 {% block title %}Logout{% endblock %}
-{% block profile-title %}Logout{% endblock %}
+{% block profile-title %}Logout | SEMS{% endblock %}
+{% block css_file_name %}{% static 'css/profile.css' %}{% endblock %}
+{% block menu %}
+{% include 'profile/sidebar.html' %}
+{% endblock %}
 
 {% block content %}
 <div class="logout">

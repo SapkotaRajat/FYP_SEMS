@@ -1,15 +1,18 @@
-{% extends "profile/base.html" %}
+{% extends "base.html" %}
 {% load static %}
+{% block title %}Profile | SEMS{% endblock %}
+{% block page_title %}Profile{% endblock %}
 {% block css_file_name %}{% static 'css/profile.css' %}{% endblock %}
-{% block title %}Profile{% endblock %}
-{% block profile-title %}Profile{% endblock %}
+{% block menu %}
+{% include 'profile/sidebar.html' %}
+{% endblock %}
 {% block content %}
 <div class="cards">
     <div class="card">
         <div class="card-header">
             <h2>Basic Information</h2>
             <div class="edit-icon">
-                <a href="{% url 'edit_profile' %}"><img src="{% static 'assets/edit-icon.svg' %}" alt="Edit"></a>
+                <a href="{% url 'account_settings' %}"><img src="{% static 'assets/edit-icon.svg' %}" alt="Edit"></a>
             </div>
         </div>
         <div class="card-body">
@@ -33,7 +36,7 @@
         <div class="card-header">
             <h2>Basic Information</h2>
             <div class="edit-icon">
-                <a href="{% url 'edit_profile' %}"><img src="{% static 'assets/edit-icon.svg' %}" alt="Edit"></a>
+                <a href="{% url 'account_settings' %}"><img src="{% static 'assets/edit-icon.svg' %}" alt="Edit"></a>
             </div>
         </div>
         <div class="card-body">
@@ -57,3 +60,4 @@
     </div>
 </div>
 {% endblock content %}
+

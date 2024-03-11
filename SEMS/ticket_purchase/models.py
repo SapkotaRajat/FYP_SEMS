@@ -27,6 +27,7 @@ class TicketPurchase(models.Model):
     email = models.EmailField()
     payer_name = models.CharField(max_length=100)
     payee_country = models.CharField(max_length=100)
+    ticket_qr = models.FileField(upload_to='static/tickets/', null=True, blank=True)
     
     
     def __str__(self):

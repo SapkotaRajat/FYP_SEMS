@@ -5,7 +5,7 @@
 __pycache__
 db.sqlite3
 media
-
+myenv
 # Backup files # 
 *.bak 
 
@@ -27,3 +27,6 @@ pip-delete-this-directory.txt
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+#text files
+requirements.txt
+command.txt

@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block page_title  %}Employment{% endblock %}
+{% block menu %}
+<li><a href="{% url 'policies' %}">Policies</a></li>
+<li><a href="{% url 'specifications' %}">Specifications</a></li>
+<li><a href="{% url 'venue-booking' %}">Venue Booking</a></li>
+<li><a href="{% url 'employment' %}">Employment</a></li>
+{% endblock %}
+{% block content %}
+<section>
+    <h1>
+        <center style="padding: 50px 0;">
+            Welcome to Employment!
+        </center>
+    </h1>
+</section>
+{% endblock content %}

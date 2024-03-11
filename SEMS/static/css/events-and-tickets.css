@@ -24,6 +24,7 @@ body{
   margin-top: 20px;
   font-family: "Poppins", sans-serif;
 }
+  /* 
 .ticket-outlet h2,
 .upcoming-events h2 {
   font-size: 40px;
@@ -123,7 +124,7 @@ body{
 
 .upcoming-events .btn-wrap a:hover {
   background-color: #d21f1f;
-}
+} */
 
 .event-category-wrap {
   display: flex;

@@ -7,7 +7,7 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: #f1f1f1;
 }
-
+/* 
 header {
   background-color: #00be9c;
   position: fixed;
@@ -62,7 +62,7 @@ header .logo a img {
 
 .profile-details span:hover {
   color: #f3f3f3;
-}
+} */
 .modal-content {
   position: relative;
 }
@@ -155,8 +155,7 @@ header .logo a img {
 
 .content {
   width: 100%;
-  padding: 20px;
-  margin-left: 400px;
+  padding: 60px 20px;
 }
 .title {
   font-size: 32px;

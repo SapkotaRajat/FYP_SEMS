@@ -1,7 +1,12 @@
-{% extends "profile/base.html" %}
+{% extends "base.html" %}
 {% load static %}
-{% block title %}Account Settings{% endblock %}
-{% block profile-title %}Account Settings{% endblock %}
+{% block title %}Edit Profile | SEMS{% endblock %}
+{% block page_title %}Edit Profile{% endblock %}
+{% block css_file_name %}{% static 'css/profile.css' %}{% endblock %}
+{% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
+{% block menu %}
+{% include 'profile/sidebar.html' %}
+{% endblock %}
 {% block content %}
 <div class="cards">
     <div class="card">

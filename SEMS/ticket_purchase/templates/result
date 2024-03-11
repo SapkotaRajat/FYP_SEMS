@@ -1,0 +1,72 @@
+Capture result:  {id: '40W48641728136136', intent: 'CAPTURE', status: 'COMPLETED', purchase_units: Array(1), payer: {…}, …} {
+    "id": "40W48641728136136",
+    "intent": "CAPTURE",
+    "status": "COMPLETED",
+    "purchase_units": [
+      {
+        "reference_id": "default",
+        "amount": {
+          "currency_code": "USD",
+          "value": "250.00"
+        },
+        "payee": {
+          "email_address": "sajiloevents@gmail.com",
+          "merchant_id": "9RY4RKX8LHNA4"
+        },
+        "shipping": {
+          "name": {
+            "full_name": "Ellen Sapkota"
+          },
+          "address": {
+            "address_line_1": "1 Main St",
+            "admin_area_2": "San Jose",
+            "admin_area_1": "CA",
+            "postal_code": "95131",
+            "country_code": "US"
+          }
+        },
+        "payments": {
+          "captures": [
+            {
+              "id": "3CA47707634965743",
+              "status": "COMPLETED",
+              "amount": {
+                "currency_code": "USD",
+                "value": "250.00"
+              },
+              "final_capture": true,
+              "seller_protection": {
+                "status": "ELIGIBLE",
+                "dispute_categories": [
+                  "ITEM_NOT_RECEIVED",
+                  "UNAUTHORIZED_TRANSACTION"
+                ]
+              },
+              "create_time": "2024-02-20T11:40:39Z",
+              "update_time": "2024-02-20T11:40:39Z"
+            }
+          ]
+        }
+      }
+    ],
+    "payer": {
+      "name": {
+        "given_name": "Ellen",
+        "surname": "Sapkota"
+      },
+      "email_address": "sapkotaellent@gmail.com",
+      "payer_id": "KL48T279CX8FU",
+      "address": {
+        "country_code": "US"
+      }
+    },
+    "create_time": "2024-02-20T11:40:24Z",
+    "update_time": "2024-02-20T11:40:39Z",
+    "links": [
+      {
+        "href": "https://api.sandbox.paypal.com/v2/checkout/orders/40W48641728136136",
+        "rel": "self",
+        "method": "GET"
+      }
+    ]
+  }

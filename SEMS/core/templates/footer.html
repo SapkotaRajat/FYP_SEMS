@@ -8,10 +8,12 @@
         <div class="event-card-wrap">
             {% if footer_upcoming_events %}
             {% for event in footer_upcoming_events %}
+            <a href="{% url 'event-details' event_id=event.id %}">
             <div class="event-card">
                 <img src="{{ event.image.url }}" alt="{{ event }}">
                 <h3>{{ event }}</h3>
             </div>
+            </a>
             {% endfor %}
             {% endif %}
         </div>

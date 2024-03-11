@@ -4,16 +4,16 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-a{
+a {
   text-decoration: none;
 }
 /* events */
-section.events {
+section.events-landing {
   background-color: #fff;
   position: relative;
   min-height: 250px;
 }
-.events-wrap {
+.events-landing .events-wrap {
   position: absolute;
   top: -160px;
   display: flex;
@@ -25,13 +25,6 @@ section.events {
   margin: 0 auto;
   padding: 0 20px;
 }
-
-@media (max-width: 768px) {
-  .events-wrap {
-    position: relative;
-  }
-}
-
 .events-wrap .events-card {
   width: 667px;
   min-height: 320px;
@@ -44,12 +37,6 @@ section.events {
   flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-  .events .events-wrap .image,
-  .events .events-wrap .details {
-    width: 100%;
-  }
-}
 .events-wrap .image {
   width: 50%;
   height: auto;
@@ -147,7 +134,7 @@ section.events {
   width: 100px;
   height: 4px;
   background-color: #00be9c;
-  margin: 20px auto 0;
+  margin: 15px auto 0;
 }
 .event-card-wrap {
   display: flex;
@@ -206,7 +193,6 @@ section.events {
   transform: scale(1.1);
 }
 
-
 .schedule {
   background-color: #39393a;
   padding: 60px 0;
@@ -233,7 +219,7 @@ section.events {
   width: 100px;
   height: 4px;
   background-color: #00be9c;
-  margin: 20px auto 0;
+  margin: 15px auto 0;
 }
 
 .schedule-wrap p {
@@ -362,7 +348,7 @@ section.events {
   width: 100px;
   height: 4px;
   background-color: #00be9c;
-  margin: 20px auto 0;
+  margin: 15px auto 0;
 }
 
 .about-text p {
@@ -411,7 +397,7 @@ section.events {
   width: 100px;
   height: 4px;
   background-color: #00be9c;
-  margin: 20px auto 0;
+  margin: 15px auto 0;
 }
 
 .contact-wrap p {
@@ -452,8 +438,7 @@ section.events {
 
 /* Responsive */
 @media (max-width: 768px) {
-
-  .events-wrap{
+  .events-wrap {
     top: 0;
     padding: 20px;
   }
@@ -477,5 +462,13 @@ section.events {
 
   .about-text ul li {
     font-size: 16px;
+  }
+
+  .events .events-wrap .image,
+  .events .events-wrap .details {
+    width: 100%;
+  }
+  .events-wrap {
+    position: relative;
   }
 }

@@ -77,14 +77,15 @@ class Event(models.Model):
             return None
     image_tag.short_description = 'Image'
 
-class TicketDetails(models.Model):
+class TicketDetail(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     is_paid = models.BooleanField(default=False)
 
 class Attendee(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(TicketDetail, on_delete=models.CASCADE, related_name='ticket', null=True, blank=True)
 
 class StaffAssignment(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

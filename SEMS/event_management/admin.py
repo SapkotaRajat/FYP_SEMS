@@ -1,21 +1,21 @@
 from django.contrib import admin
-from .models import Category, Event, TicketDetails, Attendee, StaffAssignment, Organizer
+from .models import Category, Event, TicketDetail, Attendee, StaffAssignment, Organizer
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name','image_tag',)
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'start_time', 'end_time', 'location', 'category', 'organizer')
+    list_display = ('title', 'date', 'image_tag', 'start_time','end_time', 'location', 'category', 'organizer')
 
-@admin.register(TicketDetails)
+@admin.register(TicketDetail)
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('event', 'user', 'is_paid')
 
 @admin.register(Attendee)
 class AttendeeAdmin(admin.ModelAdmin):
-    list_display = ('user', 'event')
+    list_display = ('event', 'user', 'ticket')
 
 @admin.register(StaffAssignment)
 class StaffAssignmentAdmin(admin.ModelAdmin):
@@ -27,7 +27,7 @@ class StaffAssignmentAdmin(admin.ModelAdmin):
     
 @admin.register(Organizer)
 class OrganizerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'organization')
+    list_display = ('user', 'organization','image_tag',)
     
     def user(self, obj):
         return obj.user.username

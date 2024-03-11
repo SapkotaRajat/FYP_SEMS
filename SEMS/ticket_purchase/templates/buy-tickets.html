@@ -25,10 +25,10 @@
                 <td>Free</td>
             </tr>
             {% endif %}
-            {% if event.capacity %}
+            {% if ticket_available %}
             <tr>
                 <td><strong>Event Capacity:</strong></td>
-                <td>{{ event.capacity }} seats</td>
+                <td>{{ ticket_available }} seats</td>
             </tr>
             {% endif %}
             <tr>
@@ -67,7 +67,7 @@
             <div class="form-group">
                 <label for="quantity">Quantity:</label>
                 <!-- get the available quantity of ticket -->
-                <input type="number" name="quantity" id="quantity" min="1" max="{{ event.capacity }}" value="1"
+                <input type="number" name="quantity" id="quantity" min="1" max="{{ ticket_available }}" value="1"
                     required>
             </div>
             <!-- total price  -->

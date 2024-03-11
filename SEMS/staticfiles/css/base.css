@@ -4,21 +4,23 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
+body {
+  overflow-x: hidden;
+}
 header {
   background-color: rgba(0, 0, 0, 0.1);
   position: absolute;
   width: 100%;
   z-index: 1000;
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(5px);
 }
 header .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 20px 30px 0;
+  padding: 20px 20px 20px 0;
   max-width: 1180px;
   margin: 0 auto;
   width: 100%;
@@ -30,29 +32,45 @@ nav {
 }
 nav ul {
   display: flex;
+  gap: 25px;
   justify-content: space-between;
 }
 ul li {
   list-style: none;
-  margin-left: 20px;
 }
+
 ul li a {
   text-decoration: none;
   color: #f1f1f1;
-  font-size: 18px;
+  font-size: 20px;
   transition: all 0.3s ease;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: Inter, sans-serif;
   padding-bottom: 10px;
   position: relative;
-  border-bottom: 0 solid transparent;
+  border-bottom-style: none;
 }
-ul li a:hover {
-  border-bottom: 1px solid #00be9c;
-  transition: border-bottom 0.3s ease-in-out;
+
+header nav a::after,
+.banner-image-wrap .menu a::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 0%;
+  height: 1.5px;
+  background-color: #00be9c;
+  transition: width 0.4s ease-in-out;
+}
+
+nav ul li a:hover::after,
+.banner-image-wrap .menu a:hover::after {
+  width: 100%;
+  left: 0;
+  right: auto;
 }
 
 header .logo a img {
-  max-width: 300px;
+  max-width: 280px;
   width: 100%;
 }
 header .btn {
@@ -73,14 +91,13 @@ header .btn a {
 header .btn a:hover {
   background-color: #00a17c;
 }
-/* Hamburger menu icon */
 .menu-icon {
-  display: none; /* Hide by default on larger screens */
+  display: none;
   cursor: pointer;
   font-size: 24px;
 }
 #menu-toggle {
-  display: none; /* Hide checkbox */
+  display: none;
 }
 
 .user-profile {
@@ -89,22 +106,22 @@ header .btn a:hover {
 }
 .user-profile a {
   text-decoration: none;
-  color: #00be9c;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 }
 .user-profile a:hover .username {
-  color: grey;
+  color: #d4d4d4;
 }
 .user-profile a .username {
   font-size: 20px;
   font-weight: 400;
 }
 .profile-picture img {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -161,7 +178,7 @@ header .btn a:hover {
   justify-content: center;
   align-items: center;
   transform: translate(-50%, -50%);
-  gap: 30px;
+  gap: 40px;
 }
 .banner-image-wrap .menu ul li {
   list-style: none;
@@ -184,7 +201,6 @@ header .btn a:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
 }
-
 /* Footer */
 footer {
   background-color: #2a2a2a;
@@ -213,6 +229,18 @@ footer .wrapper {
   color: #d4d4d4;
   font-weight: 400;
 }
+
+/* scrollbar */
+/* ::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #2a2a2a;
+}
+::-webkit-scrollbar-track {
+  background-color: #fff; 
+}
+*/
 
 /* Media query for smaller screens */
 @media only screen and (max-width: 768px) {
@@ -263,7 +291,7 @@ footer .wrapper {
   }
 
   nav ul li a:hover {
-    color: rgb(0, 190, 156,0.5);
+    color: rgb(0, 190, 156, 0.5);
   }
   header .btn {
     padding: 15px 20px;
@@ -271,7 +299,7 @@ footer .wrapper {
     background-color: #00be9c;
   }
 
-  header .btn a{
+  header .btn a {
     background-color: transparent;
     padding: 0;
     margin: 0;
@@ -280,10 +308,10 @@ footer .wrapper {
     margin: 0;
     padding: 15px 20px;
   }
-  nav .user-profile a{
+  nav .user-profile a {
     justify-content: flex-start;
   }
-  nav .user-profile img{
+  nav .user-profile img {
     display: none;
   }
 
@@ -293,10 +321,10 @@ footer .wrapper {
   #menu-toggle:checked + .menu-icon ~ nav {
     display: block; /* Show menu when checkbox is checked */
   }
-  .banner-image{
+  .banner-image {
     height: 300px;
   }
-  .banner-image h1{
+  .banner-image h1 {
     font-size: 28px;
     top: calc(50% + 30px);
   }

@@ -1,8 +1,13 @@
-{% extends "profile/base.html" %}
+{% extends "base.html" %}
 {% load static %}
+{% block title %}Edit Profile | SEMS{% endblock %}
+{% block page_title %}Edit Profile{% endblock %}
 {% block css_file_name %}{% static 'css/profile.css' %}{% endblock %}
-{% block title %}Edit Profile{% endblock %}
-{% block profile-title %}Edit Profile{% endblock %}
+{% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
+{% block menu %}
+{% include 'profile/sidebar.html' %}
+{% endblock %}
+
 {% block content %}
 <div class="cards">
     <div class="card">
@@ -38,16 +43,6 @@
                 <div class="detail">
                     <label for="id_dob">Date of Birth</label>
                     <input type="date" name="dob" id="id_dob" value="{{ user.dob }}">
-                </div>
-                <!-- add profile picture -->
-                {% if user.profile_picture %}
-                <img class="profile-img-preview" src="/{{ user.profile_picture }}" alt="Profile Picture">
-                {% endif %}
-                <div class="detail">
-                    <label for="id_profile_picture">Profile Picture</label>
-                    <!-- sopports only image filetypes -->
-                    <input type="file" name="profile_picture" id="id_profile_picture" accept="image/*">
-                    <!-- if profile image exists  -->
                 </div>
                 <!-- Add more form fields as needed -->
                 <div class="btn-wrap">

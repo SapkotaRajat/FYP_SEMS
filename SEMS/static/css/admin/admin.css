@@ -1,0 +1,44 @@
+.logo {
+  box-shadow: none !important;
+}
+.brand-text{
+    color: #393939 !important;
+    font-weight: bold!important;
+}
+
+.fa-inverse {
+  color: #000000 !important;
+}
+.d-sm-inline {
+  display: none !important;
+}
+.main-footer {
+  margin: 0 auto !important;
+  text-align: center;
+}
+
+.nav-header {
+  display: none !important;
+}
+
+.field-image_tag img {
+  object-fit: cover;
+  border-radius: 4px;
+  width: 250px;
+  height: auto;
+  display: block;
+}
+.field-image_tag {
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px 0 !important;
+}
+.nav-link{
+    display: flex;
+    align-items: center;
+}
+.d-block{
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}

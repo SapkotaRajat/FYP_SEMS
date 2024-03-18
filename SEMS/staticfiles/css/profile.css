@@ -126,7 +126,7 @@ header .logo a img {
   align-items: flex-start;
   margin-top: 125px;
 }
-
+/* 
 .sidebar {
   width: 400px;
   background-color: #00be9c;
@@ -142,7 +142,7 @@ header .logo a img {
   display: block;
   padding: 15px 30px;
   color: #fff;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 300;
   text-decoration: none;
   transition: 0.5s;
@@ -151,7 +151,7 @@ header .logo a img {
 .sidebar ul li a:hover {
   background-color: #00a88f;
   color: aquamarine;
-}
+} */
 
 .content {
   width: 100%;
@@ -169,54 +169,33 @@ header .logo a img {
   display: inline-block;
   border-bottom: 4px solid #00be9c;
 }
-
-.cards {
+.main-profile{
   display: flex;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
+  gap: 20px;
   flex-wrap: wrap;
-  margin-top: 20px;
-  flex-wrap: wrap;
-  padding: 0 60px;
-  gap: 30px;
+  margin: 0 auto;
 }
-.card {
-  width: 100%;
-  margin-bottom: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  transition: 0.5s;
-  max-width: 600px;
-  width: 100%;
-  border-radius: 12px;
-  border-top: 15px solid #ef2b2b;
-  padding: 15px 25px;
+.main-profile .profile-picture img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+.profile-details{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
 }
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #272727;
-  padding: 0 8px 8px 0;
-  margin-bottom: 15px;
-}
-.card-header h2 {
-  font-size: 24px;
+.profile-details p{
+  font-size: 16px;
   font-weight: 400;
   color: #000;
-}
 
-.card-body {
-  padding: 15px 0;
-  position: relative;
-}
-
-.card-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 .detail {
   margin-right: 10px;
@@ -245,8 +224,6 @@ header .logo a img {
   font-weight: 400;
   color: #2a2a2a;
   font-size: 18px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid #2a2a2a;
   margin-bottom: 10px;
 }
 .detail input {

@@ -21,6 +21,9 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from django.http import HttpResponse
+from datetime import date, timedelta
+
 
 
 def register(request):
@@ -119,30 +122,31 @@ class CustomPasswordResetView(PasswordResetView):
 @login_required
 def change_profile_picture(request):
     try:
-        profile = request.user.userprofile  # Try to get the UserProfile instance
+        profile = request.user.userprofile
     except UserProfile.DoesNotExist:
-        profile = UserProfile(user=request.user)  # Create a new UserProfile instance if it does not exist
-
+        profile = UserProfile(user=request.user)
+    
     if request.method == 'POST':
         form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profile')  # Redirect to the profile page after successful profile picture update
+            return HttpResponse(status=204)  # Return success status code
     else:
         form = ProfilePictureForm(instance=profile)
     
     return render(request, 'profile.html', {'form': form})
-
 @login_required
 def account_settings(request):
+    min_age = date.today() - timedelta(days=365*18)
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            print(form.cleaned_data)
             return redirect('profile')
     else:
         form = UserProfileForm(instance=request.user)
-    return render(request, 'profile/account-settings.html', { 'form': form})
+    return render(request, 'profile/account-settings.html', { 'form': form , 'min_age': min_age})
 
 @login_required
 def ticket_history(request):

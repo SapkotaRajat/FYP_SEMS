@@ -7,57 +7,83 @@
 {% include 'profile/sidebar.html' %}
 {% endblock %}
 {% block content %}
-<div class="cards">
-    <div class="card">
-        <div class="card-header">
-            <h2>Basic Information</h2>
-            <div class="edit-icon">
-                <a href="{% url 'account_settings' %}"><img src="{% static 'assets/edit-icon.svg' %}" alt="Edit"></a>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="card-details">
-                <div class="detail">
-                    <p class="label">Full Name</p>
-                    <p>{{ user.first_name }} {{ user.last_name }}</p>
-                </div>
-                <div class="detail">
-                    <p class="label">Email</p>
-                    <p>{{ user.email }}</p>
-                </div>
-                <div class="detail">
-                    <p class="label">Number</p>
-                    <p>{{ user.contact_number }}</p>
-                </div>
-            </div>
-        </div>
+<div class="main-profile">
+    <div class="profile-picture">
+        <a id="profilePictureTrigger" href="#profilePictureModal">
+            <img src="{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}{% else %}{% static 'assets/profile-image-default-black.png' %}{% endif %}"
+                alt="Profile Picture">
+        </a>
     </div>
-    <div class="card">
-        <div class="card-header">
-            <h2>Basic Information</h2>
-            <div class="edit-icon">
-                <a href="{% url 'account_settings' %}"><img src="{% static 'assets/edit-icon.svg' %}" alt="Edit"></a>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="card-details">
-                <div class="detail">
-                    <p class="label">Address</p>
-                    <p>
-                        {% if user.profile.address %}
-                        {{ user.profile.address }}
-                        {% else %}
-                        Kathmandu, Nepal
-                        {% endif %}
-                    </p>
-                </div>
-                <div class="detail">
-                    <p class="label">DOB</p>
-                    <p>{{ user.dob }}</p>
-                </div>
-            </div>
-        </div>
+    <div class="profile-details">
+        <p>{{ user.first_name }} {{ user.last_name }}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.contact_number }}</p>
+        {% if user.address %}
+        <p>{{ user.address }}</p>
+        {% endif %}
+        <p>{{ user.dob }}</p>
+        <a href="{% url 'account_settings' %}">Edit Profile</a>
     </div>
 </div>
-{% endblock content %}
+<div id="profilePictureModal" class="modal">
+    <div class="modal-content">
+        <form id="profilePictureForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="profile_picture" accept="image/*" required>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</div>
+<div id="profilePictureUpdatedMessage" class="profile-picture-updated-message">
+    <i class="fas fa-check-circle"></i>
+    <span>Profile picture updated</span>
+</div>
+<script>
+    // Get the modal
+    var modal = document.getElementById("profilePictureModal");
 
+    // Get the trigger link
+    var triggerLink = document.getElementById("profilePictureTrigger");
+
+    // When the user clicks on the profile picture, open the modal
+    triggerLink.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Handle form submission
+    document.getElementById("profilePictureForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        fetch("{% url 'change_profile_picture' %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        }).then(response => {
+            if (response.ok) {
+                modal.style.display = "none";
+                // set the value as profile picture updated to local storage so that after rereshing the page, the updated profile picture updated message will be shown
+                localStorage.setItem('profilePictureUpdated', 'true');
+                location.reload(); // Refresh the page to see the updated profile picture
+            }
+        });
+    });
+    // check if the profile picture is updated and show the message to the user for 3 seconds
+    if (localStorage.getItem('profilePictureUpdated')) {
+        var profilePictureUpdatedMessage = document.getElementById('profilePictureUpdatedMessage');
+        profilePictureUpdatedMessage.style.display = 'block';
+        setTimeout(function () {
+            profilePictureUpdatedMessage.style.display = 'none';
+            localStorage.removeItem('profilePictureUpdated');
+        }, 3000);
+    }
+</script>
+{% endblock content %}

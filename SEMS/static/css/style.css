@@ -438,7 +438,7 @@ section.events-landing {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .events-wrap {
+  .events-landing .events-wrap {
     top: 0;
     padding: 20px;
   }
@@ -465,10 +465,12 @@ section.events-landing {
   }
 
   .events .events-wrap .image,
-  .events .events-wrap .details {
+  .events .events-wrap .details,
+  .events-landing .events-wrap .image,
+  .events-landing .events-wrap .details {
     width: 100%;
   }
-  .events-wrap {
+  .events-landing .events-wrap {
     position: relative;
   }
 }

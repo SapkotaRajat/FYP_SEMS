@@ -10,9 +10,6 @@
 {% block content %}
 <div class="cards">
     <div class="card">
-        <div class="card-header">
-            <h2>Edit Basic Information</h2>
-        </div>
         <div class="card-body">
             <form id="editProfileForm" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -41,7 +38,7 @@
                 <!-- dob -->
                 <div class="detail">
                     <label for="id_dob">Date of Birth</label>
-                    <input type="date" name="dob" id="id_dob" value="{{ user.dob|date:'Y-m-d' }}">
+                    <input type="date" name="dob" id="id_dob" value="{{ user.dob }}">
                 </div>
                 <!-- Add more form fields as needed -->
                 <div class="btn-wrap">
@@ -63,6 +60,30 @@
         </div>
     </div>
 </div>
+<script>
+    // Get the date input field
+    var dobInput = document.getElementById("id_dob");
+
+    // Add an event listener for input change
+    dobInput.addEventListener("change", function() {
+        var selectedDate = new Date(this.value);
+        var currentDate = new Date();
+
+        // Calculate age
+        var age = currentDate.getFullYear() - selectedDate.getFullYear();
+        var monthDiff = currentDate.getMonth() - selectedDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < selectedDate.getDate())) {
+            age--;
+        }
+
+        // Validate age
+        if (age < 16) {
+            // Disable date input field
+            this.setAttribute("disabled", "disabled");
+        }
+    });
+</script>
+
 
 <script src="{% static 'js/profile.js' %}"></script>
 {% endblock content %}

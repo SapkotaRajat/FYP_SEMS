@@ -7,8 +7,8 @@
         <div>
             <div class="profile">
                 <div class="profile-picture">
-                    <img src="{% if user.userprofile.profile_picture %}/{{ user.userprofile.profile_picture }}{% else %}{% static 'assets/rajat_sapkota.png' %}{% endif %}"
-                        alt="p_p">
+                    <img src="{% if user.userprofile.profile_picture %}/{{ user.userprofile.profile_picture }}{% else %}{% static 'assets/profile-image-default-black.png' %}{% endif %}"
+                        alt="profile picture">
                 </div>
                 <div class="profile-details">
                     <a href="{% url 'profile' %}">

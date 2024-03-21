@@ -30,6 +30,7 @@ urlpatterns = [
     path('work_history/', views.work_history, name='work_history'),
     path('download-ticket/<int:ticket_id>', views.download_ticket, name='download-ticket'),
     path('api/tickets/<int:ticket_id>/', views.get_ticket_details, name='get_ticket_details'),
+    path('update-profile/', views.update_profile, name='update_profile'),
     
     
 ]

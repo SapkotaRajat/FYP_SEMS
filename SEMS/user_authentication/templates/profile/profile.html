@@ -36,7 +36,11 @@
 </div>
 <div id="profilePictureUpdatedMessage" class="profile-picture-updated-message">
     <i class="fas fa-check-circle"></i>
-    <span>Profile picture updated</span>
+    <span>Profile picture updated successfully</span>
+</div>
+<div id="profileDetailsUpdatedMessage" class="profile-picture-updated-message">
+    <i class="fas fa-check-circle"></i>
+    <span>Profile details updated successfully</span>
 </div>
 <script>
     // Get the modal
@@ -85,5 +89,14 @@
             localStorage.removeItem('profilePictureUpdated');
         }, 3000);
     }
+    if (localStorage.getItem('profilePictureUpdated')) {
+        var profileDetailsUpdatedMessage = document.getElementById('profileDetailsUpdatedMessage');
+        profileDetailsUpdatedMessage.style.display = 'block';
+        setTimeout(function () {
+            profileDetailsUpdatedMessage.style.display = 'none';
+            localStorage.removeItem('profilePictureUpdated');
+        }, 3000);
+    }
+   
 </script>
 {% endblock content %}

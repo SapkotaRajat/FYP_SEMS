@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from .models import CustomUser
-from .forms import UserProfileForm , ProfilePictureForm
+from .forms import ProfilePictureForm
 from .models import UserProfile
 from ticket_purchase.models import TicketPurchase
 from django.http import JsonResponse
@@ -135,19 +135,44 @@ def change_profile_picture(request):
         form = ProfilePictureForm(instance=profile)
     
     return render(request, 'profile.html', {'form': form})
+
 @login_required
 def account_settings(request):
-    min_age = date.today() - timedelta(days=365*18)
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            print(form.cleaned_data)
-            return redirect('profile')
-    else:
-        form = UserProfileForm(instance=request.user)
-    return render(request, 'profile/account-settings.html', { 'form': form , 'min_age': min_age})
+    min_age = date.today() - timedelta(days=365*16)
+    return render(request, 'profile/account-settings.html', { 'min_age': min_age.strftime("%Y-%m-%d")})
 
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        # Extract form data
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        contact_number = request.POST.get('contact_number')
+        address = request.POST.get('address')
+        dob = request.POST.get('dob')
+        
+        # Get the logged-in user
+        user = request.user
+        
+        # Update user data
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.contact_number = contact_number
+        user.address = address
+        
+        
+        # Ensure dob is converted to date object
+        if dob:
+            user.dob = date.fromisoformat(dob)
+        
+        data = [first_name,last_name,email,contact_number,address,dob]
+        print(data)
+        # Save user object
+        user.save()
+        
+        return redirect('profile')  # Redirect to profile page after saving
 @login_required
 def ticket_history(request):
     # Get all ticket purchases for the current user

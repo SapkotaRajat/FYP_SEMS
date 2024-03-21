@@ -126,33 +126,6 @@ header .logo a img {
   align-items: flex-start;
   margin-top: 125px;
 }
-/* 
-.sidebar {
-  width: 400px;
-  background-color: #00be9c;
-  height: calc(100vh - 125px);
-  position: fixed;
-  transition: 0.5s;
-}
-
-.sidebar ul li {
-  list-style: none;
-}
-.sidebar ul li a {
-  display: block;
-  padding: 15px 30px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 300;
-  text-decoration: none;
-  transition: 0.5s;
-  border-bottom: 1px solid #00a88f;
-}
-.sidebar ul li a:hover {
-  background-color: #00a88f;
-  color: aquamarine;
-} */
-
 .content {
   width: 100%;
   padding: 60px 20px;
@@ -169,6 +142,15 @@ header .logo a img {
   display: inline-block;
   border-bottom: 4px solid #00be9c;
 }
+#editProfileForm{
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 .main-profile{
   display: flex;
   justify-content: center;
@@ -176,6 +158,11 @@ header .logo a img {
   gap: 20px;
   flex-wrap: wrap;
   margin: 0 auto;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .main-profile .profile-picture img {
   width: 200px;
@@ -489,4 +476,161 @@ input[type="date" i] {
   cursor: pointer;
   font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
+}
+
+/* ticket history */
+
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination a{
+  padding: 10px 15px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  transition: 0.5s;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+}
+
+.sort-ticket-form{
+  max-width: 1180px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto ;
+  padding: 0 20px;
+}
+
+.sort-ticket-form label{
+  font-size: 18px;
+  font-weight: 400;
+  color: #2a2a2a;
+
+}
+.sort-ticket-form select{
+  padding: 10px 15px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  transition: 0.5s;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+}
+
+.sort-ticket-form button{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: 0.5s;
+  text-decoration: none;
+  background-color: #00be9c;
+  color: #fff;
+  text-align: center;
+  display: block;
+}
+.cards {
+  max-width: 1180px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  width: calc(33.33% - 20px); /* Adjust the width as needed */
+}
+.card-header a {
+  text-decoration: none;
+  color: #2a2a2a;
+  font-size: 20px;
+  font-weight: 400;
+  transition: 0.5s;
+}
+
+.card-header a h2{
+  text-align: center;
+  padding-top: 20px;
+  transition: 0.5s;
+
+}
+.card-header a h2:hover {
+  color: #7e7e7e;
+}
+.card-body {
+  padding: 20px;
+}
+
+.card-body table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.card-body table th {
+  text-align: left;
+  padding: 5px;
+}
+
+.card-body table td {
+  padding: 5px;
+}
+
+.ticket-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ticket-actions a, .ticket-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.5s;
+  font-size: 16px;
+}
+
+.ticket-actions a {
+  background-color: #00be9c;
+}
+
+.ticket-actions button {
+  background-color: transparent;
+  color: #00be9c;
+  border: 1px solid #00be9c;
+}
+.ticket-actions a:hover {
+  background-color: #00a88f;
+}
+.ticket-actions button:hover{
+  background-color: #fff;
+}
+
+.status {
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #17b824; /* Change color as needed */
 }

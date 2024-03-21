@@ -1,7 +1,12 @@
-{% extends "profile/base.html" %}
+{% extends "base.html" %}
 {% load static %}
-{% block title %}Attended Events{% endblock %}
-{% block profile-title %}Attended Events{% endblock %}
+{% block title %}Attended Events | SEMS{% endblock %}
+{% block page_title %}Attended Events{% endblock %}
+{% block css_file_name %}{% static 'css/profile.css' %}{% endblock %}
+{% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
+{% block menu %}
+{% include 'profile/sidebar.html' %}
+{% endblock %}
 {% block content %}
 
 {% if events %}

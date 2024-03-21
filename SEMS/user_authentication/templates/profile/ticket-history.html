@@ -19,7 +19,7 @@
     {% endif %}
 </div>
 
-<form method="GET">
+<form method="GET" class="sort-ticket-form">
     <label for="sort_by">Sort by:</label>
     <select name="sort_by">
         <option value="date">Date</option>
@@ -28,14 +28,14 @@
     </select>
     <button type="submit">Sort</button>
 </form>
-
 <div class="cards">
     {% for event_id, ticket_purchases in grouped_ticket_purchases.items %}
     {% for ticket_purchase in ticket_purchases %}
     <div class="card">
         <div class="card-header">
-            <h2>{{ ticket_purchase.event.title }}</h2>
-            <span class="status">{{ ticket_purchase.status }}</span>
+            <a href="{% url 'event-details' ticket_purchase.event.id %}">
+                <h2>{{ ticket_purchase.event.title }}</h2>
+            </a>
         </div>
         <div class="card-body">
             <table class="ticket-history-table">
@@ -67,15 +67,17 @@
                 </tbody>
             </table>
             <div class="ticket-actions">
-                <a href="{% url 'event-details' ticket_purchase.event.id %}">View Event</a>
-                <a href="{% url 'download-ticket' ticket_purchase.id %}">Download Ticket</a>
-                <button onclick="showTicketDetails({{ ticket_purchase.id }})">View Details</button>
+                <a href="{% url 'download-ticket' ticket_purchase.id %}">
+                    Download Ticket</a>
+                <button onclick="showTicketDetails({{ ticket_purchase.id }})">
+                    View Details</button>
             </div>
         </div>
     </div>
     {% endfor %}
     {% endfor %}
 </div>
+
 <div id="ticket-details-modal" class="modal" style="display: none;">
     <!-- Modal content will be added here using JavaScript -->
 </div>

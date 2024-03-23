@@ -8,20 +8,20 @@ body {
   overflow-x: hidden;
 }
 header {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   width: 100%;
   z-index: 1000;
   transition: all 0.3s ease;
   backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
 }
 header .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px 20px 0;
-  max-width: 1180px;
+  max-width: 1240px;
   margin: 0 auto;
   width: 100%;
 }
@@ -41,10 +41,10 @@ ul li {
 
 ul li a {
   text-decoration: none;
-  color: #f1f1f1;
+  color: #fff;
   font-size: 18px;
   transition: all 0.3s ease;
-  font-family: Inter, sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   padding-bottom: 10px;
   position: relative;
   border-bottom-style: none;
@@ -78,6 +78,7 @@ header .btn {
   cursor: pointer;
 }
 header .btn a {
+  font-family: "Roboto Condensed", sans-serif;
   transition: all 0.3s ease;
   border-radius: 50px;
   font-weight: 500;
@@ -115,9 +116,10 @@ header .btn a:hover {
 .user-profile a:hover .username {
   color: #d4d4d4;
 }
-.user-profile a .username {
+.user-profile a .username span {
   font-size: 18px;
   font-weight: 400;
+  font-family: "Roboto Condensed", sans-serif;
 }
 .profile-picture img {
   width: 40px;
@@ -153,8 +155,8 @@ header .btn a:hover {
   transform: translate(-50%, -50%);
   color: #fff;
   font-size: 40px;
-  font-weight: 700;
-  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 500;
+  font-family: "Roboto Condensed", sans-serif;
   text-align: center;
   width: 100%;
 }

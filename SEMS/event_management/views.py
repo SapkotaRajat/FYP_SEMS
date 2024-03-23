@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Event , Organizer
 from django.utils import timezone
+from django.db.models import Count
 # Create your views here.
 
 def events_and_tickets(request):
@@ -10,7 +11,8 @@ def events_and_tickets(request):
     return render(request, 'events-and-tickets.html', {'upcoming_events': upcoming_events , 'categories': categories})
 
 def events_categories(request):
-    categories = Category.objects.all()
+    # return categories in descending order by number of events
+    categories = Category.objects.annotate(num_events=Count('event')).order_by('-num_events')
     return render(request, 'events-categories.html', {'categories': categories})
 
 def event_details(request, event_id):

@@ -501,7 +501,7 @@ input[type="date" i] {
 }
 
 .sort-ticket-form{
-  max-width: 1180px;
+  max-width: 1240px;
   width: 100%;
   display: flex;
   justify-content: end;
@@ -544,10 +544,10 @@ input[type="date" i] {
   display: block;
 }
 .cards {
-  max-width: 1180px;
+  max-width: 1240px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 20px;
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -569,8 +569,7 @@ input[type="date" i] {
 }
 
 .card-header a h2{
-  text-align: center;
-  padding-top: 20px;
+  padding: 20px 20px 0 25px;
   transition: 0.5s;
 
 }

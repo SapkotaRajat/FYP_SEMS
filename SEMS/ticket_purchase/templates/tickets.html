@@ -9,28 +9,27 @@
 <li><a href="{% url 'tickets' %}">Tickets</a></li>
 {% endblock %}
 {% block content %}
-<section class="ticket-purchase-wrap">
-    <div class="ticket-list">
-        {% if tickets %}
-        <ul>
-            {% for ticket in tickets %}
-            <li>
-                <h3>{{ ticket.event.title }}</h3>
-                <p>Date: {{ ticket.event.date }}</p>
-                <p>Time: {{ ticket.event.start_time }} - {{ ticket.event.end_time }}</p>
-                <p>Location: {{ ticket.event.location }}</p>
-                <p>Ticket Price: ${{ ticket.price }}</p>
-                <p>Ticket Availability: {% if ticket.available_quantity %}Available{% else %}Sold Out{% endif %}</p>
-                <div class="ticket-actions">
-                    <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
-                    <a href="{% url 'event-details' ticket.event.id %}" class="view-event-btn">View Event</a>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>No tickets available at the moment.</p>
-        {% endif %}
+<section class="ticket-container">
+    {% if tickets %}
+    {% for ticket in tickets %}
+    <div class="ticket-wrap">
+        <div class="tickets">
+            <div class="overlay"></div>
+            <h3>{{ ticket.event.title }}</h3>
+            <p>Date: {{ ticket.event.date }}</p>
+            <p>Time: {{ ticket.event.start_time }} - {{ ticket.event.end_time }}</p>
+            <p>Location: {{ ticket.event.location }}</p>
+            <p>Ticket Price: ${{ ticket.price }}</p>
+            <p>Ticket Availability: {% if ticket.available_quantity %}Available{% else %}Sold Out{% endif %}</p>
+        </div>
+        <div class="ticket-actions">
+            <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
+            <a href="{% url 'event-details' ticket.event.id %}" class="view-event-btn">View Event</a>
+        </div>
     </div>
+    {% endfor %}
+    {% else %}
+    <p class="no-ticket-info">No tickets available at the moment.</p>
+    {% endif %}
 </section>
 {% endblock %}

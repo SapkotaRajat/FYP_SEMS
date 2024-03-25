@@ -27,6 +27,9 @@
 </div>
 <div id="profilePictureModal" class="modal">
     <div class="modal-content">
+        <span class="close">&times;</span>
+        <img src="{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}{% else %}{% static 'assets/profile-image-default-black.png' %}{% endif %}"
+            alt="Profile Picture">
         <form id="profilePictureForm" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file" name="profile_picture" accept="image/*" required>
@@ -49,6 +52,14 @@
     // Get the trigger link
     var triggerLink = document.getElementById("profilePictureTrigger");
 
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
     // When the user clicks on the profile picture, open the modal
     triggerLink.onclick = function () {
         modal.style.display = "block";
@@ -60,6 +71,7 @@
             modal.style.display = "none";
         }
     }
+
 
     // Handle form submission
     document.getElementById("profilePictureForm").addEventListener("submit", function (event) {
@@ -97,6 +109,6 @@
             localStorage.removeItem('profilePictureUpdated');
         }, 3000);
     }
-   
+
 </script>
 {% endblock content %}

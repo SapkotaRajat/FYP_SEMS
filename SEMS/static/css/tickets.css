@@ -1,11 +1,15 @@
-.ticket-purchase-wrap {
-  max-width: 1580px;
+.ticket-container {
+  max-width: 1240px;
   width: 100%;
   margin: 60px auto;
   padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
-.ticket-purchase-wrap h2 {
+
+.ticket-container h2 {
   font-size: 28px;
   font-weight: 600;
   line-height: 1.3;
@@ -15,56 +19,38 @@
   margin-bottom: 40px;
 }
 
-.ticket-purchase-wrap h2::after {
-  content: "";
-  display: block;
-  width: 100px;
-  height: 4px;
-  background-color: #00be9c;
-  margin: 4px auto 0;
+.ticket-wrap {
+  width: calc(50% - 20px);
+  position: relative;
+  color: #f9f9f9;
 }
 
-.ticket-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding-bottom: 40px;
-}
-
-.ticket-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  justify-content: center;
-}
-
-.ticket-list ul li {
-  padding: 25px;
-  border: 1px solid #e0e0e0;
+.tickets{
+  position: relative;
+  padding: 30px;
   border-radius: 5px;
-  max-width: 350px;
-  width: 100%;
-  margin-left: 0;
-  box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  overflow: hidden;
 }
 
-.ticket-list ul li h3 {
-  margin-bottom: 15px;
+.ticket-wrap:nth-child(odd) .tickets {
+  background-color: #ff4646;
+  color: #272727;
+}
+.ticket-wrap:nth-child(even) .tickets {
+  background-color:#fc892a;
+}
+
+.tickets h3 {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  margin-bottom: 10px;
+  position: relative;
 }
 
-.ticket-list ul li p {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.4;
+.tickets p {
+  font-size: 18px;
+  position: relative;
+  line-height: 1.5;
 }
 
 .ticket-actions {
@@ -72,6 +58,7 @@
   align-items: center;
   margin-top: 20px;
   gap: 10px;
+  position: relative;
 }
 
 .ticket-actions a {
@@ -84,14 +71,21 @@
 }
 
 .buy-ticket-btn {
-  background-color: #00be9c;
 }
 .view-event-btn {
-  background-color: #fff;
-  color: #00be9c;
 }
 
-.buy-ticket-btn:hover {
-  background-color: #00a88f;
-  color: #fff;
+
+.no-ticket-info{
+  text-align: center;
+  font-size: 20px;
+  color: #272727;
+  margin-top: 20px;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .ticket-wrap {
+    width: 100%;
+  }
 }

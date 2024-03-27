@@ -25,7 +25,16 @@ from django.http import HttpResponse
 from datetime import date, timedelta
 
 
+def redirect_if_logged_in(view_func):
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            # If user is logged in, redirect to home page or any other desired page
+            return redirect('home')  # Change 'home' to the name of your home page URL
+        else:
+            return view_func(request, *args, **kwargs)
+    return wrapper
 
+@redirect_if_logged_in
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -47,6 +56,7 @@ def register(request):
 
     return render(request, 'register.html', {'form': form})
 
+@redirect_if_logged_in
 def login_request(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -57,6 +67,10 @@ def login_request(request):
             
             if user is not None:
                 login(request, user)
+                next_page = request.GET.get('next')
+                print(next_page)
+                if next_page:
+                    return redirect(next_page)
                 return redirect('profile')
             else:
                 messages.error(request, 'Authentication failed')

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
+{% block page_title %}Sajilo Events Staff Application{% endblock %}
+{% block menu %}
+<li><a href="{% url 'policies' %}">Policies</a></li>
+<li><a href="{% url 'specifications' %}">Specifications</a></li>
+<li><a href="{% url 'venue-booking' %}">Venue Booking</a></li>
+<li><a href="{% url 'employment' %}">Employment</a></li>
+{% endblock %}
+{% block content %}
+<section class="main-section">
+    <div class="main-container">
+        <div class="main-content success-text">
+            <!-- success page -->
+            <h2>Thank you for your application!</h2>
+            <p>We have received your application and will be in touch with you shortly.</p>
+        </div>
+    </div>
+</section>
+{% endblock content %}

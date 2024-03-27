@@ -1,10 +1,50 @@
-{% extends "base.html" %} 
-{% load static %} 
-{% block page_title  %}Plan Your Visit{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %}Plan Your Visit{% endblock %}
 {% block content %}
-<section>
-    <h1>
-        Welcome to Plan Your Visit!
-    </h1>
+<section class="main-section">
+    <div class="main-container">
+        <div class="main-content application-form">
+            <p>Thank you for your interest in visiting Sajilo Events Management Services. We are excited to welcome you
+                to our venue. Please fill out the form below to schedule your visit.</p>
+            <form method="post" class="visit-form">
+                {% csrf_token %}
+                <div class="visit-form-contents">
+                    <div class="form-group">
+                        <label for="first-name">First Name <span class="required-text">*</span></label>
+                        <input type="text" id="first-name" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name <span class="required-text">*</span></label>
+                        <input type="text" id="last-name" name="last_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email <span class="required-text">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-number">Contact Number <span class="required-text">*</span></label>
+                        <input type="tel" id="contact-number" name="contact_number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="visit-date">Visit Date <span class="required-text">*</span></label>
+                        <input type="date" id="visit-date" name="visit_date" required min="{{ today }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="visit-time">Visit Time <span class="required-text">*</span></label>
+                        <input type="time" id="visit-time" name="visit_time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </section>
+
 {% endblock content %}

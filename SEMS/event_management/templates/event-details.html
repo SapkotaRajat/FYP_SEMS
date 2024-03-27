@@ -88,7 +88,7 @@
                     {% if event.food_and_beverage %}
                     <tr>
                         <td><strong>Food and Beverage:</strong></td>
-                        <td>{{ event.food_and_beverage }}</td>
+                        <td>{{ event.food_and_beverage|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.rules_and_regulations %}

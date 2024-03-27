@@ -119,7 +119,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/login/#title'
 
 
 # Internationalization
@@ -154,7 +154,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # Use the appropriate port for your SMTP server
 EMAIL_USE_TLS = True  # Set to False if your server doesn't use TLS
 EMAIL_HOST_USER = 'sapkotarajat59@gmail.com'
-EMAIL_HOST_PASSWORD = 'mudi svos idef zigm'
+EMAIL_HOST_PASSWORD = 'crmy jbbl mdzn zxpa'
 
 AUTH_USER_MODEL = 'user_authentication.CustomUser'
 
@@ -324,6 +324,9 @@ JAZZMIN_SETTINGS = {
         'Event_Management.Organizer': 'fas fa-user-tie',
         'Event_Management.StaffAssignment': 'fas fa-user-tag',
         'Event_Management.TicketDetail': 'fas fa-ticket-alt',
+        'core.StaffApplication': 'fas fa-user-tag',
+        'core.PositionsCategory': 'fas fa-folder-open',
+        'core.Positions': 'fas fa-user-tie',
         
         
     },

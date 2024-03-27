@@ -3,34 +3,35 @@
 {% block css_file_name %}{% static 'css/forms.css' %}{% endblock %}
 {% block page_title %}Login{% endblock %}
 {% block content %}
-<form method="post" class="login-form">
-    <h2>User Login</h2>
-    {% csrf_token %}
-    <div class="login-form-contents">
-        <div class="input-wrapper">
-            {{ login_form.username }}
-        </div>
-        <div class="input-wrapper">
-            {{ login_form.password }}
-        </div>
-        <a href="{% url 'password_reset' %}" class="forgot-password">Forgot Password?</a>
-        <div class="input-wrapper">
-            <button type="submit" >Login</button>
-        </div>
-        <p class="register-account">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-        {% if messages %}
-        <div class="error-msg">
-            {% for message in messages %}
-            {% if message.tags == 'success' %}
-            <p class="{{ message.tags }} err-center">{{ message }}</p>
+<div id="login">
+    <form method="post" class="login-form" action="{% url 'login' %}?next={{ request.GET.next }}">
+        <h2>User Login</h2>
+        {% csrf_token %}
+        <div class="login-form-contents">
+            <div class="input-wrapper">
+                {{ login_form.username }}
+            </div>
+            <div class="input-wrapper">
+                {{ login_form.password }}
+            </div>
+            <a href="{% url 'password_reset' %}" class="forgot-password">Forgot Password?</a>
+            <div class="input-wrapper">
+                <button type="submit">Login</button>
+            </div>
+            <p class="register-account">Don't have an account? <a href="{% url 'register' %}#title">Register</a></p>
+            {% if messages %}
+            <div class="error-msg">
+                {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <p class="{{ message.tags }} err-center">{{ message }}</p>
+                {% endif %}
+                {% if message.tags == 'error' %}
+                <p class="{{ message.tags }} err-center">{{ message }}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
             {% endif %}
-            {% if message.tags == 'error' %}
-            <p class="{{ message.tags }} err-center">{{ message }}</p>
-            {% endif %}
-            {% endfor %}
         </div>
-        {% endif %}
-    </div>
-</form>
-
+    </form>
+</div>
 {% endblock %}

@@ -1,6 +1,7 @@
-{% extends "base.html" %} 
-{% load static %} 
-{% block page_title  %}Employment{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
+{% block page_title %}Employment{% endblock %}
 {% block menu %}
 <li><a href="{% url 'policies' %}">Policies</a></li>
 <li><a href="{% url 'specifications' %}">Specifications</a></li>
@@ -8,11 +9,32 @@
 <li><a href="{% url 'employment' %}">Employment</a></li>
 {% endblock %}
 {% block content %}
-<section>
-    <h1>
-        <center style="padding: 50px 0;">
-            Welcome to Employment!
-        </center>
-    </h1>
+<section class="main-section">
+    <div class="main-container">
+        <div class="main-content">
+            <p>Sajilo Events is dedicated to providing exceptional event experiences, and we're looking for dynamic
+                individuals
+                to join our team on a part-time basis. Here are the positions available for part-time "on-call"
+                employment:</p>
+            <p>
+                If you're passionate about events and thrive in a dynamic environment, we invite you to join the Sajilo
+                Events
+                team. Click <a class="custom-link" href="{% url 'staff-application' %}">here</a> to apply and become a part of our exciting
+                journey in delivering
+                unforgettable event
+                experiences!
+            </p>
+            {% if categories %}
+            {% for category in categories %}
+            <h3>{{ category }}:</h3>
+            <ul>
+                {% for position in category.positions.all %}
+                <li><em>{{ position.position }}:</em><br>{{ position.position_description|striptags }}</li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 </section>
 {% endblock content %}

@@ -1,7 +1,7 @@
-{% extends "base.html" %} 
-{% load static %} 
+{% extends "base.html" %}
+{% load static %}
 {% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
-{% block page_title  %}About Us{% endblock %}
+{% block page_title %}About Us{% endblock %}
 {% block menu %}
 <li><a href="{% url 'policies' %}">Policies</a></li>
 <li><a href="{% url 'specifications' %}">Specifications</a></li>
@@ -9,22 +9,35 @@
 <li><a href="{% url 'employment' %}">Employment</a></li>
 {% endblock %}
 {% block content %}
-<section class="about">
-    <div class="about-wrap">
-        <div class="about-text">
-            <p>Sajilo Events is an advanced platform designed to facilitate seamless planning, organization, and execution of events. Built with the needs of event organizers and staff in mind, Sajilo Events offers a range of powerful features to simplify event management tasks.</p>
+<section class="main-section">
+    <div class="main-container">
+        <div class="main-content">
+            <p>Sajilo Events is an advanced platform designed to facilitate seamless planning, organization, and
+                execution of events. Built with the needs of event organizers and staff in mind, Sajilo Events offers a
+                range of powerful features to simplify event management tasks.</p>
             <h3>Key Features:</h3>
             <ul>
-                <li>User Authentication and Authorization: Implement secure user authentication and authorization mechanisms to ensure that only authorized personnel can access sensitive data and functionalities within the system.</li>
-                <li>Event Creation and Management: Enable event organizers to create and manage events effortlessly. This includes functionalities for setting event details such as date, time, location, and description, as well as managing event-related tasks and resources.</li>
-                <li>Staff and Volunteer Management: Provide tools for assigning tasks, scheduling shifts, and communicating with staff and volunteers. Streamline the coordination process to ensure that everyone involved in the event is well-informed and organized.</li>
-                <li>Registration and Ticketing: Implement registration and ticketing functionalities to allow attendees to register for events and purchase tickets online. Enable event organizers to track registrations, manage attendee data, and generate event passes.</li>
+                <li>User Authentication and Authorization: Implement secure user authentication and authorization
+                    mechanisms to ensure that only authorized personnel can access sensitive data and functionalities
+                    within the system.</li>
+                <li>Event Creation and Management: Enable event organizers to create and manage events effortlessly.
+                    This includes functionalities for setting event details such as date, time, location, and
+                    description, as well as managing event-related tasks and resources.</li>
+                <li>Staff and Volunteer Management: Provide tools for assigning tasks, scheduling shifts, and
+                    communicating with staff and volunteers. Streamline the coordination process to ensure that everyone
+                    involved in the event is well-informed and organized.</li>
+                <li>Registration and Ticketing: Implement registration and ticketing functionalities to allow attendees
+                    to register for events and purchase tickets online. Enable event organizers to track registrations,
+                    manage attendee data, and generate event passes.</li>
             </ul>
             <h3>Why Choose Sajilo Events?</h3>
             <ul>
-                <li>Efficiency: Sajilo Events streamlines event management tasks, saving time and effort for organizers and staff.</li>
-                <li>Accessibility: The platform is designed to be user-friendly and accessible, making it easy for users of all skill levels to navigate and utilize its features.</li>
-                <li>Scalability: Whether organizing a small-scale workshop or a large-scale conference, Sajilo Events scales to accommodate events of all sizes and complexities.</li>
+                <li>Efficiency: Sajilo Events streamlines event management tasks, saving time and effort for organizers
+                    and staff.</li>
+                <li>Accessibility: The platform is designed to be user-friendly and accessible, making it easy for users
+                    of all skill levels to navigate and utilize its features.</li>
+                <li>Scalability: Whether organizing a small-scale workshop or a large-scale conference, Sajilo Events
+                    scales to accommodate events of all sizes and complexities.</li>
             </ul>
         </div>
     </div>

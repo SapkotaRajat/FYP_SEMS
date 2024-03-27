@@ -30,11 +30,10 @@
         {% endfor %}
         <!-- No events available -->
     </div>
-    {% endif %}
-
+    {% else %}
     <p class="not-available"><i class="fas fa-exclamation-circle"></i> No events available at the moment in this
         category<a href="{% url 'events-categories' %}" class="primary-btn">Back to Categories</a></p>
-
+    {% endif %}
 </section>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

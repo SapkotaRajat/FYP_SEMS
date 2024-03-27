@@ -10,7 +10,6 @@
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'events-categories' %}">Events & Tickets</a></li>
-                <li><a href="{% url 'plan-your-visit' %}">Plan Your Visit</a></li>
                 <li><a href="{% url 'about-us' %}">About Us</a></li>
             </ul>
             {% if user.is_authenticated %}
@@ -29,7 +28,7 @@
             </div>
             {% else %}
             <div class="btn">
-                <a href="{% url 'login' %}">Sign in</a>
+                <a href="{% url 'login' %}#title">Sign in</a>
             </div>
             {% endif %}
         </nav>

@@ -40,6 +40,7 @@ def ticket_purchase_success(request):
 @login_required
 def paypal_transaction_complete(request):
     if request.method == 'POST':
+        user = request.user
         data = json.loads(request.body)
         order_id = data.get('orderID')
         payment_amount = data.get('paymentAmount')
@@ -79,11 +80,11 @@ def paypal_transaction_complete(request):
         ticket_purchase.ticket_qr.save(f'qr_{payer_name}_{order_id}_{ticket}.png', File(open(img_path, 'rb')))
         ticket_purchase.save()
         # Generate PDF for the ticket
-        pdf_content = generate_pdf(order_id, data.get('payerName'), event.title, quantity, payment_amount, event.date, event.start_time, img_path)
+        pdf_content = generate_pdf(order_id, user.first_name, event.title, quantity, payment_amount, event.date, event.start_time, img_path)
 
         # Send an email to the user
         subject = 'Thank You for Your Purchase with Sajilo Events!'
-        message = f'Dear {data.get('payerName')},\n\nThank you for choosing Sajilo Events for your ticket purchase. Your support means a lot to us.\n\n' \
+        message = f'Dear {user.first_name},\n\nThank you for choosing Sajilo Events for your ticket purchase. Your support means a lot to us.\n\n' \
                     f'We are pleased to confirm your successful purchase for the following event:\n\n' \
                     f'Event: {event.title}\n' \
                     f'Date: {event.date}\n' \
@@ -102,6 +103,7 @@ def paypal_transaction_complete(request):
         email.content_subtype = 'plain'
         email.attach(f'purchase_{order_id}.pdf', pdf_content, 'application/pdf')
         email.send()
+        print('Email sent successfully')
 
         # Clean up: remove the generated QR code and PDF files
         os.remove(img_path)

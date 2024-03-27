@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
+{% block page_title %}Sajilo Events Staff Application{% endblock %}
+{% block menu %}
+<li><a href="{% url 'policies' %}">Policies</a></li>
+<li><a href="{% url 'specifications' %}">Specifications</a></li>
+<li><a href="{% url 'venue-booking' %}">Venue Booking</a></li>
+<li><a href="{% url 'employment' %}">Employment</a></li>
+{% endblock %}
+{% block content %}
+<section class="main-section">
+    <div class="main-container staff-application">
+        <!-- Sajilo Events Staff Application -->
+        <h2 class="title">Sajilo Events Staff Application</h2>
+        <p class="thank-you-text">Thank you for your interest in joining the Sajilo Events team! Please fill out the
+            form below to apply
+            for a part-time "on-call" position.</p>
+        <div class="application-form">
+            <form action="{% url 'staff-application' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="position-desired">Position(s) Desired <span class="required-text">*</span></label>
+
+                    <select id="position-desired" name="position_desired" required>
+                        <option value="" disabled selected>Select One</option>
+                        {% if positions %}
+                        {% for position in positions %}
+                        <option value="{{ position }}">{{ position }}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+
+                </div>
+                <div class="form-group column-left">
+                    <label for="first-name">First Name <span class="required-text">*</span></label>
+                    <input type="text" id="first-name" name="first_name" required>
+                </div>
+                <div class="form-group column-right">
+                    <label for="last-name">Last Name <span class="required-text">*</span></label>
+                    <input type="text" id="last-name" name="last_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address <span class="required-text">*</span></label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="street_address">Street Address </label>
+                    <input type="text" id="street_address" name="street_address">
+                </div>
+                <div class="form-group">
+                    <label for="address_line_2">Address Line 2</label>
+                    <input type="text" id="address_line_2" name="address_line_2">
+                </div>
+                <div class="form-group column-left">
+                    <label for="city">City <span class="required-text">*</span></label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group column-right">
+                    <label for="state">State / Province / Region <span class="required-text">*</span></label>
+                    <input type="text" id="state" name="state" required autocomplete="address-level1">
+                </div>                
+                <div class="form-group column-left">
+                    <label for="zip_postal_code">Zip / Postal Code <span class="required-text">*</span></label>
+                    <input type="text" id="zip_postal_code" name="zip_postal_code" required>
+                </div>
+                <div class="form-group column-right">
+                    <label for="country">Country <span class="required-text">*</span></label>
+                    <input type="text" id="country" name="country" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required-text">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone <span class="required-text">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="referred_by">Referred By</label>
+                    <input type="text" id="referred_by" name="referred_by">
+                </div>
+
+                <div class="form-group">
+                    <!-- Have you ever been convicted of a crime other than a minor traffic violation?(Required)-->
+                    <label for="convicted">Have you ever been convicted of a crime other than a minor traffic
+                        violation? <span class="required-text">*</span></label>
+                    <div class="radio-input">
+                        <input type="radio" id="yes" name="convicted" value="yes" required>
+                        <label for="yes">Yes</label>
+                        <input type="radio" id="no" name="convicted" value="no" required>
+                        <label for="no">No</label>
+                    </div>
+                </div>
+                <div class="form-group" style="display: none;" id="convicted-explanation-wrap">
+                    <label for="convicted-explanation">If yes, please explain <span
+                            class="required-text">*</span></label>
+                    <textarea id="convicted-explanation" name="convicted_explanation"></textarea>
+                </div>
+                <p class="form-info-text">
+                    Disclosure of a criminal record will not necessarily disqualify you from employment consideration.
+                    Each offense will be evaluated on its own with respect to time, circumstance and seriousness in
+                    relationship to the job for which you are applying.
+                </p>
+                <h2>
+                    Education
+                </h2>
+                <div class="triple-column-wrap">
+                    <div class="form-group column-triple">
+                        <label for="school-name">School Name <span class="required-text">*</span></label>
+                        <input type="text" id="school-name" name="school_name" required>
+                    </div>
+                    <div class="form-group column-triple">
+                        <label for="highest-grade-completed">Highest Grade Completed <span
+                                class="required-text">*</span></label>
+                        <input type="text" id="highest-grade-completed" name="highest_grade_completed" required>
+                    </div>
+                    <div class="form-group column-triple">
+                        <label for="graduate">Graduate <span class="required-text">*</span></label>
+                        <div class="radio-input">
+                            <input type="radio" id="yes" name="graduate" value="yes" required>
+                            <label for="yes">Yes</label>
+                            <input type="radio" id="no" name="graduate" value="no" required>
+                            <label for="no">No</label>
+                        </div>
+                    </div>
+                </div>
+                <h2>
+                    Consent
+                </h2>
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="consent" name="consent" required>
+                    <label for="consent">I certify that the information contained in this application is true and
+                        complete to the best of my knowledge and understand that any false information may result in
+                        disqualification from employment consideration or termination of employment.</label>
+                </div>
+                <!-- Resume upload -->
+                <div class="form-group column-left">
+                    <label for="resume">Upload Resume <span class="required-text">*</span></label>
+                    <input type="file" id="resume" name="resume" required file-accept=".pdf,.doc,.docx">
+                    <p>
+                        Maximum file size: 2MB
+                    </p>
+                </div>
+                <div class="form-group column-right">
+                    <!-- class schdule -->
+                    <label for="class-schedule">Class Schedule</label>
+                    <input type="file" id="class-schedule" name="class_schedule" required file-accept=".pdf,.doc,.docx">
+                    <p>
+                        Maximum file size: 2MB
+                    </p>
+                </div>
+                <!-- submit -->
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // If the user selects yes in convicted then only show the convicted explanation
+        const convictedExplanation = document.getElementById('convicted-explanation-wrap');
+        // make the textarea required if the user selects yes
+        const convictedExplanationTextarea = document.getElementById('convicted-explanation');
+        const convictedYes = document.getElementById('yes');
+        const convictedNo = document.getElementById('no');
+        convictedYes.addEventListener('click', () => {
+            convictedExplanation.style.display = 'flex';
+            convictedExplanationTextarea.required = true;
+        });
+        convictedNo.addEventListener('click', () => {
+            convictedExplanation.style.display = 'none';
+            convictedExplanationTextarea.required = false;
+        });
+
+
+    </script>
+</section>
+
+{% endblock content %}

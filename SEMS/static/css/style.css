@@ -388,14 +388,15 @@ h3 {
 .custom-link:hover{
   color: #00a17c;
 }
-.success-text{
+.text-align-center{
   text-align: center;
-  line-height: 1.5;
 }
 .success-text h2{
   font-size: 32px;
   font-weight: 600;
   margin-bottom: 20px;
+  
+  line-height: 1.5;
 }
 .success-text p{
   font-size: 18px;
@@ -403,6 +404,7 @@ h3 {
   font-weight: 400;
   letter-spacing: 0.5px;
   line-height: 1.5;
+
 }
 .success-text h2::after {
   display: none;
@@ -607,6 +609,72 @@ button[type="submit"]{
   color: #e95656;
   margin-bottom: 20px;
 }
+/* Style the button that toggles the collapsible content */
+.collapsible {
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  width: 100%;
+  text-align: left;
+  padding: 15px;
+  border-bottom: 1px solid #ffffff;
+  transition: background-color 0.3s ease;
+  gap: 10px;
+  justify-content: space-between;
+
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.collapsible-content {
+  display: none;
+  overflow: hidden;
+  padding: 10px 15px;
+}
+
+/* Style the collapsible content when it is open */
+
+.collapsible-content.active {
+  display: block;
+}
+
+
+/* staff-profile */
+.staff-profile table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.staff-profile table th{
+  background-color: #535353;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+.staff-profile table td{
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
+}
+.staff-profile table tr:nth-child(even){
+  background-color: #f1f1f1;
+}
+.staff-profile table tr:nth-child(odd){
+  background-color: #fff;
+}
+.staff-profile table tr:hover{
+  background-color: #f1f1f1;
+}
+
+.staff-profile table tr td:last-child a{
+  color: #00be9c;
+  text-decoration: underline;
+}
+.staff-profile table tr td:last-child a:hover{
+  color: #00a17c;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .events-landing .events-wrap {
@@ -648,5 +716,12 @@ button[type="submit"]{
   .column-left,
   .column-right {
     width: 100%;
+  }
+  .details h3 {
+    font-size: 28px;
+  }
+  .schedule-btn-wrap a {
+    padding: 12px 20px;
+    font-size: 16px;
   }
 }

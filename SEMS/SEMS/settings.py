@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-3mmza4q5(^4@$73jl$6^!_x2s@+(s^xg1d@4hns0k0el2d^=jj
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.101.6','127.0.0.1','192.168.101.8','192.168.101.7','localhost','192.168.101.5',
+    '192.168.101.6','127.0.0.1','192.168.101.8','192.168.101.9','localhost','192.168.101.5',
 ]
 
 SITE_NAME = 'Sajilo Events'
@@ -324,9 +324,11 @@ JAZZMIN_SETTINGS = {
         'Event_Management.Organizer': 'fas fa-user-tie',
         'Event_Management.StaffAssignment': 'fas fa-user-tag',
         'Event_Management.TicketDetail': 'fas fa-ticket-alt',
-        'core.StaffApplication': 'fas fa-user-tag',
+        'staff_management.StaffApplication': 'fas fa-sticky-note',
         'core.PositionsCategory': 'fas fa-folder-open',
         'core.Positions': 'fas fa-user-tie',
+        'core.Policy': 'fas fa-file-alt',
+        'staff_management.Vacancy': 'fas fa-user-plus',
         
         
     },

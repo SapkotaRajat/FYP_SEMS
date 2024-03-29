@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
+{% block title %}Sign Up for Event | SEMS{% endblock %}
+{% block page_title %}Sign Up for Event{% endblock %}
+{% block menu %}
+{% include 'profile/sidebar.html' %}
+{% endblock %}
+{% block content %}
+<section class="main-section">
+    <div class="main-container">
+        <div class="main-content staff-profile">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Position</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Assigned Staff</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vacancy in vacancies %}
+                    <tr>
+                        <td>{{ vacancy.event.title }}</td>
+                        <td>{{ vacancy.position.position }}</td>
+                        <td>{{ vacancy.date }}</td>
+                        <td>{{ vacancy.start_time }}</td>
+                        <td>{{ vacancy.end_time }}</td>
+                        {% if vacancy.assigned_staff %}
+                        <td> {{ vacancy.assigned_staff }} </td>
+                        {% else %}
+                        <td><a href="{% url 'signup-for-vacancy' vacancy.id %}">Sign Up</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

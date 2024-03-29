@@ -159,7 +159,7 @@ header .logo a img {
   flex-wrap: wrap;
   margin: 0 auto;
   max-width: 600px;
-  padding: 20px;
+  padding: 25px 20px;
   border-radius: 12px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -584,6 +584,8 @@ input[type="date" i] {
   color: #fff;
   background-color: #17b824; /* Change color as needed */
 }
+
+
 
 
 @media (max-width: 768px) {

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
+{% block title %}Events | SEMS{% endblock %}
+{% block page_title %}Available Events{% endblock %}
+{% block menu %}
+{% include 'profile/sidebar.html' %}
+{% endblock %}
+{% block content %}
+<section class="main-section">
+    <div class="main-container">
+        <div class="main-content staff-profile">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>View Positions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <td>{{ event.title }}</td>
+                        <td>{{ event.date }}</td>
+                        <td><a href="{% url 'signup-for-event' event.id %}">View Positions</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

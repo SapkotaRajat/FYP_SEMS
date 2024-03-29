@@ -1,17 +1,15 @@
 {% load static %}
-
 <li><a href="{% url 'profile' %}">Profile</a></li>
-
-{% if user.is_staff %}
-<!-- Display staff-specific options -->
+{% if user.is_superuser %}
+<li><a href="{% url 'admin:index' %}">Admin Panel</a></li>
+{% elif user.is_staff %}
+<!-- list of the events from where user can see and sign up for te work -->
+<li><a href="{% url 'events' %}">Events</a></li>
 <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
 <li><a href="{% url 'work_history' %}">Work History</a></li>
-<!-- active status -->
 {% else %}
-<!-- Display end user-specific options -->
 <li><a href="{% url 'attended_events' %}">Attended Events</a></li>
 <li><a href="{% url 'ticket_history' %}">Ticket History</a></li>
 <li><a href="{% url 'account_settings' %}">Account Settings</a></li>
 {% endif %}
-
 <li><a href="{% url 'logout_confirmation' %}">Logout</a></li>

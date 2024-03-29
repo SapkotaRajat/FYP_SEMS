@@ -1,0 +1,58 @@
+[
+  {
+    "model": "core.policy",
+    "pk": 1,
+    "fields": {
+      "title": "Event Registration and Ticketing Policy",
+      "content": "All attendees must register for events through the Sajilo Events platform. Tickets must be purchased through authorized channels provided by Sajilo Events. Attendees are required to present valid identification upon ticket verification. Tickets are non-transferable and non-refundable unless specified otherwise by Sajilo Events."
+    }
+  },
+  {
+    "model": "core.policy",
+    "pk": 2,
+    "fields": {
+      "title": "Code of Conduct Policy",
+      "content": "Sajilo Events promotes a safe and respectful environment for all attendees, staff, and volunteers. Any form of harassment, discrimination, or disruptive behavior will not be tolerated. Attendees must adhere to the rules and guidelines outlined by Sajilo Events staff."
+    }
+  },
+  {
+    "model": "core.policy",
+    "pk": 3,
+    "fields": {
+      "title": "Security Policy",
+      "content": "Sajilo Events prioritizes the safety and security of all attendees. Security personnel may conduct bag checks and visual inspections to ensure compliance with event policies. Attendees must cooperate with security procedures and directives at all times."
+    }
+  },
+  {
+    "model": "core.policy",
+    "pk": 4,
+    "fields": {
+      "title": "Alcohol and Substance Use Policy",
+      "content": "Alcohol consumption is permitted only in designated areas and in compliance with local laws and regulations. Individuals under the legal drinking age are prohibited from consuming alcoholic beverages. The use of illegal substances or substances that impair judgment is strictly prohibited."
+    }
+  },
+  {
+    "model": "core.policy",
+    "pk": 5,
+    "fields": {
+      "title": "Accessibility Policy",
+      "content": "Sajilo Events is committed to providing accessibility accommodations for attendees with disabilities. Accessible facilities and services are available to ensure all attendees can fully participate in events. Attendees requiring special accommodations are encouraged to contact Sajilo Events in advance."
+    }
+  },
+  {
+    "model": "core.policy",
+    "pk": 6,
+    "fields": {
+      "title": "Lost and Found Policy",
+      "content": "Lost items should be reported to Sajilo Events staff or volunteers immediately. Found items will be held by Sajilo Events and may be reclaimed by providing proper identification. Unclaimed items will be held for a specified period before being donated or disposed of."
+    }
+  },
+  {
+    "model": "core.policy",
+    "pk": 7,
+    "fields": {
+      "title": "Weather Policy",
+      "content": "In the event of severe weather or natural disasters, Sajilo Events will prioritize attendee safety. Event cancellations or rescheduling due to inclement weather will be communicated through official channels. Attendees should follow instructions from event organizers and staff in case of emergency."
+    }
+  }
+]

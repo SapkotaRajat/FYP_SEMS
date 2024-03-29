@@ -1,13 +1,19 @@
 from django.contrib import admin
-from .models import Category, Event, TicketDetail, Attendee, StaffAssignment, Organizer
+from .models import Category, Event, TicketDetail, Attendee, StaffAssignment, Organizer, EventVacancy
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name','image_tag',)
+    
+class EventVacancyInline(admin.TabularInline):
+    model = EventVacancy
+    extra = 4
+    
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title',  'image_tag', 'date', 'start_time','end_time', 'location', 'category', 'organizer')
+    inlines = [EventVacancyInline]
 
 @admin.register(TicketDetail)
 class TicketAdmin(admin.ModelAdmin):

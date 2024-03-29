@@ -172,6 +172,7 @@ header .btn a:hover {
 .banner-image-wrap {
   position: relative;
 }
+
 .banner-image-wrap .menu ul {
   position: absolute;
   left: 50%;
@@ -274,17 +275,19 @@ footer .wrapper {
   nav ul {
     display: flex;
     flex-direction: column;
+    gap: 0;
   }
 
   nav ul li {
     margin: 0;
-    padding: 15px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     width: 100%;
   }
 
   nav ul li a {
+    display: block;
     text-decoration: none;
+    padding: 15px 20px;
     color: #f1f1f1;
     font-size: 18px;
     transition: all 0.3s ease;
@@ -321,11 +324,33 @@ footer .wrapper {
   #menu-toggle:checked + .menu-icon ~ nav {
     display: block; /* Show menu when checkbox is checked */
   }
+
   .banner-image {
-    height: 300px;
+    height: 350px;
   }
   .banner-image h1 {
     font-size: 28px;
     top: calc(50% + 30px);
   }
+  .banner-image-wrap .menu ul {
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    background-color: rgba(37, 53, 61, 0.5);
+    padding: 20px 0;
+    border-radius: 10px;
+    position: relative;
+  }
+  .banner-image-wrap .menu ul li {
+    margin: 0;
+    padding: 0;
+  }
+  .banner-image-wrap .menu{
+    position: relative;
+    height: 0;
+    z-index: 998;
+  }
+
 }

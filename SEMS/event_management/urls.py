@@ -9,6 +9,8 @@ urlpatterns = [
     path('event-details/<int:event_id>', views.event_details, name='event-details'),
     path('schedules/', views.schedules, name='schedules'),
     path('organizer-details/<str:organizer_name>', views.organizer_details, name='organizer-details'),
-    
+    path('events/', views.signup_events, name='events'),
+    path('signup-for-event/<int:event_id>', views.signup_for_event, name='signup-for-event'),
+    path('signup-for-vacancy/<int:vacancy_id>', views.signup_for_vacancy, name='signup-for-vacancy')
 ]
     

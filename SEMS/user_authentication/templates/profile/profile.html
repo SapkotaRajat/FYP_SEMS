@@ -15,7 +15,7 @@
         </a>
     </div>
     <div class="profile-details">
-        <p>{{ user.first_name }} {{ user.last_name }}</p>
+        <p>{{ user.first_name }} {{ user.last_name }} {% if user.is_superuser %}(Admin){% elif user.is_staff %}(Staff) {% else %}({{ user.username }}){% endif %}</p> 
         <p>{{ user.email }}</p>
         <p>{{ user.contact_number }}</p>
         {% if user.address %}

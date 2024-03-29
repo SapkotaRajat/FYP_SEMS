@@ -1,6 +1,7 @@
-{% extends "base.html" %} 
-{% load static %} 
-{% block page_title  %}Policies{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
+{% block page_title %}Policies{% endblock %}
 {% block menu %}
 <li><a href="{% url 'policies' %}">Policies</a></li>
 <li><a href="{% url 'specifications' %}">Specifications</a></li>
@@ -8,4 +9,41 @@
 <li><a href="{% url 'employment' %}">Employment</a></li>
 {% endblock %}
 {% block content %}
+<section class="main-section">
+    <div class="main-container">
+        <div class="main-content">
+            {% if policies %}
+            {% for policy in policies %}
+            <button class="collapsible">{{ policy }} 
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <div class="collapsible-content">
+                <p>{{ policy.content|striptags }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="text-align-center">Error loading policies. Please try again later.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    // Get all buttons with class="collapsible"
+    var coll = document.getElementsByClassName("collapsible");
+
+    // Add click event listener to each button
+    for (var i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+
+</script>
 {% endblock content %}

@@ -18,6 +18,5 @@ urlpatterns = [
     path('terms-and-conditions/',views.terms_and_conditions,name='terms-and-conditions'),
     path('privacy-policy/',views.privacy_policy,name='privacy-policy'),
     path('refund-policy/',views.refund_policy,name='refund-policy'),
-    path('staff-application/',views.staff_application,name='staff-application'),
-    path('staff-application/success/',views.success,name='success-page'),
+    path('thank-you/',views.thank_you,name='thank-you'),
 ]

@@ -2,6 +2,8 @@ from django.conf import settings
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.html import mark_safe
+from core.models import Positions
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -96,3 +98,13 @@ class StaffAssignment(models.Model):
 
     def __str__(self):
         return f"{', '.join([staff.username for staff in self.staff.all()])} - {self.event.title}"
+
+class EventVacancy(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    position = models.ForeignKey(Positions, on_delete=models.CASCADE)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    assigned_staff = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)   
+    assigned_at = models.DateTimeField(auto_now_add=True)
+    #  

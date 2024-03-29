@@ -1,0 +1,142 @@
+[
+    {
+      "model": "core.positionscategory",
+      "pk": 1,
+      "fields": {
+        "category": "Crowd Management",
+        "category_description": "Philosophy is designed with the ultimate goal of offering a safe, comfortable and enjoyable event for every patron."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 1,
+      "fields": {
+        "category": 1,
+        "position": "Usher/Ticket Taker",
+        "position_description": "Responsible for maintaining orderly flow and assisting patrons throughout the facility during events."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 2,
+      "fields": {
+        "category": 1,
+        "position": "Ticket Seller",
+        "position_description": "Responsible for the selling of tickets in advance and on the day of events."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 3,
+      "fields": {
+        "category": 1,
+        "position": "Event Security",
+        "position_description": "Responsible for helping management enforce facility policies to ensure patrons are afforded a safe and enjoyable environment during events."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 4,
+      "fields": {
+        "category": 1,
+        "position": "Parking",
+        "position_description": "Responsible for direction of traffic flow in and out of parking areas during events."
+      }
+    },
+    {
+      "model": "core.positionscategory",
+      "pk": 2,
+      "fields": {
+        "category": "Food & Beverage",
+        "category_description": "Concessions, catering, and related positions."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 5,
+      "fields": {
+        "category": 2,
+        "position": "Concessions",
+        "position_description": "Responsible for preparing and selling food & drink to patrons during events and working with in-house catering department."
+      }
+    },
+    {
+      "model": "core.positionscategory",
+      "pk": 3,
+      "fields": {
+        "category": "Volunteer Groups",
+        "category_description": "Various volunteer positions."
+      }
+    },
+    {
+      "model": "core.positionscategory",
+      "pk": 4,
+      "fields": {
+        "category": "Production Crew",
+        "category_description": "Responsible for event production setup and teardown."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 6,
+      "fields": {
+        "category": 4,
+        "position": "Stagehands",
+        "position_description": "Responsible for the loading and unloading of equipment before and after an event. Will provide assistance for stage set-up, lighting, sound & props. Responsible for set changes during a show."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 7,
+      "fields": {
+        "category": 4,
+        "position": "Spotlight Operator",
+        "position_description": "Responsible for operating xenon super-trouper spotlights for arena events."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 8,
+      "fields": {
+        "category": 4,
+        "position": "Audio, Visual Technical Staff",
+        "position_description": "Responsible for operating sound, lighting, video boards, and camera systems."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 9,
+      "fields": {
+        "category": 4,
+        "position": "Rigger (Up)",
+        "position_description": "Responsible for working in the ceiling steel beams with show personnel. To secure suspended production equipment for events."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 10,
+      "fields": {
+        "category": 4,
+        "position": "Rigger (Down)",
+        "position_description": "Responsible for laying out rigging equipment, connecting materials from the ground to be used by Up Riggers."
+      }
+    },
+    {
+      "model": "core.positionscategory",
+      "pk": 5,
+      "fields": {
+        "category": "Operations Crew",
+        "category_description": "Temporary part-time staff and operations crew."
+      }
+    },
+    {
+      "model": "core.positions",
+      "pk": 11,
+      "fields": {
+        "category": 5,
+        "position": "Temporary Part-time Staff",
+        "position_description": "Work with full-time operations staff for facility set-up, tear down, and clean-up of all events."
+      }
+    }
+  ]
+  

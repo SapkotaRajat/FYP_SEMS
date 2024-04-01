@@ -11,6 +11,8 @@ urlpatterns = [
     path('organizer-details/<str:organizer_name>', views.organizer_details, name='organizer-details'),
     path('events/', views.signup_events, name='events'),
     path('signup-for-event/<int:event_id>', views.signup_for_event, name='signup-for-event'),
-    path('signup-for-vacancy/<int:vacancy_id>', views.signup_for_vacancy, name='signup-for-vacancy')
+    path('signup-for-vacancy/<int:vacancy_id>', views.signup_for_vacancy, name='signup-for-vacancy'),
+    path('assigned-tasks/', views.assigned_tasks, name='assigned_tasks'),
+    path('work_history/', views.work_history, name='work_history'),
 ]
     

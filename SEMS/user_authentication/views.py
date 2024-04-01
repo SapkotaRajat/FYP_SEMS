@@ -219,13 +219,6 @@ def ticket_history(request):
 def attended_events(request):
     return render(request, 'profile/attended-events.html', {})
 
-@login_required
-def assigned_tasks(request):
-    return render(request, 'profile/assigned-tasks.html', {})
-
-@login_required
-def work_history(request):
-    return render(request, 'profile/work-history.html', {})
 
 @login_required
 def download_ticket(request, ticket_id):

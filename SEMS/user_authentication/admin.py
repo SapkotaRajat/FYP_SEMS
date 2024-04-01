@@ -12,7 +12,7 @@ class UserProfileInline(admin.StackedInline):
 class CustomUserAdmin(UserAdmin):
     inlines = (UserProfileInline,)
     model = CustomUser
-    list_display = ['email', 'first_name', 'last_name', 'is_active', 'is_staff', 'display_profile_picture']
+    list_display = ['username','email', 'first_name', 'last_name', 'is_active', 'is_staff', 'display_profile_picture']
     search_fields = ['email', 'first_name', 'last_name']
     ordering = ['email']
 

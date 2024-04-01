@@ -7,6 +7,11 @@
 a {
   text-decoration: none;
 }
+
+section {
+  max-width: 1240px;
+  margin: 0 auto;
+}
 /* events */
 section.events-landing {
   background-color: #fff;
@@ -203,6 +208,7 @@ h3 {
   transform: scale(1.1);
 }
 
+/* schedule */
 .schedule {
   background-color: #39393a;
   padding: 60px 0;
@@ -263,6 +269,26 @@ h3 {
 
 .schedule-btn-wrap a:hover {
   background-color: #e0e0e0;
+}
+
+.event-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.buy-tickets-btn,
+.event-details-btn {
+  text-decoration: underline;
+  color: #000;
+  border-radius: 50px;
+  transition: background-color 0.3s;
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.buy-tickets-btn:hover,
+.event-details-btn:hover {
+  color: #00be9c;
 }
 
 .ticket-purchase-success-wrap {
@@ -381,30 +407,29 @@ h3 {
   line-height: 1.6;
   margin-bottom: 10px;
 }
-.custom-link{
+.custom-link {
   color: #00be9c;
   text-decoration: underline;
 }
-.custom-link:hover{
+.custom-link:hover {
   color: #00a17c;
 }
-.text-align-center{
+.text-align-center {
   text-align: center;
 }
-.success-text h2{
+.success-text h2 {
   font-size: 32px;
   font-weight: 600;
   margin-bottom: 20px;
-  
+
   line-height: 1.5;
 }
-.success-text p{
+.success-text p {
   font-size: 18px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   letter-spacing: 0.5px;
   line-height: 1.5;
-
 }
 .success-text h2::after {
   display: none;
@@ -523,7 +548,8 @@ h3 {
   color: #2a2a2a;
 }
 
-.form-group input,select {
+.form-group input,
+select {
   padding: 12px;
   font-size: 16px;
   border: 1px solid #979797;
@@ -590,7 +616,7 @@ textarea {
   margin-right: 5px;
 }
 
-button[type="submit"]{
+button[type="submit"] {
   padding: 15px 25px;
   font-size: 18px;
   font-weight: 600;
@@ -603,7 +629,7 @@ button[type="submit"]{
   max-width: 220px;
   width: 100%;
 }
-.required-text{
+.required-text {
   font-size: 14px;
   font-weight: 400;
   color: #e95656;
@@ -625,7 +651,14 @@ button[type="submit"]{
   transition: background-color 0.3s ease;
   gap: 10px;
   justify-content: space-between;
+}
 
+.collapsible i {
+  font-size: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+.collapsible.active i {
+  transform: rotate(-90deg);
 }
 
 /* Style the collapsible content. Note: hidden by default */
@@ -633,6 +666,11 @@ button[type="submit"]{
   display: none;
   overflow: hidden;
   padding: 10px 15px;
+  border-bottom: 1px solid #f1f1f1;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: display 0.3s ease;
 }
 
 /* Style the collapsible content when it is open */
@@ -641,38 +679,162 @@ button[type="submit"]{
   display: block;
 }
 
-
-/* staff-profile */
-.staff-profile table{
+table {
+  max-width: 1240px;
   width: 100%;
+  margin: 0 auto;
+  padding: 80px 0px;
   border-collapse: collapse;
 }
-.staff-profile table th{
+
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+.staff-profile table th {
   background-color: #535353;
   color: #fff;
-  padding: 10px;
   text-align: left;
 }
-.staff-profile table td{
-  padding: 10px;
+.staff-profile table td {
   border-bottom: 1px solid #f1f1f1;
 }
-.staff-profile table tr:nth-child(even){
+.staff-profile table tr:nth-child(even) {
   background-color: #f1f1f1;
 }
-.staff-profile table tr:nth-child(odd){
+.staff-profile table tr:nth-child(odd) {
   background-color: #fff;
 }
-.staff-profile table tr:hover{
+.staff-profile table tr:hover {
   background-color: #f1f1f1;
 }
 
-.staff-profile table tr td:last-child a{
+.staff-profile table tr td:last-child a {
   color: #00be9c;
   text-decoration: underline;
 }
-.staff-profile table tr td:last-child a:hover{
+.staff-profile table tr td:last-child a:hover {
   color: #00a17c;
+}
+
+/* success-message */
+.success-message-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999999;
+}
+.success-message,
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 999999;
+}
+.success-message-wrap i {
+  font-size: 32px;
+  color: #00ca0a;
+}
+.success-message-wrap span {
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  color: #2a2a2a;
+}
+
+/* ticket */
+.ticket-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 60px 20px;
+  flex-wrap: wrap;
+}
+
+.ticket {
+  max-width: calc(50% - 20px);
+  width: 100%;
+  position: relative;
+  height: 250px;
+  background-color: rgba(0, 0, 0, 0.1);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+.ticket:hover {
+  cursor: pointer;
+}
+.ticket-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  color: #f1f1f1;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+.ticket-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  color: #f1f1f1;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.ticket h3 a {
+  color: #f1f1f1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.ticket h3 a:hover {
+  color: #8e9190;
+}
+
+.ticket h3{
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  z-index: 10;
 }
 
 /* Responsive */
@@ -723,5 +885,24 @@ button[type="submit"]{
   .schedule-btn-wrap a {
     padding: 12px 20px;
     font-size: 16px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  table th,
+  table td {
+    min-width: 150px;
+  }
+  .buy-tickets-btn,
+  .event-details-btn {
+    font-size: 13px;
+    margin-right: 0;
+    width: 100%;
+    text-align: center;
   }
 }

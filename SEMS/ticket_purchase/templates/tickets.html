@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Ticket Purchase{% endblock %}
-{% block css_file_name %}{% static 'css/tickets.css' %}{% endblock %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
 {% block page_title %}Ticket Purchase{% endblock %}
 {% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
 {% block menu %}
@@ -10,26 +10,28 @@
 {% endblock %}
 {% block content %}
 <section class="ticket-container">
+    <!-- if ticket is available and is not free -->
     {% if tickets %}
     {% for ticket in tickets %}
-    <div class="ticket-wrap">
-        <div class="tickets">
-            <div class="overlay"></div>
-            <h3>{{ ticket.event.title }}</h3>
-            <p>Date: {{ ticket.event.date }}</p>
-            <p>Time: {{ ticket.event.start_time }} - {{ ticket.event.end_time }}</p>
-            <p>Location: {{ ticket.event.location }}</p>
-            <p>Ticket Price: ${{ ticket.price }}</p>
-            <p>Ticket Availability: {% if ticket.available_quantity %}Available{% else %}Sold Out{% endif %}</p>
+    {% if ticket.price > 0 %}
+    <div class="ticket" style="background-image: url('{{ ticket.event.image.url }}')">
+        <!-- overlay -->
+        <div class="ticket-overlay"></div>
+        <h3><a href="{% url 'event-details' ticket.event.id %}">{{ ticket.event.title }}</a></h3>
+        <div class="ticket-details">
+            <p>{{ ticket.event.date }}</p>
+            <p>{{ ticket.event.start_time }} - {{ ticket.event.end_time }}</p>
+            <p>{{ ticket.event.location }}</p>
+            <p>${{ ticket.price }}</p>
         </div>
-        <div class="ticket-actions">
-            <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
-            <a href="{% url 'event-details' ticket.event.id %}" class="view-event-btn">View Event</a>
-        </div>
+        <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
     </div>
+    {% endif %}
     {% endfor %}
     {% else %}
     <p class="no-ticket-info">No tickets available at the moment.</p>
     {% endif %}
 </section>
+
+
 {% endblock %}

@@ -9,11 +9,10 @@ class EventVacancyInline(admin.TabularInline):
     model = EventVacancy
     extra = 4
     
-
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title',  'image_tag', 'date', 'start_time','end_time', 'location', 'category', 'organizer')
-    inlines = [EventVacancyInline]
+    inlines = [EventVacancyInline]    
 
 @admin.register(TicketDetail)
 class TicketAdmin(admin.ModelAdmin):

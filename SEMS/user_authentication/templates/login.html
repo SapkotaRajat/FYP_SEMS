@@ -9,29 +9,52 @@
         {% csrf_token %}
         <div class="login-form-contents">
             <div class="input-wrapper">
-                {{ login_form.username }}
+                <input type="text" name="username" id="id_username" placeholder="Username" autofocus value="{{ username }}" required>
             </div>
             <div class="input-wrapper">
-                {{ login_form.password }}
+                <input type="password" name="password" id="id_password" placeholder="Password" value="{{ password }}" required>
+                <i class="fa fa-eye view-password-icon" onclick="togglePasswordVisibility()"></i>
             </div>
             <a href="{% url 'password_reset' %}" class="forgot-password">Forgot Password?</a>
             <div class="input-wrapper">
                 <button type="submit">Login</button>
             </div>
             <p class="register-account">Don't have an account? <a href="{% url 'register' %}#title">Register</a></p>
-            {% if messages %}
             <div class="error-msg">
-                {% for message in messages %}
-                {% if message.tags == 'success' %}
-                <p class="{{ message.tags }} err-center">{{ message }}</p>
-                {% endif %}
-                {% if message.tags == 'error' %}
-                <p class="{{ message.tags }} err-center">{{ message }}</p>
-                {% endif %}
-                {% endfor %}
             </div>
-            {% endif %}
         </div>
     </form>
 </div>
+<div id="isRegistered" class="registration-complete">
+    <i class="fas fa-check-circle"></i>
+    <span>Registration successful. You can now login.</span>
+</div>
+<script>
+    function togglePasswordVisibility() {
+        var password = document.querySelector('input[name="password"]');
+        if (password.type === "password") {
+            password.type = "text";
+            // toggle icon to eye-slash when password is visible
+            document.querySelector('.view-password-icon').classList.remove('fa-eye');
+            document.querySelector('.view-password-icon').classList.add('fa-eye-slash');
+        } else {
+            password.type = "password";
+            // toggle icon to eye when password is hidden
+            document.querySelector('.view-password-icon').classList.remove('fa-eye-slash');
+            document.querySelector('.view-password-icon').classList.add('fa-eye');
+        }
+    }
+
+    //  if localStorage.setItem('registrationCompleted', 'true'); is set, display a message to the user that registration was successful for 3 seconds
+    {% if registered %}
+        document.getElementById('isRegistered').style.display = 'block';
+        setTimeout(function () {
+            document.getElementById('isRegistered').style.display = 'none';
+            localStorage.removeItem('registrationCompleted');
+        }, 3000);
+    {% endif %}
+    
+    
+
+</script>
 {% endblock %}

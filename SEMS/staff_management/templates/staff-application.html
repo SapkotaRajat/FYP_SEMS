@@ -137,7 +137,7 @@
                 </div>
                 <!-- Resume upload -->
                 <div class="form-group column-left">
-                    <label for="resume">Upload Resume <span class="required-text">*</span></label>
+                    <label for="resume" class="nodefault">Upload Resume <span class="required-text">*</span></label>
                     <input type="file" id="resume" name="resume" required file-accept=".pdf,.doc,.docx">
                     <p>
                         Maximum file size: 2MB
@@ -145,7 +145,7 @@
                 </div>
                 <div class="form-group column-right">
                     <!-- class schdule -->
-                    <label for="class-schedule">Class Schedule</label>
+                    <label for="class-schedule" class="nodefault">Class Schedule</label>
                     <input type="file" id="class-schedule" name="class_schedule" required file-accept=".pdf,.doc,.docx">
                     <p>
                         Maximum file size: 2MB
@@ -172,7 +172,14 @@
             convictedExplanationTextarea.required = false;
         });
 
-
+        // Prevent default on file input click to avoid the default file upload dialog box from appearing when the user clicks on the label
+        const fileInputs = document.querySelectorAll('.nodefault');
+        fileInputs.forEach(input => {
+            input.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        });
+        
     </script>
 </section>
 

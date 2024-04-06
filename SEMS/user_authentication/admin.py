@@ -32,7 +32,7 @@ class CustomUserAdmin(UserAdmin):
     
     def display_profile_picture(self, obj):
         if obj.userprofile.profile_picture:
-            return mark_safe('<img src="{url}" width="{width}" height="{height}" />'.format(
+            return mark_safe('<img src="{url}" width="{width}" height="{height}" style="object-fit: cover;" />'.format(
                 url=obj.userprofile.profile_picture.url,
                 width=100,
                 height=100,

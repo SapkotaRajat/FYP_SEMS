@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-3mmza4q5(^4@$73jl$6^!_x2s@+(s^xg1d@4hns0k0el2d^=jj
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.101.6','127.0.0.1','192.168.101.8','192.168.101.9','localhost','192.168.101.5',
+    '192.168.101.6','127.0.0.1','192.168.101.8','192.168.101.9','localhost','192.168.101.5','192.168.101.10',
 ]
 
 SITE_NAME = 'Sajilo Events'

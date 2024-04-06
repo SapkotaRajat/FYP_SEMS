@@ -4,98 +4,59 @@
 {% block page_title %}Register{% endblock %}
 {% block content %}
 <div id="register">
-
-    <form method="post" class="registration-form">
+    <form method="post" class="registration-form" id="registrationForm">
         <h2>User Registration</h2>
         {% csrf_token %}
         <div class="registration-form-contents">
             <div class="input-wrapper left-field">
-                {{ form.first_name }}
+                <input type="text" name="first_name" id="id_first_name" placeholder="First Name" autofocus value="{{ first_name }}" required>
             </div>
-            {% if messages %}
-            <div class="error-msg">
-                {% for error in form.first_name.errors %}
-                <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
             <div class="input-wrapper right-field">
-                {{ form.last_name }}
+                <input type="text" name="last_name" id="id_last_name" placeholder="Last Name" value="{{ last_name }}" required>
+                <p class="error-inline" id="error_last_name"></p>
             </div>
-            {% if messages %}
-            <div class="error-msg">
-                {% for error in form.last_name.errors %}
-                <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
             <div class="input-wrapper left-field">
-                {{ form.username }}
+                <input type="text" name="username" id="id_username" placeholder="Username" value="{{ username }}" required>
+                {% if username_error %}<p class="error-inline" id="error_username">{{ username_error }}</p>{% endif %}
             </div>
-            {% if messages %}
-            <div class="error-msg">
-                {% for error in form.username.errors %}
-                <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
             <div class="input-wrapper right-field">
-                {{ form.email }}
+                <input type="email" name="email" id="id_email" placeholder="Email" value="{{ email }}" required>
+                {% if email_error %}<p class="error-inline" id="error_email">{{ email_error }}</p>{% endif %}
             </div>
-            {% if messages %}
-            <div class="error-msg">
-                {% for error in form.email.errors %}
-                <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
             <div class="input-wrapper left-field">
-                {{ form.contact_number }}
+                <input type="password" name="password1" id="id_password1" class="password" placeholder="Password" value="{{ password1 }}" required>
+                {% if password_error %}<p class="error-inline" id="error_password1">{{ password_error }}</p>{% endif %}
             </div>
-            {% if messages %}
-            <div class="error-msg">
-                {% for error in form.contact_number.errors %}
-                <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
             <div class="input-wrapper right-field">
-                {{ form.dob }}
+                <input type="password" name="password2" id="id_password2" class="password" placeholder="Confirm Password" value="{{ password2 }}" required>
+                <i class="fa fa-eye view-password-icon" onclick="togglePasswordVisibility()"></i>
+                {% if confirm_password_error %}<p class="error-inline" id="error_password2">{{ confirm_password_error }}</p>{% endif %}
             </div>
-            {% if messages %}
-            <div class="error-msg">
-                {% for error in form.dob.errors %}
-                <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <div class="input-wrapper left-field">
-                {{ form.password1 }}
-            </div>
-            {% if messages %}
-            <div class="error-msg">
-                {% for error in form.password1.errors %}
-                <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <div class="input-wrapper right-field">
-                {{ form.password2 }}
-            </div>
-            {% if messages %}
-            <div class="error-msg">
-                {% for error in form.password2.errors %}
-                <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
             <div class="input-wrapper submit">
                 <button type="submit">Register</button>
             </div>
-
             <p class="login-account">Already have an account? <a href="{% url 'login' %}#login">Login</a></p>
         </div>
-    </form>
-
+    </form>    
 </div>
+<script src="https://cdn.jsdelivr.net/npm/validatorjs@3.18.0/dist/validator.js"></script>
+<script>
+    function togglePasswordVisibility() {
+        var password = document.querySelectorAll('.password');
+        password.forEach(function (element) {
+            if (element.type === "password") {
+                element.type = "text";
+                // toggle icon to eye-slash when password is visible
+                document.querySelector('.view-password-icon').classList.remove('fa-eye');
+                document.querySelector('.view-password-icon').classList.add('fa-eye-slash');
+            } else {
+                element.type = "password";
+                // toggle icon to eye when password is hidden
+                document.querySelector('.view-password-icon').classList.remove('fa-eye-slash');
+                document.querySelector('.view-password-icon').classList.add('fa-eye');
+            }
+        });
+
+    }
+</script>
 {% endblock %}

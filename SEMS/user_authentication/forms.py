@@ -8,14 +8,12 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'contact_number', 'dob']
+        fields = ['username', 'first_name', 'last_name', 'email']
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Username', 'type': 'text', 'autofocus': True}),
             'first_name': forms.TextInput(attrs={'placeholder': 'First Name', 'type': 'text', 'autofocus': True}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Last Name', 'type': 'text', 'autofocus': True}),
             'email': forms.EmailInput(attrs={'placeholder': 'Email', 'type': 'email', 'autofocus': True}),
-            'contact_number': forms.TextInput(attrs={'placeholder': 'Contact Number', 'type': 'tel', 'autofocus': True}),
-            'dob': forms.DateInput(attrs={'placeholder': 'DOB (DD/MM/YYYY)', 'type': 'date', 'autofocus': True}),
         }
     password1 = forms.CharField(
         strip=False,

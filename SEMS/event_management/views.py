@@ -31,7 +31,8 @@ def events(request, category_name):
 
 
 def schedules(request):
-    events = Event.objects.all()
+    # return events in ascending order by date that are not completed yet
+    events = Event.objects.filter(date__gte=timezone.now()).order_by('date')
     return render(request, 'schedules.html' , {'events': events})
 
 def organizer_details(request, organizer_name):

@@ -14,17 +14,36 @@
     {% if tickets %}
     {% for ticket in tickets %}
     {% if ticket.price > 0 %}
-    <div class="ticket" style="background-image: url('{{ ticket.event.image.url }}')">
+    <div class="ticket-wrap">
         <!-- overlay -->
-        <div class="ticket-overlay"></div>
-        <h3><a href="{% url 'event-details' ticket.event.id %}">{{ ticket.event.title }}</a></h3>
-        <div class="ticket-details">
-            <p>{{ ticket.event.date }}</p>
-            <p>{{ ticket.event.start_time }} - {{ ticket.event.end_time }}</p>
-            <p>{{ ticket.event.location }}</p>
-            <p>${{ ticket.price }}</p>
+        <div class="ticket" style="background-image: url('{{ ticket.event.image.url }}')">
+            <a href="{% url 'event-details' ticket.event.id %}">{{ ticket.event.title }}</a>
+            <div class="ticket-overlay"></div>
         </div>
-        <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
+        <div class="ticket-details">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ ticket.event.date }}</th>
+                        <th>{{ ticket.event.start_time }} - {{ ticket.event.end_time }}</th>
+                        <th>${{ ticket.price }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        
+                    </tr>
+                    <tr>
+                        <td>Location:</td>
+                        <td>{{ ticket.event.location }}</td>
+                        <td>
+                            <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     {% endif %}
     {% endfor %}

@@ -39,6 +39,8 @@ form h2 {
 
 form .input-wrapper {
   margin-top: 24px;
+  vertical-align: top;
+  position: relative;
 }
 
 .input-wrapper input {
@@ -110,8 +112,18 @@ p.register-account a {
   margin-left: 10px;
 }
 
+.view-password-icon{
+  position: absolute;
+  right: 10px;
+  top: 26px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #444444;
+
+}
+
 /* error */
-.error-msg {
+.error-msg{
   color: #ef2b2b;
   font-size: 14px;
   font-weight: 400;
@@ -132,8 +144,38 @@ p.register-account a {
   text-align: center;
 }
 
-.error-msg .success {
+.success-msg {
   color: #00be9c;
+}
+
+.registration-complete{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 30px 30px 20px 30px;
+  border-radius: 0 0 8px 8px;
+  z-index: 9999;
+}
+.registration-complete span{
+  font-size: 20px;
+}
+.registration-complete i{
+  font-size: 24px;
+  margin-right: 10px;
+  color: #00be9c;
+}
+form .error-inline{
+  text-align: left;
+  color: #ef2b2b;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-family: "Source Sans Pro", sans-serif;
+  margin-top: 10px;
 }
 .title {
   text-align: center;

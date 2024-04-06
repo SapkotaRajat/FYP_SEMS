@@ -92,8 +92,8 @@ class Attendee(models.Model):
 class StaffAssignment(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     staff = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    role = models.CharField(max_length=100)
-    assigned_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='assigned_by', on_delete=models.CASCADE)
+    role = models.ForeignKey(Positions, on_delete=models.CASCADE)
+    assigned_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='assigned_by')
     assigned_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -107,4 +107,6 @@ class EventVacancy(models.Model):
     end_time = models.TimeField()
     assigned_staff = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)   
     assigned_at = models.DateTimeField(auto_now_add=True)
-    #  
+    
+    def __str__(self):
+        return f"{self.position} - {self.event.title}"

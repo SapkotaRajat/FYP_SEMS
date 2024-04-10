@@ -161,7 +161,7 @@ AUTH_USER_MODEL = 'user_authentication.CustomUser'
 GRAPH_MODELS = {
   'all_applications': False,
   'group_models': True,
-  'app_labels': ["sems", "event_management"],
+  'app_labels': ['staff_management' ],
 }
 
 CKEDITOR_5_CONFIGS = {

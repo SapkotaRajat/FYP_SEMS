@@ -17,11 +17,14 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Sum
 import qrcode
 from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 from django.http import FileResponse
-from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from datetime import date, timedelta
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.lib.enums import TA_CENTER
 
 
 def redirect_if_logged_in(view_func):
@@ -57,7 +60,6 @@ def register(request):
             return render(request, 'register.html', {'confirm_password_error': 'Passwords do not match.' , 'first_name': first_name, 'last_name': last_name, 'email': email, 'username': username, 'password1': password, 'password2': password2})
         # If all checks pass, proceed with user creation and database update
         user = CustomUser.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
-        messages.success(request, 'Registration successful')
         return render(request, 'login.html' , {'username': username, 'password': password, 'registered': 'true'})
 
     return render(request, 'register.html')
@@ -177,6 +179,7 @@ def update_profile(request):
         user.save()
         
         return redirect('profile')  # Redirect to profile page after saving
+    
 @login_required
 def ticket_history(request):
     # Get all ticket purchases for the current user
@@ -199,21 +202,20 @@ def ticket_history(request):
             grouped_ticket_purchases[event_id] = [ticket_purchase]
         else:
             grouped_ticket_purchases[event_id].append(ticket_purchase)
-    print(grouped_ticket_purchases)
 
     return render(request, 'profile/ticket-history.html', {'grouped_ticket_purchases': grouped_ticket_purchases})
 
-
-
 @login_required
 def attended_events(request):
-    return render(request, 'profile/attended-events.html', {})
-
+    # pass the events of which the user has purchased tickets and the event has already passed 
+    ticket_purchase = TicketPurchase.objects.filter(user=request.user, event__date__lt=date.today())
+    return render(request, 'profile/attended-events.html', {'ticket_purchase': ticket_purchase})
 
 @login_required
 def download_ticket(request, ticket_id):
-    ticket = TicketPurchase.objects.get(id=ticket_id)
-    
+    ticket_purchase = TicketPurchase.objects.get(id=ticket_id)
+    user = ticket_purchase.user
+
     # Generate QR Code for the ticket
     qr = qrcode.QRCode(
         version=1,
@@ -224,27 +226,67 @@ def download_ticket(request, ticket_id):
     qr.add_data(f'Ticket ID: {ticket_id}')
     qr.make(fit=True)
 
-    img = qr.make_image(fill_color="black", back_color="white")
-    
-    # Render ticket details and QR code into a PDF
-    ticket_pdf_path = f'ticket_{ticket_id}.pdf'
-    with open(ticket_pdf_path, 'wb') as pdf_file:
-        pdf = canvas.Canvas(pdf_file, pagesize=letter)
+    img_path = f'qr_{ticket_id}.png'
+    qr_img = qr.make_image(fill_color="black", back_color="white")
+    qr_img.save(img_path)
 
-        pdf.drawString(100, 750, f"Event: {ticket.event.title}")
-        
-        # Add other ticket details to the PDF
-        
-        img_path = f'qr_{ticket_id}.png'
-        img.save(img_path)
-        pdf.drawInlineImage(img_path, 100, 550, width=100, height=100)  # Draw QR code
+    # Create a PDF document
+    ticket_pdf_path = f'ticket_{user.username}_{ticket_purchase.event.title}.pdf'
+    doc = SimpleDocTemplate(ticket_pdf_path, pagesize=letter)
+    styles = getSampleStyleSheet()
+    style_heading = styles["Heading1"]
+    style_heading.alignment = TA_CENTER
+    style_body = ParagraphStyle(name='BodyText', parent=styles['Normal'], alignment=TA_CENTER)
 
-        pdf.showPage()
-        pdf.save()
+    # Define content for the PDF
+    content = []
 
-    # Return a response with the PDF file
+    # Title
+    content.append(Paragraph("Your Event Ticket", style_heading))
+    content.append(Spacer(1, 0.5 * inch))
+
+    # Event Details
+    event_details = [
+        ["Event:", ticket_purchase.event.title],
+        ["Location:", ticket_purchase.event.location],
+        ["Date:", ticket_purchase.event.date.strftime('%B %d, %Y')],
+        ["Time:", f"{ticket_purchase.event.start_time.strftime('%I:%M %p')} - {ticket_purchase.event.end_time.strftime('%I:%M %p')}"],
+    ]
+    event_table = Table(event_details, colWidths=[2*inch, 4*inch])
+    content.append(event_table)
+    content.append(Spacer(1, 0.5 * inch))
+
+    # Ticket Details
+    ticket_details = [
+        ["Quantity:", ticket_purchase.quantity],
+        ["Total:", f"${ticket_purchase.payment_amount}"],
+    ]
+    ticket_table = Table(ticket_details, colWidths=[2*inch, 4*inch])
+    content.append(ticket_table)
+    content.append(Spacer(1, 0.5 * inch))
+
+    # User Information
+    user_details = [
+        ["Name:", f"{user.first_name} {user.last_name}"],
+        ["Email:", user.email],
+        ["Contact Number:", user.contact_number],
+        ["Date of Birth:", user.dob.strftime('%B %d, %Y')],
+    ]
+    user_table = Table(user_details, colWidths=[2*inch, 4*inch])
+    content.append(user_table)
+    content.append(Spacer(1, 0.5 * inch))
+
+    # QR Code
+    qr_image = Image(img_path, width=1.5*inch, height=1.5*inch)
+    content.append(Paragraph("Scan QR Code for Ticket Details", style_body))
+    content.append(Spacer(1, 0.2 * inch))
+    content.append(qr_image)
+
+    # Build the PDF document
+    doc.build(content)
+
+    # Return the PDF file as a response
     return FileResponse(open(ticket_pdf_path, 'rb'), as_attachment=True)
-
 
 
 def get_ticket_details(request, ticket_id):

@@ -385,36 +385,7 @@ a.btn,
   margin-top: 20px;
 }
 
-.no-tickets,
-.no-attended-events {
-  margin: 20px 0;
-  padding: 20px;
-  text-align: center;
-  font-size: 20px;
-}
 
-.no-tickets p,
-.no-attended-events p {
-  margin-bottom: 40px;
-}
-
-.no-tickets a,
-.no-attended-events a {
-  text-decoration: none;
-  color: #fff;
-  background-color: #393939;
-  font-size: 14px;
-  padding: 15px 25px;
-  border-radius: 5px;
-  transition: 0.5s;
-  letter-spacing: 1.3px;
-  text-transform: uppercase;
-}
-
-.no-tickets a:hover,
-.no-attended-events a:hover {
-  background-color: #272727;
-}
 
 
 input[type="date" i] {

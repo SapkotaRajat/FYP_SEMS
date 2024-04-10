@@ -2,59 +2,33 @@
 {% load static %}
 {% block title %}Attended Events | SEMS{% endblock %}
 {% block page_title %}Attended Events{% endblock %}
-{% block css_file_name %}{% static 'css/profile.css' %}{% endblock %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
 {% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
 {% block menu %}
 {% include 'profile/sidebar.html' %}
 {% endblock %}
 {% block content %}
 
-{% if events %}
+{% if ticket_purchase %}
 <!-- Display the attended events -->
-<div class="cards">
-    <div class="card">
-        <div class="card-header">
-            <h2>Attended Events</h2>
+<section class="main-container">
+    <div class="ticket-container">
+        <!-- Loop through the attended events -->
+        {% for ticket in ticket_purchase %}
+        <div class="ticket-wrap">
+            <div class="ticket" style="background-image: url('{{ ticket.event.image.url }}')">
+                <a href="{% url 'event-details' ticket.event.id %}">{{ ticket.event.title }}</a>
+                <div class="ticket-overlay"></div>
+            </div>
         </div>
-        <div class="card-body">
-            <table class="attended-events-table">
-                <thead>
-                    <tr>
-                        <th>Event</th>
-                        <th>Location</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Rating</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Loop through the attended events -->
-                    {% for event in events %}
-                    <tr>
-                        <td>{{ event.title }}</td>
-                        <td>{{ event.location }}</td>
-                        <td>{{ event.date }}</td>
-                        <td>{{ event.time }}</td>
-                        <td>
-                            {% if event.rating %}
-                            {{ event.rating }}/5
-                            {% else %}
-                            Not Rated
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        {% endfor %}
     </div>
-</div>
-{% else %}
-<!-- Display a message if the user has not attended any events -->
-<div class="no-attended-events">
-    <p>You have not attended any events yet.</p>
-    <a href="{% url 'events-categories' %}">Browse Events</a>
-</div>
-{% endif %}
+    {% else %}
+    <!-- Display a message if the user has not attended any events -->
+    <div class="no-attended-events">
+        <p class="no-ticket-info">You have not attended any events yet.</p>
+        <a href="{% url 'events-categories' %}">Browse Events</a>
+    </div>
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}

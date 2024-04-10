@@ -2,145 +2,38 @@
 {% load static %}
 {% block title %}Ticket History | SEMS{% endblock %}
 {% block page_title %}Ticket History{% endblock %}
-{% block css_file_name %}{% static 'css/profile.css' %}{% endblock %}
+{% block css_file_name %}{% static 'css/style.css' %}{% endblock %}
 {% block banner_image_src %}{% static 'assets/full-page-img.jpg' %}{% endblock %}
 {% block menu %}
 {% include 'profile/sidebar.html' %}
 {% endblock %}
 {% block content %}
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-{% if grouped_ticket_purchases %}
-<div class="pagination">
-    {% if tickets.has_other_pages %}
-    <a href="{% url 'user-tickets' page=tickets.previous_page_number %}">Previous</a>
-    <a href="{% url 'user-tickets' page=tickets.next_page_number %}">Next</a>
-    {% endif %}
-</div>
-
-<form method="GET" class="sort-ticket-form">
-    <label for="sort_by">Sort by:</label>
-    <select name="sort_by">
-        <option value="date">Date</option>
-        <option value="event_title">Event Title</option>
-        <option value="total_cost">Total Cost</option>
-    </select>
-    <button type="submit">Sort</button>
-</form>
-<div class="cards">
-    {% for event_id, ticket_purchases in grouped_ticket_purchases.items %}
-    {% for ticket_purchase in ticket_purchases %}
-    <div class="card">
-        <div class="card-header">
-            <a href="{% url 'event-details' ticket_purchase.event.id %}">
-                <h2>{{ ticket_purchase.event.title }}</h2>
-            </a>
-        </div>
-        <div class="card-body">
-            <table class="ticket-history-table">
-                <tbody>
-                    <tr>
-                        <th>Location</th>
-                        <td>{{ ticket_purchase.event.location }}</td>
-                    </tr>
-                    <tr>
-                        <th>Date</th>
-                        <td>{{ ticket_purchase.event.date }}</td>
-                    </tr>
-                    <tr>
-                        <th>Time</th>
-                        <td>{{ ticket_purchase.event.start_time }} - {{ ticket_purchase.event.end_time }}</td>
-                    </tr>
-                    <tr>
-                        <th>Ticket Price</th>
-                        <td>${{ ticket_purchase.event.ticket_price|floatformat:2 }}</td>
-                    </tr>
-                    <tr>
-                        <th>Quantity</th>
-                        <td>{{ ticket_purchase.quantity }}</td>
-                    </tr>
-                    <tr>
-                        <th>Total</th>
-                        <td>${{ ticket_purchase.payment_amount|floatformat:0 }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="ticket-actions">
-                <a href="{% url 'download-ticket' ticket_purchase.id %}">
-                    Download Ticket</a>
-                <button onclick="showTicketDetails({{ ticket_purchase.id }})">
-                    View Details</button>
+<section class="main-container">
+    {% if grouped_ticket_purchases %}
+    <div class="ticket-container">
+        {% for event_id, ticket_purchases in grouped_ticket_purchases.items %}
+        {% for ticket_purchase in ticket_purchases %}
+        <div class="ticket-wrap">
+            <div class="ticket" style="background-image: url('{{ ticket_purchase.event.image.url }}')">
+                <a href="{% url 'event-details' ticket_purchase.event.id %}">{{ ticket_purchase.event.title }}</a>
+                <div class="ticket-overlay"></div>
+            </div>
+            <div class="ticket-details">
+                <div class="price-and-buy">
+                    <!-- quantity -->
+                    <p class="ticket-quantity">{{ ticket_purchase.quantity }} tickets</p>
+                    <a href="{% url 'download-ticket' ticket_purchase.id %}" class="buy-ticket-btn">Download</a>
+                </div>
             </div>
         </div>
+        {% endfor %}
+        {% endfor %}
     </div>
-    {% endfor %}
-    {% endfor %}
-</div>
-
-<div id="ticket-details-modal" class="modal" style="display: none;">
-    <!-- Modal content will be added here using JavaScript -->
-</div>
+</section>
 {% else %}
 <div class="no-tickets">
     <p>You have not purchased any tickets yet.</p>
     <a href="{% url 'events-and-tickets' %}">Browse Events</a>
 </div>
 {% endif %}
-<script>
-    function showTicketDetails(ticketId) {
-        // Fetch detailed ticket information from the server using AJAX
-        fetch(`/api/tickets/${ticketId}/`)
-            .then(response => response.json())
-            .then(ticket => {
-                const modal = document.getElementById('ticket-details-modal');
-                modal.innerHTML = `
-                    <div class="modal-content">
-                        <span class="close" onclick="document.getElementById('ticket-details-modal').style.display = 'none'">&times;</span>
-                        <h2>${ticket.event.title}</h2>
-                        <table class="ticket-history-table">
-                            <tbody>
-                                <tr>
-                                    <th>Location</th>
-                                    <td>${ticket.event.location}</td>
-                                </tr>
-                                <tr>
-                                    <th>Date</th>
-                                    <td>${ticket.event.date}</td>
-                                </tr>
-                                <tr>
-                                    <th>Time</th>
-                                    <td>${ticket.event.time}</td>
-                                </tr>
-                                <tr>
-                                    <th>Ticket Price</th>
-                                    <td>$${ticket.event.ticket_price}</td>
-                                </tr>
-                                <tr>
-                                    <th>Quantity</th>
-                                    <td>${ticket.quantity}</td>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <td>$${ticket.payment_amount}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="ticket-actions">
-                        </div>
-                    </div>
-                `;
-                modal.style.display = 'block';
-            });
-    }
-    // Close the modal when the user clicks outside of it
-    window.onclick = function (event) {
-        const modal = document.getElementById('ticket-details-modal');
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
-
-
 {% endblock %}

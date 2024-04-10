@@ -21,28 +21,13 @@
             <div class="ticket-overlay"></div>
         </div>
         <div class="ticket-details">
-            <table>
-                <thead>
-                    <tr>
-                        <th>{{ ticket.event.date }}</th>
-                        <th>{{ ticket.event.start_time }} - {{ ticket.event.end_time }}</th>
-                        <th>${{ ticket.price }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        
-                    </tr>
-                    <tr>
-                        <td>Location:</td>
-                        <td>{{ ticket.event.location }}</td>
-                        <td>
-                            <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
-                        </td>
-                        
-                    </tr>
-                </tbody>
-            </table>
+            <p>Date: {{ ticket.event.date }}</p>
+            <p>Time: {{ ticket.event.start_time }} - {{ ticket.event.end_time }}</p>
+            <p>Location: {{ ticket.event.location }}</p>
+            <div class="price-and-buy">
+                <p class="ticket-price">${{ ticket.price }}</p>
+                <a href="{% url 'buy-tickets' ticket.event.title %}" class="buy-ticket-btn">Buy Ticket</a>
+            </div>
         </div>
     </div>
     {% endif %}

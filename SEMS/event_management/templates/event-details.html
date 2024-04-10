@@ -124,7 +124,14 @@
                     </tr>
                 </table>
             </div>
+            {% if not event.is_event_over %}
             <a href="{% url 'buy-tickets' event_name=event.title %}" class="buy-tickets-btn">Buy Tickets</a>
+            <!-- if the date is passed display the event is over -->
+            {% elif event.is_event_over %}
+             <a class="buy-tickets-btn">Event is over</a>
+            {% endif %}
+
+
         </div>
     </div>
 </div>

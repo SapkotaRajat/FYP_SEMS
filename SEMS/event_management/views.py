@@ -21,12 +21,20 @@ def events_categories(request):
     return render(request, 'events-categories.html', {'categories': categories})
 
 def event_details(request, event_id):
-    event = Event.objects.get(pk=event_id)
-    return render(request, 'event-details.html', {'event': event})
+    # Retrieve the Event object corresponding to the event ID
+    event = get_object_or_404(Event, pk=event_id)
+    
+    # Perform the comparison to determine if the event is over
+    today = timezone.now().date()
+    event.is_event_over = event.date < today
+    
+    # Pass the event object and today's date to the template context
+    return render(request, 'event-details.html', {'event': event, 'today': today})
 
 def events(request, category_name):
     category = Category.objects.get(name=category_name)
-    events = Event.objects.filter(category=category)
+    # only pass the events that are not completed yet and are in the selected category
+    events = Event.objects.filter(date__gte=timezone.now()).filter(category=category).order_by('date')
     return render(request, 'events.html', {'events': events , 'category': category})
 
 

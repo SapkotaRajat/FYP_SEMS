@@ -16,12 +16,15 @@
                 <i class="fa fa-eye view-password-icon" onclick="togglePasswordVisibility()"></i>
             </div>
             <a href="{% url 'password_reset' %}" class="forgot-password">Forgot Password?</a>
+            <div class="error-msg">
+                {% if error %}
+                <p>{{ error }}</p>
+                {% endif %}
+            </div>
             <div class="input-wrapper">
                 <button type="submit">Login</button>
             </div>
             <p class="register-account">Don't have an account? <a href="{% url 'register' %}#title">Register</a></p>
-            <div class="error-msg">
-            </div>
         </div>
     </form>
 </div>

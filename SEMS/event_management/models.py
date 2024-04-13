@@ -3,6 +3,7 @@ from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.html import mark_safe
 from core.models import Positions
+from django.utils.translation import gettext_lazy as _
 
 
 class Category(models.Model):
@@ -79,15 +80,6 @@ class Event(models.Model):
             return None
     image_tag.short_description = 'Image'
 
-class TicketDetail(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    is_paid = models.BooleanField(default=False)
-
-class Attendee(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    ticket = models.ForeignKey(TicketDetail, on_delete=models.CASCADE, related_name='ticket', null=True, blank=True)
 
 class StaffAssignment(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -100,13 +92,30 @@ class StaffAssignment(models.Model):
         return f"{', '.join([staff.username for staff in self.staff.all()])} - {self.event.title}"
 
 class EventVacancy(models.Model):
+    class DateSourceChoices(models.TextChoices):
+        EVENT_DATE = 'event', _('Use Event Date')
+        CUSTOM_DATE = 'custom', _('Use Custom Date')
+
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     position = models.ForeignKey(Positions, on_delete=models.CASCADE)
-    date = models.DateField()
+    date_source = models.CharField(
+        max_length=10,
+        choices=DateSourceChoices.choices,
+        default=DateSourceChoices.EVENT_DATE
+    )
+    date = models.DateField(null=True, blank=True)  # Custom date, can be null if using event date
     start_time = models.TimeField()
     end_time = models.TimeField()
-    assigned_staff = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)   
+    assigned_staff = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     assigned_at = models.DateTimeField(auto_now_add=True)
-    
+
+    def save(self, *args, **kwargs):
+        if self.date_source == self.DateSourceChoices.EVENT_DATE:
+            # Set date from the event
+            self.date = self.event.date
+        # No else needed; if CUSTOM_DATE is chosen, the date should be whatever is manually set in self.date
+        super(EventVacancy, self).save(*args, **kwargs)
+        
+
     def __str__(self):
         return f"{self.position} - {self.event.title}"

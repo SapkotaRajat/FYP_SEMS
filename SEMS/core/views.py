@@ -11,9 +11,8 @@ def index(request):
     return render(request, 'index.html', {'latest_event': latest_event, 'category': category, 'upcoming_events': upcoming_events})
 
 def custom_404(request, exception=None):
-    return render(request, 'error.html', status=404)
-def error(request):
-    return render(request, 'error.html')
+    return render(request, '404.html', {}, status=404)
+
 def plan_your_visit(request):
     today = timezone.now().date()
     return render(request, 'plan-your-visit.html' , {'today': today})

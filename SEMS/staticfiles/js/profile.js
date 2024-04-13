@@ -26,5 +26,7 @@ document.getElementById("cancelBtn").addEventListener("click", function () {
 
 // Handle confirmation button click
 document.getElementById("confirmBtn").addEventListener("click", function () {
+    // Submit the form
     document.getElementById("editProfileForm").submit();
+    localStorage.setItem('profilePictureUpdated', 'true');
 });

@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from .models import StaffApplication
 from core.models import Positions
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 def staff_management(request):
     return render(request, 'staff_management.html', {})
@@ -36,6 +37,14 @@ def staff_application(request):
             class_schedule=request.FILES['class_schedule']
         )
         staff_application.save()
+        # send confirmation email 
+        send_mail(
+            'Staff Application Confirmation',
+            'Thank you for applying to be a staff member at SEMS. We will review your application and get back to you shortly.',
+            'sapkotarajat59@gmail.com',
+            [user.email],
+            fail_silently=False
+        )
         return HttpResponseRedirect('/thank-you/')
     
     return render(request, 'staff-application.html', {'positions': positions})

@@ -9,6 +9,18 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.admin.models import LogEntry, CHANGE
 from django.contrib.contenttypes.models import ContentType
+from django.http import Http404
+from functools import wraps
+
+def staff_required(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_staff:
+            from django.shortcuts import redirect
+            # Redirect to login page or another appropriate page
+            return redirect('custom_404')
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
 def events_and_tickets(request):
     upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('date')[:3]
@@ -31,6 +43,7 @@ def event_details(request, event_id):
     # Pass the event object and today's date to the template context
     return render(request, 'event-details.html', {'event': event, 'today': today})
 
+
 def events(request, category_name):
     category = Category.objects.get(name=category_name)
     # only pass the events that are not completed yet and are in the selected category
@@ -46,18 +59,23 @@ def schedules(request):
 def organizer_details(request, organizer_name):
     organizer = get_object_or_404(Organizer, organization=organizer_name)
     return render(request, 'organizer-details.html', {'organizer': organizer})
+
 @login_required
+@staff_required
 def signup_events(request):
     current_time_plus_24_hours = timezone.now() + timedelta(hours=24)
     events = Event.objects.filter(date__gte=current_time_plus_24_hours).order_by('date')
     return render(request, 'signup-events.html', {'events': events})
 
+@login_required
+@staff_required
 def signup_for_event(request, event_id):
     event = Event.objects.get(pk=event_id)
     # return the vacancy form for the event EventVacancy
     vacancies = EventVacancy.objects.filter(event=event)
     return render(request, 'signup-for-event.html', {'vacancies': vacancies})
 
+@login_required
 def signup_for_vacancy(request, vacancy_id):
     vacancy = get_object_or_404(EventVacancy, pk=vacancy_id)
 
@@ -80,13 +98,22 @@ def signup_for_vacancy(request, vacancy_id):
             messages.error(request, "This position is already filled.")
     return redirect('signup-for-event', vacancy.event.id)
 
-@login_required
-def assigned_tasks(request):
-    # select the assigned tasks for the current user which are not completed yet 
-    vacancies = EventVacancy.objects.filter(assigned_staff=request.user).filter(date__gte=timezone.now()).order_by('date')
-    return render(request, 'assigned-tasks.html', {'vacancies': vacancies})
+from django.http import HttpResponseForbidden
 
 @login_required
+@staff_required
+def assigned_tasks(request):
+    # Select the assigned tasks for the current user which are not completed yet
+    vacancies = EventVacancy.objects.filter(
+        assigned_staff=request.user,
+        date__gte=timezone.now()
+    ).order_by('date')
+    
+    return render(request, 'assigned-tasks.html', {'vacancies': vacancies})
+
+
+@login_required
+@staff_required
 def work_history(request):
     # select the assigned tasks for the current user which are completed
     vacancies = EventVacancy.objects.filter(assigned_staff=request.user).filter(date__lt=timezone.now()).order_by('date')

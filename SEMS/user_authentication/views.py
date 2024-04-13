@@ -79,7 +79,7 @@ def login_request(request):
                 return redirect(next_page)
             return redirect('profile')
         else:
-            messages.error(request, 'Authentication failed')
+            return render(request, 'login.html', {'error': 'Invalid username or password.' , 'username': username, 'password': password})
 
     return render(request, 'login.html')
 

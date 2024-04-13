@@ -129,7 +129,7 @@
                 return actions.order.capture().then(function (details) {
                     console.log("Capture result: ", details, JSON.stringify(details, null, 2));
                     var transaction = details.purchase_units[0].payments.captures[0];
-
+                    document.getElementById('loader').style.display = 'block';
 
                     // Send a POST request to your Django view to save the transaction details
                     fetch('/paypal-transaction-complete/', {
@@ -150,8 +150,11 @@
                             payeeEmail: details.payer.email_address,
                             payeeCountry: details.payer.address.country_code,
                         })
+                        
                     }).then(function (response) {
                         // Handle the response as needed
+                        document.getElementById('loader').style.display = 'none';
+                        
                         if (response.ok) {
                             document.getElementById('success-modal').style.display = 'block';
                         } else {
@@ -196,7 +199,9 @@
         </div>
     </div>
 
-
+    <div id="loader" style="display: none;">
+        <div class="spinner"></div>
+    </div>
     <script>
         // close the modal when the close button is clicked
         document.getElementById('close-success-modal').addEventListener('click', function () {

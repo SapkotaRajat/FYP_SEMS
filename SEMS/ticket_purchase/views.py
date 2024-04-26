@@ -1,10 +1,9 @@
 import os
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Ticket 
+from .models import Ticket, TicketPurchase, Income
 from event_management.models import Event
 from django.http import JsonResponse
-from .models import TicketPurchase
 import json
 from django.core.mail import EmailMessage
 import qrcode
@@ -107,6 +106,10 @@ def paypal_transaction_complete(request):
 
         # Clean up: remove the generated QR code and PDF files
         os.remove(img_path)
+        
+        # save the income from the ticket sales to the database event date and amount
+        income = Income(event=event, amount=payment_amount)
+        income.save()
 
         return JsonResponse({'message': 'Transaction completed successfully'})
     else:

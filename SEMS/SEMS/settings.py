@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-3mmza4q5(^4@$73jl$6^!_x2s@+(s^xg1d@4hns0k0el2d^=jj
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.101.6','127.0.0.1','192.168.101.8','192.168.101.9','localhost','192.168.101.5','192.168.101.10',
+    '192.168.101.6','127.0.0.1','192.168.101.8','192.168.101.9','localhost','192.168.101.5','192.168.101.10','192.168.56.1',
 ]
 
 SITE_NAME = 'Sajilo Events'
@@ -307,7 +307,6 @@ JAZZMIN_SETTINGS = {
 
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
-        
     },
 
     # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
@@ -326,7 +325,7 @@ JAZZMIN_SETTINGS = {
         'Event_Management.TicketDetail': 'fas fa-ticket-alt',
         'staff_management.StaffApplication': 'fas fa-sticky-note',
         'core.PositionsCategory': 'fas fa-folder-open',
-        'core.Positions': 'fas fa-user-tie',
+        'core.Position': 'fas fa-user-tie',
         'core.Policy': 'fas fa-file-alt',
         'staff_management.Vacancy': 'fas fa-user-plus',
         

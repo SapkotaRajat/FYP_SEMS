@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.html import mark_safe
-from core.models import Positions
+from core.models import Position
 from django.utils.translation import gettext_lazy as _
 
 
@@ -84,7 +84,7 @@ class Event(models.Model):
 class StaffAssignment(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     staff = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    role = models.ForeignKey(Positions, on_delete=models.CASCADE)
+    role = models.ForeignKey(Position, on_delete=models.CASCADE)
     assigned_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='assigned_by')
     assigned_at = models.DateTimeField(auto_now_add=True)
 
@@ -97,7 +97,7 @@ class EventVacancy(models.Model):
         CUSTOM_DATE = 'custom', _('Use Custom Date')
 
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    position = models.ForeignKey(Positions, on_delete=models.CASCADE)
+    position = models.ForeignKey(Position, on_delete=models.CASCADE)
     date_source = models.CharField(
         max_length=10,
         choices=DateSourceChoices.choices,
@@ -106,6 +106,7 @@ class EventVacancy(models.Model):
     date = models.DateField(null=True, blank=True)  # Custom date, can be null if using event date
     start_time = models.TimeField()
     end_time = models.TimeField()
+    payment_hourly = models.DecimalField(max_digits=10, decimal_places=2,default=20.00)
     assigned_staff = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     assigned_at = models.DateTimeField(auto_now_add=True)
 

@@ -18,25 +18,26 @@
                 <table>
                     <tr>
                         <td><strong>Date:</strong></td>
-                        <td>{{ event.date }}</td>
+                        <td>{{ event.date|date:"F d, Y"|striptags }}</td>
                     </tr>
                     <tr>
                         <td><strong>Time:</strong></td>
-                        <td>{{ event.start_time }} - {{ event.end_time }}</td>
+                        <td>{{ event.start_time|time:"g:i A"|striptags }} - {{ event.end_time|time:"g:i A"|striptags }}
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>Location:</strong></td>
-                        <td>{{ event.location }}</td>
+                        <td>{{ event.location|striptags }}</td>
                     </tr>
                     <tr>
                         <td><strong>Category:</strong></td>
-                        <td>{{ event.category }}</td>
+                        <td>{{ event.category|striptags }}</td>
                     </tr>
                     <!-- Additional Fields -->
                     {% if event.ticket_price %}
                     <tr>
                         <td><strong>Ticket Price:</strong></td>
-                        <td>${{ event.ticket_price }}</td>
+                        <td>${{ event.ticket_price|striptags }}</td>
                     </tr>
                     {% endif %}
                     <tr>
@@ -46,43 +47,43 @@
                     {% if event.capacity %}
                     <tr>
                         <td><strong>Event Capacity:</strong></td>
-                        <td>{{ event.capacity }}</td>
+                        <td>{{ event.capacity|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.dress_code %}
                     <tr>
                         <td><strong>Dress Code:</strong></td>
-                        <td>{{ event.dress_code }}</td>
+                        <td>{{ event.dress_code|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.event_type %}
                     <tr>
                         <td><strong>Event Type:</strong></td>
-                        <td>{{ event.event_type }}</td>
+                        <td>{{ event.event_type|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.special_guests %}
                     <tr>
                         <td><strong>Special Guests/Speakers:</strong></td>
-                        <td>{{ event.special_guests }}</td>
+                        <td>{{ event.special_guests|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.parking_info %}
                     <tr>
                         <td><strong>Parking Information:</strong></td>
-                        <td>{{ event.parking_info }}</td>
+                        <td>{{ event.parking_info|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.transportation_options %}
                     <tr>
                         <td><strong>Transportation Options:</strong></td>
-                        <td>{{ event.transportation_options }}</td>
+                        <td>{{ event.transportation_options|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.accessibility_info %}
                     <tr>
                         <td><strong>Accessibility Information:</strong></td>
-                        <td>{{ event.accessibility_info }}</td>
+                        <td>{{ event.accessibility_info|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.food_and_beverage %}
@@ -94,13 +95,13 @@
                     {% if event.rules_and_regulations %}
                     <tr>
                         <td><strong>Event Rules and Regulations:</strong></td>
-                        <td>{{ event.rules_and_regulations }}</td>
+                        <td>{{ event.rules_and_regulations|striptags }}</td>
                     </tr>
                     {% endif %}
                     {% if event.sponsors %}
                     <tr>
                         <td><strong>Event Sponsors:</strong></td>
-                        <td>{{ event.sponsors }}</td>
+                        <td>{{ event.sponsors|striptags }}</td>
                     </tr>
                     {% endif %}
                     <tr>
@@ -125,11 +126,18 @@
                 </table>
             </div>
             {% if not event.is_event_over %}
+            {% if not event.ticket_price %}
+            <!-- Display "Event is Free" if ticket price is not set -->
+            <a class="buy-tickets-btn">Event is Free</a>
+            {% else %}
+            <!-- Display "Buy Tickets" if ticket price is set -->
             <a href="{% url 'buy-tickets' event_name=event.title %}" class="buy-tickets-btn">Buy Tickets</a>
-            <!-- if the date is passed display the event is over -->
-            {% elif event.is_event_over %}
-             <a class="buy-tickets-btn">Event is over</a>
             {% endif %}
+            {% else %}
+            <!-- Display "Event is over" if the event is over -->
+            <a class="buy-tickets-btn">Event is over</a>
+            {% endif %}
+
 
 
         </div>

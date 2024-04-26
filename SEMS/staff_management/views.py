@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import StaffApplication
-from core.models import Positions
+from core.models import Position
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
@@ -11,7 +11,7 @@ def staff_management(request):
 @login_required
 def staff_application(request):
     user = request.user
-    positions = Positions.objects.all()
+    positions = Position.objects.all()
     if request.method == 'POST':
         staff_application = StaffApplication(
             position_desired=request.POST['position_desired'],

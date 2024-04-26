@@ -8,7 +8,7 @@ class PositionsCategory(models.Model):
     def __str__(self):
         return self.category    
     
-class Positions(models.Model):
+class Position(models.Model):
     category = models.ForeignKey(PositionsCategory, related_name='positions',on_delete=models.CASCADE)
     position = models.CharField(max_length=100)
     position_description = CKEditor5Field()

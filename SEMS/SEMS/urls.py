@@ -17,8 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core import views as core_views
-from user_authentication import views as user_views
-
+from django.conf.urls import handler404
 
 
 urlpatterns = [
@@ -33,4 +32,4 @@ urlpatterns = [
     
 ]
 
-
+handler404 = 'core.views.custom_404'

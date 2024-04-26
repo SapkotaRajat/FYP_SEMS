@@ -1,0 +1,128 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Ticket Sales</h5>
+                    <p class="card-text">{{ total_tickets_sold }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Events</h5>
+                    <p class="card-text">{{ total_events }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text">{{ total_users }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Earning</h5>
+                    <p class="card-text">$ {{ total_amount_paid }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <h5 class="text-center pb-3">Monthly Earnings</h5>
+            <canvas id="earningChart" width="400" height="200"></canvas>
+        </div>
+        <div class="col-md-6">
+            <h5 class="text-center pb-3">Admin Log</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Action Time</th>
+                        <th>User</th>
+                        <th>Activity</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in admin_logs %}
+                    <tr>
+                        <td>{{ log.action_time|date:"F d, Y, P" }}</td>
+                        <td>{{ log.user }}</td>
+                        <td>{{ log.content_type }}</td>
+                        <td>{{ log.object_repr }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrahead %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var ctx = document.getElementById('earningChart').getContext('2d');
+        
+        // Parse JSON data
+        var monthlyEarningsData = JSON.parse('{{ monthly_earnings|safe|escapejs }}');
+        
+        // Extract labels and data from JSON
+        var labels = monthlyEarningsData.map(entry => entry.month);
+        var data = monthlyEarningsData.map(entry => entry.total_earnings);
+        
+        // Function to generate a random color
+        function getRandomColor(alpha) {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    type: 'bar',
+                    data: data,
+                    backgroundColor: Array.from({ length: data.length }, () => getRandomColor(0.5)), // Random colors with alpha 0.5
+                    borderColor: Array.from({ length: data.length }, () => getRandomColor(1)), // Random colors with full opacity
+                    borderWidth: 1
+                },{
+                    type: 'line',
+                    data: data,
+                    fill: false,
+                    borderColor: getRandomColor(1), // Single random color for the line plot border
+                    borderWidth: 2, // Adjust the width of the line plot
+                    tension: 0.4 // Adjust the tension for a smoother line
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

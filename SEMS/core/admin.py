@@ -1,8 +1,6 @@
 from django.contrib import admin
-from .models import Positions, PositionsCategory, Policy
+from .models import Position, PositionsCategory, Policy
 from django.utils.html import mark_safe
-
-
    
 @admin.register(PositionsCategory)
 class PositionsCategoryAdmin(admin.ModelAdmin):
@@ -14,7 +12,7 @@ class PositionsCategoryAdmin(admin.ModelAdmin):
         }),
     )
     
-@admin.register(Positions)
+@admin.register(Position)
 class PositionsAdmin(admin.ModelAdmin):
     list_display = ['position', 'category']
     search_fields = ['position', 'category']

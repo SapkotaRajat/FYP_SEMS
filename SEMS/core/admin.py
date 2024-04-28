@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Position, PositionsCategory, Policy
+from .models import Position, PositionsCategory, Policy, BannerImage
 from django.utils.html import mark_safe
    
 @admin.register(PositionsCategory)

@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from event_management.models import Category, Event
 from django.utils import timezone
-from .models import PositionsCategory, Policy
+from .models import PositionsCategory, Policy, BannerImage
 
 def index(request):
     # return one random event on each load
     latest_event = Event.objects.order_by('?').first()
     upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('date')[:4]
     category = Category.objects.all()
-    return render(request, 'index.html', {'latest_event': latest_event, 'category': category, 'upcoming_events': upcoming_events})
+    banner_images = BannerImage.objects.all()
+    return render(request, 'index.html', {'latest_event': latest_event, 'category': category, 'upcoming_events': upcoming_events, 'banner_images': banner_images})
 
 def custom_404(request, exception=None):
     return render(request, '404.html', {}, status=404)

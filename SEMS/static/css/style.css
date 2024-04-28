@@ -11,6 +11,7 @@ a {
 section {
   margin: 0 auto;
 }
+
 /* events */
 section.events-landing {
   background-color: #fff;
@@ -23,7 +24,7 @@ h3 {
 }
 .events-landing .events-wrap {
   position: absolute;
-  top: -160px;
+  top: -200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,47 +37,44 @@ h3 {
 .events-wrap .events-card {
   max-width: 940px;
   width: 100%;
-  min-height: 320px;
+  min-height: 350px; /* Minimum height to ensure the card is not too small */
   position: relative;
   border-radius: 5px;
   overflow: hidden;
   display: flex;
   background-color: #fff;
   box-shadow: 0 28px 57px 28px rgba(53, 53, 53, 0.31);
-  flex-wrap: wrap;
 }
 
 .events-wrap .image {
   width: 50%;
-  height: 320px;
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   overflow: hidden;
   position: relative;
 }
 
-.events-wrap .events-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.events-wrap .image img {
+  width: 100%; 
+  height: 300px; /*default height*/
+  object-fit: cover; /* Maintain aspect ratio */
   transition: transform 0.3s ease;
 }
+
 .events-wrap .image:hover img {
-  transform: scale(1.1);
+  transform: scale(1.1); /* Increase scale on hover */
 }
 
 .events-wrap .details {
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  position: relative;
-  width: 50%;
-  min-height: 250px;
 }
 
 .event-date {
-  position: absolute;
-  top: 30px;
-  left: 0;
   width: 100%;
   font-size: 14px;
   font-weight: 600;
@@ -86,29 +84,35 @@ h3 {
   width: 100%;
   padding: 10px 15px;
   text-align: center;
+  margin-top: 30px;
 }
 .details h3 {
   font-size: 32px;
   font-weight: 400;
-  margin-bottom: 10px;
   background-color: transparent;
   color: #272727;
   font-size: 36px;
   font-weight: 600;
   line-height: 1.3;
-  padding: 22px;
+  padding: 15px 22px;
+}
+.events-wrap .desc{
+  font-size: 18px;
+  font-weight: 400;
+  color: #2a2a2a;
+  padding: 0 22px;
+  margin-bottom: 15px;
+
 }
 .details .btns {
-  position: absolute;
-  bottom: 24px;
-  left: 22px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
-  margin-top: 20px;
+  margin:20px auto;
   font-size: 18px;
   font-weight: 600;
+
 }
 
 .details .btns .primary-btn {
@@ -395,10 +399,6 @@ h3 {
 .main-content h3 {
   font-size: 24px;
   margin-bottom: 10px;
-}
-
-.main-content ul {
-  padding-left: 20px;
 }
 
 .main-content ul li {
@@ -747,9 +747,12 @@ table th {
   position: relative;
   z-index: 999999;
 }
-.success-message-wrap i {
+.success-message i {
   font-size: 32px;
   color: #00ca0a;
+}
+.error-message i {
+  color: #ff0000;
 }
 .success-message-wrap span {
   font-size: 18px;
@@ -910,6 +913,7 @@ p.ticket-price{
 }
 
 
+
 /* Responsive */
 @media (max-width: 768px) {
   .events-landing .events-wrap {
@@ -985,5 +989,10 @@ p.ticket-price{
   .price-and-buy{
     flex-direction: column;
     gap: 10px;
+  }
+  .align-center{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
   }
 }

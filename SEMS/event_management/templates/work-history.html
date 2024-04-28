@@ -18,12 +18,13 @@
                         <th>Date</th>
                         <th>Start Time</th>
                         <th>End Time</th>
+                        <th>Hourly Payment</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% if not vacancies %}
                     <tr>
-                        <td colspan="5">No work history.</td>
+                        <td colspan="6 ">No work history.</td>
                     </tr>
                     {% endif %}
                     {% for vacancy in vacancies %}
@@ -33,6 +34,7 @@
                         <td>{{ vacancy.date }}</td>
                         <td>{{ vacancy.start_time }}</td>
                         <td>{{ vacancy.end_time }}</td>
+                        <td>$ {{ vacancy.payment_hourly }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -10,11 +10,12 @@
         {% if latest_event %}
         <div class="events-card">
             <div class="image">
-                <img src="{{ latest_event.image.url }}" alt="{{ latest_event.name }}">
+                <img src="{{ latest_event.image.url }}" alt="{{ latest_event.name }}" id="event-image">
             </div>
-            <div class="details">
+            <div class="details" >
                 <p class="event-date">{{ latest_event.date }}</p>
                 <h3>{{ latest_event.title }}</h3>
+                <p class="desc">{{ latest_event.description|truncatewords:20|striptags }}</p>
                 <div class="btns">
                     <a class="primary-btn" href="{% url 'buy-tickets' event_name=latest_event %}">Buy Tickets</a>
                     <a class="secondary-btn" href="{% url 'event-details' event_id=latest_event.id %}">Information</a>
@@ -103,7 +104,7 @@
             </div>
             <div class="contact-item">
                 <i class="fas fa-phone"></i>
-                <p>Phone: <a href="tel:+977-1234567890">+977-1234567890</a></p>
+                <p>Phone: <a href="tel:+977-9861813697">+977-9861813697</a></p>
             </div>
             <div class="contact-item">
                 <i class="fas fa-map-marker-alt"></i>
@@ -112,7 +113,67 @@
         </div>
     </div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 
+<script>
+    // Get all banner images
+    const bannerImages = [
+        {% for banner_image in banner_images %}
+            "{{ banner_image }}",
+        {% endfor %}
+    ];
 
+    // Initialize index to track current image
+    let currentIndex = 0;
+
+    // Function to rotate images
+    function rotateImages() {
+        // Update image source
+        document.getElementById('banner-image').src = bannerImages[currentIndex];
+        
+        // Increment index
+        currentIndex = (currentIndex + 1) % bannerImages.length;
+    }
+
+    // Rotate images every 5 seconds (adjust interval as needed)
+    setInterval(rotateImages, 5000); // 5000 milliseconds = 5 seconds
+
+    window.addEventListener('load', function() {
+        adjustImageHeight();
+    });
+
+    window.addEventListener('resize', function() {
+        adjustImageHeight();
+    });
+
+    function adjustImageHeight() {
+        var image = document.getElementById('event-image');
+        var contentHeight = document.querySelector('.details').offsetHeight;
+        image.style.height = contentHeight + 'px';
+    }
+
+    gsap.from(".landing-content h1 span:first-child", {
+        opacity: 0,
+        y: 50,
+        stagger: 0.1,
+        duration: 1,
+        ease: "power4.out"
+    });
+    const phrases = ["Your Ultimate Experience", "The Ultimate Adventure", "An Unforgettable Journey"];
+
+    let index = 0;
+
+    function changeSecondHalf() {
+        const secondHalf = document.querySelector(".landing-content .second-half");
+        gsap.to(secondHalf, { opacity: 0, duration: 0.5, onComplete: () => {
+            secondHalf.textContent = phrases[index];
+            gsap.to(secondHalf, { opacity: 1, duration: 0.5 });
+            index = (index + 1) % phrases.length;
+        }});
+    }
+
+    setInterval(changeSecondHalf, 3000); // Change every 5 seconds
+
+</script>
 
 {% endblock content %}

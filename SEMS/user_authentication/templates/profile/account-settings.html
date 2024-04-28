@@ -11,6 +11,11 @@
 <form id="editProfileForm" method="POST" action="{% url 'update_profile' %}">
     {% csrf_token %}
     <!-- Add form fields for editing basic information here -->
+    <div class="error-msg">
+        {% if email_error %}
+        <p>{{ email_error }}</p>
+        {% endif %}
+    </div>
     <div class="detail">
         <label for="id_first_name">First Name</label>
         <input type="text" name="first_name" id="id_first_name" value="{{ user.first_name }}">

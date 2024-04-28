@@ -24,3 +24,10 @@ class Policy(models.Model):
 
     def __str__(self):
         return self.title
+    
+class BannerImage(models.Model):
+    image_url = models.ImageField(upload_to='static/banner_images/')
+
+    def __str__(self):
+        return self.image_url.url
+    

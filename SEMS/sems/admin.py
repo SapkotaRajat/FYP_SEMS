@@ -1,20 +1,21 @@
 from django.contrib import admin
-from django.contrib.admin import AdminSite
 from django.db.models import Sum
 from django.db.models.functions import ExtractMonth
 from django.core.serializers.json import DjangoJSONEncoder
-import json
-import calendar
 from ticket_purchase.models import TicketPurchase, Ticket
-from event_management.models import Event, Category, Organizer, StaffAssignment, EventVacancy
+from event_management.models import Event, Category, Organizer, EventVacancy
 from user_authentication.models import CustomUser, UserProfile
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import mark_safe
 from staff_management.models import StaffApplication
-from core.models import Policy, Position, PositionsCategory
+from core.models import Policy, Position, PositionsCategory, BannerImage
 from django.contrib.auth.models import Group
 from django.contrib.admin.models import LogEntry
 from django.utils.html import format_html
+import json
+import calendar
+from datetime import datetime
+from decimal import Decimal
 
 class CustomAdminSite(admin.AdminSite):
     def index(self, request, extra_context=None):
@@ -58,7 +59,33 @@ class CustomAdminSite(admin.AdminSite):
         # Query admin log entries
         admin_logs = LogEntry.objects.all()[:10]  # Adjust the number of entries as needed
         
-        # Update extra_context with calculated totals
+        # Calculate event data
+        event_data = []
+        events = Event.objects.all()
+        for event in events:
+            total_expenses = 0
+            # count the number of assigned_staff for each event
+            staff_assignments = EventVacancy.objects.filter(event=event, assigned_staff__isnull=False).values_list('assigned_staff', flat=True)
+            for assignment in staff_assignments:
+                vacancies = EventVacancy.objects.filter(event=event, assigned_staff=assignment)
+                for vacancy in vacancies:
+                    start_datetime = datetime.combine(vacancy.date, vacancy.start_time)
+                    end_datetime = datetime.combine(vacancy.date, vacancy.end_time)
+                    duration_hours = (end_datetime - start_datetime).total_seconds() / 3600
+                    total_expenses += round((Decimal(duration_hours) * vacancy.payment_hourly), 2)
+
+            data = {
+                'event_title': event.title,
+                'total_tickets_sold': TicketPurchase.objects.filter(event=event).count(),
+                'total_staff_assigned': staff_assignments.count(),
+                'total_expenses' : float(total_expenses) + (event.expenses or 0),
+                'total_earnings': TicketPurchase.objects.filter(event=event).aggregate(total_earnings=Sum('payment_amount'))['total_earnings'],
+                'profit': (TicketPurchase.objects.filter(event=event).aggregate(total_earnings=Sum('payment_amount'))['total_earnings'] or 0) - total_expenses 
+            }
+            event_data.append(data)
+            
+        
+        # Update extra_context with calculated totals and event data
         extra_context = extra_context or {}
         extra_context.update({
             'total_tickets_sold': total_tickets_sold,
@@ -68,9 +95,12 @@ class CustomAdminSite(admin.AdminSite):
             'total_amount_paid': total_earnings,
             'monthly_earnings': monthly_earnings_json,
             'admin_logs': admin_logs,
+            'event_data': event_data,
         })
 
         return super().index(request, extra_context)
+
+
 # Register the custom admin site
 custom_admin_site = CustomAdminSite()
 
@@ -94,10 +124,6 @@ class TicketAdmin(admin.ModelAdmin):
             'fields': ('event', 'ticket_price', 'available_quantity', 'ticket_date', 'ticket_description'),
         }),
     )
-    
-    
-
-
 
 class TicketPurchaseAdmin(admin.ModelAdmin):
     model = TicketPurchase
@@ -131,9 +157,6 @@ class TicketPurchaseAdmin(admin.ModelAdmin):
 custom_admin_site.register(TicketPurchase, TicketPurchaseAdmin)
 
 
-
-####
-
 class EventVacancyInline(admin.TabularInline):
     model = EventVacancy
     extra = 4
@@ -141,21 +164,53 @@ class EventVacancyInline(admin.TabularInline):
 
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title',  'image_tag', 'date', 'start_time','end_time', 'location', 'category', 'organizer')
+    # add search bar to search for events
+    search_fields = ['title', 'date', 'location']
     inlines = [EventVacancyInline]  
 
 custom_admin_site.register(Ticket, TicketAdmin)
 custom_admin_site.register(Event,EventAdmin)
-custom_admin_site.register(Category)
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name','image_tag',)
+    
+custom_admin_site.register(Category, CategoryAdmin)
 custom_admin_site.register(Organizer)
-custom_admin_site.register(StaffAssignment)
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
     verbose_name_plural = 'User Profiles'
 
+class EventVacancyProfileInline(admin.TabularInline):
+    model = EventVacancy
+    fields = ['event', 'position', 'date', 'start_time', 'end_time', 'payment_hourly', 'assigned_staff', 'total_earnings']
+    readonly_fields = ['event', 'position', 'date', 'start_time', 'end_time', 'payment_hourly', 'assigned_staff', 'total_earnings']
+    extra = 0
+    verbose_name_plural = 'Event Vacancies'
+    
+    def total_earnings(self, instance):
+        if instance.date:  # Check if instance.date is not None
+            start_datetime = datetime.combine(instance.date, instance.start_time)
+            end_datetime = datetime.combine(instance.date, instance.end_time)
+            duration_hours = (end_datetime - start_datetime).total_seconds() / 3600
+            total_earnings = round(Decimal(duration_hours) * instance.payment_hourly, 2)
+            return total_earnings
+        else:
+            return None
+    
+    def get_fields(self, request, obj=None):
+        fields = super().get_fields(request, obj=obj)
+        if 'total_earnings' not in fields:
+            fields += ['total_earnings']
+        return fields
+
 class CustomUserAdmin(UserAdmin):
     inlines = (UserProfileInline,)
+    def get_inline_instances(self, request, obj=None):
+        if obj and obj.is_staff and not obj.is_superuser:
+            return [EventVacancyProfileInline(self.model, self.admin_site)]
+        return []
     model = CustomUser
     list_display = ['username','email', 'first_name', 'last_name', 'is_active', 'is_staff', 'display_profile_picture']
     search_fields = ['email', 'first_name', 'last_name']
@@ -193,5 +248,21 @@ custom_admin_site.register(Policy)
 custom_admin_site.register(Position)
 custom_admin_site.register(PositionsCategory)
 custom_admin_site.register(Group)
+
+
+class BannerImageAdmin(admin.ModelAdmin):
+    list_display = ['image_url', 'image_tag']
+    
+    def image_tag(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height="{height}" style="object-fit: cover;" />'.format(
+            url=obj.image_url.url,
+            width=100,
+            height=100,
+        ))
+    image_tag.short_description = 'Image'
+
+custom_admin_site.register(BannerImage, BannerImageAdmin)
+
+
 # Assign the custom admin site to admin.site
 admin.site = custom_admin_site

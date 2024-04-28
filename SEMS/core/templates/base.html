@@ -27,6 +27,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap"
         rel="stylesheet">
+
 </head>
 
 <body>
@@ -36,15 +37,22 @@
 
             {% if request.path == '/' %}
             <div class="full-page-image">
-                <img src="{% static 'assets/full-page-img-2.jpg' %}" alt="Full Page Image">
-            </div>
+                <img id="banner-image" src="{{ banner_images.0 }}" alt="banner">
+                <div class="landing-content">
+                    <h1>
+                        <span>All Events, One Place:</span> <span class="second-half">Your Ultimate Experience</span>
+                    </h1>
+                    <p>
+                        Discover a world of diverse events on our platform. From Fashion Shows to Sporting Competitions, Seminars to Concerts, find it all here. Join us for an unforgettable experience!
+                    </p>
+                </div>
+            </div>                      
             {% else %}
             <div class="banner-image">
                 <img src="{% block banner_image_src %}{% static 'assets/placeholder-banner.png' %}{% endblock %}"
                     alt="Banner Image">
-                <h1 class="title" id="title">{% block page_title %}{% endblock %}</h1>
             </div>
-            {% endif %}
+            
             <!-- menu -->
             <div class="menu">
                 <ul>
@@ -52,6 +60,7 @@
                     {% endblock %}
                 </ul>
             </div>
+            {% endif %}
         </div>
         <div class="content">
             {% block content %}
@@ -60,5 +69,6 @@
     </div>
     {% include 'footer.html' %}
 </body>
+
 
 </html>

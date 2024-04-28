@@ -161,6 +161,9 @@ def update_profile(request):
         # Get the logged-in user
         user = request.user
         
+        # If email exists raise the error 
+        if CustomUser.objects.filter(email=email).exclude(id=user.id).exists():
+            return render(request, 'profile/account-settings.html', {'email_error': 'Email is already registered.' , 'first_name': first_name, 'last_name': last_name, 'email': email, 'contact_number': contact_number, 'address': address, 'dob': dob})
         # Update user data
         user.first_name = first_name
         user.last_name = last_name

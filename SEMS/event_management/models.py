@@ -4,7 +4,7 @@ from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.html import mark_safe
 from core.models import Position
 from django.utils.translation import gettext_lazy as _
-
+from django.core.exceptions import ValidationError
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -65,6 +65,7 @@ class Event(models.Model):
     food_and_beverage = CKEditor5Field(blank=True, null=True)
     rules_and_regulations = CKEditor5Field(blank=True, null=True)
     sponsors = CKEditor5Field(blank=True, null=True)
+    expenses = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -80,43 +81,44 @@ class Event(models.Model):
             return None
     image_tag.short_description = 'Image'
 
-
-class StaffAssignment(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    staff = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    role = models.ForeignKey(Position, on_delete=models.CASCADE)
-    assigned_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='assigned_by')
-    assigned_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{', '.join([staff.username for staff in self.staff.all()])} - {self.event.title}"
-
 class EventVacancy(models.Model):
-    class DateSourceChoices(models.TextChoices):
-        EVENT_DATE = 'event', _('Use Event Date')
-        CUSTOM_DATE = 'custom', _('Use Custom Date')
-
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
-    date_source = models.CharField(
-        max_length=10,
-        choices=DateSourceChoices.choices,
-        default=DateSourceChoices.EVENT_DATE
-    )
-    date = models.DateField(null=True, blank=True)  # Custom date, can be null if using event date
+    date = models.DateField(null=True, blank=True)
     start_time = models.TimeField()
+    end_date = models.DateField(null=True, blank=True)
     end_time = models.TimeField()
-    payment_hourly = models.DecimalField(max_digits=10, decimal_places=2,default=20.00)
-    assigned_staff = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    payment_hourly = models.DecimalField(max_digits=10, decimal_places=2, default=20.00)
     assigned_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=10,
+        choices=[('pending', 'Pending'), ('confirmed', 'Confirmed')],
+        default='pending' 
+    )
+
+    assigned_staff = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        limit_choices_to={'is_staff': True, 'is_superuser': False},
+    )
+
+    def formfield(self, **kwargs):
+        defaults = {}
+        if self.name == 'assigned_staff':
+            defaults['queryset'] = settings.AUTH_USER_MODEL.objects.filter(is_staff=True)
+        defaults.update(kwargs)
+        return super().formfield(**defaults)
 
     def save(self, *args, **kwargs):
-        if self.date_source == self.DateSourceChoices.EVENT_DATE:
-            # Set date from the event
+        if not self.date:  # Set date if not already set
             self.date = self.event.date
-        # No else needed; if CUSTOM_DATE is chosen, the date should be whatever is manually set in self.date
+        if not self.end_date:  # Set end_date if not already set
+            self.end_date = self.event.date
+        if self.end_date < self.date:
+            raise ValidationError("End date cannot be before start date.")
         super(EventVacancy, self).save(*args, **kwargs)
-        
 
     def __str__(self):
         return f"{self.position} - {self.event.title}"

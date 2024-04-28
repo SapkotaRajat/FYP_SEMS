@@ -19,6 +19,7 @@
                         <th>Date</th>
                         <th>Start Time</th>
                         <th>End Time</th>
+                        <th>Hourly Payment</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                         <td>{{ vacancy.date }}</td>
                         <td>{{ vacancy.start_time }}</td>
                         <td>{{ vacancy.end_time }}</td>
+                        <td>$ {{ vacancy.payment_hourly }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

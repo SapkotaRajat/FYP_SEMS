@@ -15,9 +15,9 @@
                     <tr>
                         <th>Event</th>
                         <th>Position</th>
-                        <th>Date</th>
                         <th>Start Time</th>
                         <th>End Time</th>
+                        <th>Hourly Payment</th>
                         <th>Assigned</th>
                     </tr>
                 </thead>
@@ -26,13 +26,15 @@
                     <tr>
                         <td>{{ vacancy.event.title }}</td>
                         <td>{{ vacancy.position.position }}</td>
-                        <td>{{ vacancy.date }}</td>
-                        <td>{{ vacancy.start_time }}</td>
-                        <td>{{ vacancy.end_time }}</td>
-                        {% if vacancy.assigned_staff %}
+                        <td>{{ vacancy.date }} | {{ vacancy.start_time }}</td>
+                        <td>{{ vacancy.end_date }} | {{ vacancy.end_time }}</td>
+                        <td>$ {{ vacancy.payment_hourly }}</td>
+                        {% if vacancy.assigned_staff and vacancy.status == 'confirmed' %}
                         <td> {{ vacancy.assigned_staff }} </td>
+                        {% elif vacancy.assigned_staff and vacancy.status == 'pending' %}
+                        <td> Pending </td>
                         {% else %}
-                        <td><a href="{% url 'signup-for-vacancy' vacancy.id %}" id="sign-up-for-event">Sign Up</a></td>
+                        <td><a href="{% url 'signup-for-vacancy' vacancy.id %}" class="sign-up-for-event">Sign Up</a></td>
                         {% endif %}
                     </tr>
                     {% endfor %}
@@ -61,10 +63,12 @@
 </div>
 </div>
 <script>
-    var signUpForEvent = document.getElementById('sign-up-for-event');
+    var signUpForEvents = document.querySelectorAll('.sign-up-for-event');
     try {
-        signUpForEvent.addEventListener('click', function () {
-            localStorage.setItem('signUpForEvent', 'true');
+        signUpForEvents.forEach(element => {
+            element.addEventListener('click', function () {
+                localStorage.setItem('signUpForEvent', 'true');
+            });
         });
     } catch (error) {
         console.log("No sign up position available.");

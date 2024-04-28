@@ -49,7 +49,7 @@
                         <th>Action Time</th>
                         <th>User</th>
                         <th>Activity</th>
-                        <th>Description</th>
+                        <th>Notification</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +58,36 @@
                         <td>{{ log.action_time|date:"F d, Y, P" }}</td>
                         <td>{{ log.user }}</td>
                         <td>{{ log.content_type }}</td>
-                        <td>{{ log.object_repr }}</td>
+                        <td>{{ log.change_message }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h5 class="text-center pb-3">Event Data</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Tickets Sold</th>
+                        <th>Staff Assigned</th>
+                        <th>Total Expenses</th>
+                        <th>Total Earnings</th>
+                        <th>Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in event_data %}
+                    <tr>
+                        <td>{{ event.event_title }}</td>
+                        <td>{{ event.total_tickets_sold }}</td>
+                        <td>{{ event.total_staff_assigned }}</td>
+                        <td>{{ event.total_expenses }}</td>
+                        <td>{{ event.total_earnings }}</td>
+                        <td>{{ event.profit }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

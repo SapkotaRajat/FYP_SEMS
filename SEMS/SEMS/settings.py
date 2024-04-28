@@ -303,6 +303,7 @@ JAZZMIN_SETTINGS = {
         "Event_Management.StaffAssignment",
         "Event_Management.TicketDetail",
         "auth",
+        "core.Policy",
     ],
 
     # Custom links to append to app groups, keyed on app name
@@ -328,6 +329,7 @@ JAZZMIN_SETTINGS = {
         'core.Position': 'fas fa-user-tie',
         'core.Policy': 'fas fa-file-alt',
         'staff_management.Vacancy': 'fas fa-user-plus',
+        'core.BannerImage': 'fas fa-image',
         
         
     },

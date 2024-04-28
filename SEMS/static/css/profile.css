@@ -628,4 +628,22 @@ input[type="date" i] {
     padding: 8px 16px;
     font-size: 16px;
   }
+  .modal img{
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.error-msg{
+  color: #ef2b2b;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-family: "Source Sans Pro", sans-serif;
+  margin: 20px 0;
+  text-align: center;
+
+}
+.error-msg ul li {
+  list-style: none;
 }

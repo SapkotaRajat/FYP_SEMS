@@ -16,17 +16,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap"
         rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap"
         rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Alice&display=swap" rel="stylesheet">
 
 </head>
 
@@ -40,19 +36,20 @@
                 <img id="banner-image" src="{{ banner_images.0 }}" alt="banner">
                 <div class="landing-content">
                     <h1>
-                        <span>All Events, One Place:</span> <span class="second-half">Your Ultimate Experience</span>
+                        <span>All Events, One Place:</span><br><span class="second-half">Your Ultimate Experience</span>
                     </h1>
                     <p>
-                        Discover a world of diverse events on our platform. From Fashion Shows to Sporting Competitions, Seminars to Concerts, find it all here. Join us for an unforgettable experience!
+                        Discover a world of diverse events on our platform. From Fashion Shows to Sporting Competitions,
+                        Seminars to Concerts, find it all here. Join us for an unforgettable experience!
                     </p>
                 </div>
-            </div>                      
+            </div>
             {% else %}
             <div class="banner-image">
                 <img src="{% block banner_image_src %}{% static 'assets/placeholder-banner.png' %}{% endblock %}"
                     alt="Banner Image">
             </div>
-            
+
             <!-- menu -->
             <div class="menu">
                 <ul>

@@ -610,6 +610,12 @@ input[type="date" i] {
   .detail input {
     font-size: 16px;
   }
+  .modal-content{
+    padding: 20px;
+    max-width: 350px;
+    height: fit-content;
+    margin: auto;
+  }
   .modal-content p {
     font-size: 20px;
   }

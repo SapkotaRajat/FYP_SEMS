@@ -164,9 +164,6 @@ section.events {
 }
 
 .event-date {
-  position: absolute;
-  top: 30px;
-  left: 0;
   width: 100%;
   font-size: 14px;
   font-weight: 600;

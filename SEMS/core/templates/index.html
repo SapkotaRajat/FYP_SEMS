@@ -12,7 +12,7 @@
             <div class="image">
                 <img src="{{ latest_event.image.url }}" alt="{{ latest_event.name }}" id="event-image">
             </div>
-            <div class="details" >
+            <div class="details">
                 <p class="event-date">{{ latest_event.date }}</p>
                 <h3>{{ latest_event.title }}</h3>
                 <p class="desc">{{ latest_event.description|truncatewords:20|striptags }}</p>
@@ -119,7 +119,7 @@
     // Get all banner images
     const bannerImages = [
         {% for banner_image in banner_images %}
-            "{{ banner_image }}",
+    "{{ banner_image }}",
         {% endfor %}
     ];
 
@@ -130,7 +130,7 @@
     function rotateImages() {
         // Update image source
         document.getElementById('banner-image').src = bannerImages[currentIndex];
-        
+
         // Increment index
         currentIndex = (currentIndex + 1) % bannerImages.length;
     }
@@ -138,11 +138,11 @@
     // Rotate images every 5 seconds (adjust interval as needed)
     setInterval(rotateImages, 5000); // 5000 milliseconds = 5 seconds
 
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         adjustImageHeight();
     });
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         adjustImageHeight();
     });
 
@@ -154,25 +154,28 @@
 
     gsap.from(".landing-content h1 span:first-child", {
         opacity: 0,
-        y: 50,
+        x: -50,
         stagger: 0.1,
         duration: 1,
         ease: "power4.out"
     });
-    const phrases = ["Your Ultimate Experience", "The Ultimate Adventure", "An Unforgettable Journey"];
+
+    const phrases = ["A World of Events", "An Unforgettable Journey", "Your Ultimate Experience", "A World of Possibilities","The Ultimate Adventure"];
 
     let index = 0;
 
     function changeSecondHalf() {
         const secondHalf = document.querySelector(".landing-content .second-half");
-        gsap.to(secondHalf, { opacity: 0, duration: 0.5, onComplete: () => {
-            secondHalf.textContent = phrases[index];
-            gsap.to(secondHalf, { opacity: 1, duration: 0.5 });
-            index = (index + 1) % phrases.length;
-        }});
+        gsap.to(secondHalf, {
+            width: 0, opacity: 0, duration: 0.5, onComplete: () => {
+                secondHalf.textContent = phrases[index];
+                gsap.to(secondHalf, { width: "auto", opacity: 1, duration: 1, ease: "linear" });
+                index = (index + 1) % phrases.length;
+            }
+        });
     }
 
-    setInterval(changeSecondHalf, 3000); // Change every 5 seconds
+    setInterval(changeSecondHalf, 3000); // Change every 3 seconds
 
 </script>
 

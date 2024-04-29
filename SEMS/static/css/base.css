@@ -141,34 +141,34 @@ header .btn a:hover {
   height: 100%;
   object-fit: cover;
   transition: all 0.5s;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .landing-content {
   position: absolute;
-  top: 230px;
+  top: 220px;
   left: 50%;
   transform: translateX(-50%);
   color: #fff;
   text-align: center;
   z-index: 1;
-  max-width: 678px;
+  max-width: 690px;
   width: 100%;
   padding: 0 20px;
 }
 
-.landing-content h1 {
+.landing-content h1 span{
   font-size: 56px;
   font-weight: 500;
-  font-family: "Roboto Condensed", sans-serif;
   margin-bottom: 20px;
+  font-family: "Alice", serif;
 }
 
 .landing-content p {
   font-size: 20px;
   font-weight: 300;
   font-family: "Roboto Condensed", sans-serif;
-  margin-bottom: 20px;
+  margin: 20px 0;
   line-height: 1.6;
 }
 .full-page-image p.subtitle,
@@ -394,11 +394,19 @@ footer .wrapper {
     height: 0;
     z-index: 998;
   }
-  .landing-content h1 {
-    font-size: 36px;
+  .landing-content {
+    top: 50%;
+    transform: translate(-50%, -50%)
   }
+
+.landing-content h1 span {
+  font-size: 36px;
+}
   .landing-content p {
     font-size: 18px;
+  }
+  .full-page-image {
+    height: 100vh;
   }
 
 }

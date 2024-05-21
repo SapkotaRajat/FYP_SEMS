@@ -86,7 +86,7 @@ h3 {
   padding: 10px 15px;
   text-align: center;
   margin-top: 30px;
-  font-family: "Alice", serif;
+  font-family: "Roboto Condensed", sans-serif;
 }
 .details h3 {
   font-size: 28px;
@@ -105,7 +105,7 @@ h3 {
   color: #2a2a2a;
   padding: 0 22px;
   margin-bottom: 15px;
-  font-family: "Alice", serif;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 .details .btns {
   display: flex;

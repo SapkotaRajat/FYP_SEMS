@@ -8,12 +8,12 @@ body {
   overflow-x: hidden;
 }
 header {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   width: 100%;
   z-index: 1000;
   transition: all 0.3s ease;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(10px);
 }
 header .wrapper {

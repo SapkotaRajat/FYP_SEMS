@@ -15,7 +15,7 @@ from django.utils.html import format_html
 import json
 import calendar
 from datetime import datetime
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 class CustomAdminSite(admin.AdminSite):
     def index(self, request, extra_context=None):
@@ -33,7 +33,7 @@ class CustomAdminSite(admin.AdminSite):
         
         # Calculate total earnings
         total_earnings = TicketPurchase.objects.aggregate(total_earnings=Sum('payment_amount'))['total_earnings']
-        total_earnings = total_earnings if total_earnings is not None else 0
+        total_earnings = Decimal(total_earnings) if total_earnings is not None else Decimal(0)
         
         # Calculate monthly earnings
         monthly_earnings = TicketPurchase.objects.annotate(
@@ -63,7 +63,7 @@ class CustomAdminSite(admin.AdminSite):
         event_data = []
         events = Event.objects.all()
         for event in events:
-            total_expenses = 0
+            total_expenses = Decimal(0)  # Initialize as Decimal
             # count the number of assigned_staff for each event
             staff_assignments = EventVacancy.objects.filter(event=event, assigned_staff__isnull=False).values_list('assigned_staff', flat=True)
             for assignment in staff_assignments:
@@ -71,20 +71,25 @@ class CustomAdminSite(admin.AdminSite):
                 for vacancy in vacancies:
                     start_datetime = datetime.combine(vacancy.date, vacancy.start_time)
                     end_datetime = datetime.combine(vacancy.date, vacancy.end_time)
-                    duration_hours = (end_datetime - start_datetime).total_seconds() / 3600
-                    total_expenses += round((Decimal(duration_hours) * vacancy.payment_hourly), 2)
+                    duration_hours = Decimal((end_datetime - start_datetime).total_seconds() / 3600)
+                    payment_hourly = Decimal(vacancy.payment_hourly)  # Ensure payment_hourly is Decimal
+                    expense = duration_hours * payment_hourly
+                    rounded_expense = expense.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+                    total_expenses += rounded_expense
+            event_expenses = Decimal(event.expenses) if event.expenses else Decimal(0)
+            total_event_earnings = TicketPurchase.objects.filter(event=event).aggregate(total_earnings=Sum('payment_amount'))['total_earnings'] or Decimal(0)
+            total_event_earnings = Decimal(total_event_earnings)
 
             data = {
                 'event_title': event.title,
                 'total_tickets_sold': TicketPurchase.objects.filter(event=event).count(),
                 'total_staff_assigned': staff_assignments.count(),
-                'total_expenses' : float(total_expenses) + (event.expenses or 0),
-                'total_earnings': TicketPurchase.objects.filter(event=event).aggregate(total_earnings=Sum('payment_amount'))['total_earnings'],
-                'profit': (TicketPurchase.objects.filter(event=event).aggregate(total_earnings=Sum('payment_amount'))['total_earnings'] or 0) - total_expenses 
+                'total_expenses': total_expenses + event_expenses,
+                'total_earnings': total_event_earnings,
+                'profit': total_event_earnings - (total_expenses + event_expenses)
             }
             event_data.append(data)
             
-        
         # Update extra_context with calculated totals and event data
         extra_context = extra_context or {}
         extra_context.update({
@@ -92,14 +97,13 @@ class CustomAdminSite(admin.AdminSite):
             'total_events': total_events,
             'total_users': total_users,
             'total_contacts': total_contacts,
-            'total_amount_paid': total_earnings,
+            'total_amount_paid': float(total_earnings),
             'monthly_earnings': monthly_earnings_json,
             'admin_logs': admin_logs,
             'event_data': event_data,
         })
 
         return super().index(request, extra_context)
-
 
 # Register the custom admin site
 custom_admin_site = CustomAdminSite()
@@ -206,11 +210,13 @@ class EventVacancyProfileInline(admin.TabularInline):
         return fields
 
 class CustomUserAdmin(UserAdmin):
-    inlines = (UserProfileInline,)
     def get_inline_instances(self, request, obj=None):
-        if obj and obj.is_staff and not obj.is_superuser:
-            return [EventVacancyProfileInline(self.model, self.admin_site)]
-        return []
+        inlines = []
+        if obj:
+            inlines.append(UserProfileInline(self.model, self.admin_site))
+            if obj.is_staff and not obj.is_superuser:
+                inlines.append(EventVacancyProfileInline(self.model, self.admin_site))
+        return inlines
     model = CustomUser
     list_display = ['username','email', 'first_name', 'last_name', 'is_active', 'is_staff', 'display_profile_picture']
     search_fields = ['email', 'first_name', 'last_name']

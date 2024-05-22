@@ -17,11 +17,17 @@
     <div class="profile-details">
         <p>{{ user.first_name }} {{ user.last_name }} {% if user.is_superuser %}(Admin){% elif user.is_staff %}(Staff) {% else %}({{ user.username }}){% endif %}</p> 
         <p>{{ user.email }}</p>
+        {% if user.contact_number %}
         <p>{{ user.contact_number }}</p>
+        {% else %}
+        <p class="info">Continue updating your profile</p>
+        {% endif %}
         {% if user.address %}
         <p>{{ user.address }}</p>
         {% endif %}
+        {% if user.dob %}
         <p>{{ user.dob }}</p>
+        {% endif %}
         <a href="{% url 'account_settings' %}">Edit Profile</a>
     </div>
 </div>

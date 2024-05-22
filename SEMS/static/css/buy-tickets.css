@@ -207,6 +207,11 @@
   backdrop-filter: blur(8px);
 }
 
+.help-text{
+  font-size: 14px;
+  color: #818181;
+
+}
 
 @media (max-width: 767px) {
   .buy-tickets h2 {

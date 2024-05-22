@@ -6,6 +6,7 @@
 {% block menu %}
 <li><a href="{% url 'events-categories' %}">Events</a></li>
 <li><a href="{% url 'tickets' %}">Tickets</a></li>
+<li><a href="{% url 'past_events' %}"></a></li>
 {% endblock %}
 {% block banner_image_src %}{{ category.image.url }}{% endblock %}
 {% block content %}

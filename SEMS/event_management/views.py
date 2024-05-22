@@ -28,8 +28,8 @@ def events_and_tickets(request):
     return render(request, 'events-and-tickets.html', {'upcoming_events': upcoming_events , 'categories': categories})
 
 def events_categories(request):
-    # return categories in descending order by number of events
-    categories = Category.objects.annotate(num_events=Count('event')).order_by('-num_events')
+    # return categories in descending order by number of events for upcoming events only
+    categories = Category.objects.annotate(num_events=Count('event', filter=Q(event__date__gte=timezone.now()))).order_by('-num_events')
     return render(request, 'events-categories.html', {'categories': categories})
 
 def event_details(request, event_id):
@@ -136,3 +136,8 @@ def work_history(request):
     # select the assigned tasks for the current user which are completed
     vacancies = EventVacancy.objects.filter(assigned_staff=request.user).filter(date__lt=timezone.now()).order_by('date')
     return render(request, 'work-history.html', {'vacancies': vacancies})
+
+def past_events(request):
+    # return events in descending order by date that are completed
+    events = Event.objects.filter(date__lt=timezone.now()).order_by('-date')
+    return render(request, 'past-events.html', {'past_events': events})

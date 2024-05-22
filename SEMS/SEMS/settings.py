@@ -158,6 +158,11 @@ EMAIL_HOST_PASSWORD = 'crmy jbbl mdzn zxpa'
 
 AUTH_USER_MODEL = 'user_authentication.CustomUser'
 
+# Session settings
+SESSION_COOKIE_AGE = 21600  # 6 hours in seconds
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
 GRAPH_MODELS = {
   'all_applications': False,
   'group_models': True,

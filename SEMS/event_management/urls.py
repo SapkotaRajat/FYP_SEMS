@@ -14,5 +14,6 @@ urlpatterns = [
     path('signup-for-vacancy/<int:vacancy_id>', views.signup_for_vacancy, name='signup-for-vacancy'),
     path('assigned-tasks/', views.assigned_tasks, name='assigned_tasks'),
     path('work_history/', views.work_history, name='work_history'),
+    path('past-events/', views.past_events, name='past_events'),
 ]
     

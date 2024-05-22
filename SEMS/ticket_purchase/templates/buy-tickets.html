@@ -34,7 +34,7 @@
             <tr>
                 <td><strong>Tickets Available:</strong></td>
                 <td>
-                    {% if event.ticket_available %}
+                    {% if ticket_available > 0 %}
                     <span class="available">Available</span>
                     {% else %}
                     <span class="not-available">Not Available</span>
@@ -60,12 +60,14 @@
 
     {% endif %}
     {% if event.ticket_price %}
-    {% if event.ticket_available %}
+    {% if ticket_available > 0 %}
     <div class="buy-tickets-form">
         <form action="{% url 'buy-tickets' event.id %}" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="quantity">Quantity:</label>
+                <span class="help-text">Use the up and down arrow keys to change
+                    the quantity</span>
                 <!-- get the available quantity of ticket -->
                 <input type="number" name="quantity" id="quantity" min="1" max="{{ ticket_available }}" value="1"
                     required>
@@ -169,6 +171,15 @@
                 });
             }
         }).render('#paypal-button-container');
+        document.addEventListener('DOMContentLoaded', function() {
+        var quantityInput = document.getElementById('quantity');
+
+        quantityInput.addEventListener('keydown', function(e) {
+            if (e.key !== "ArrowUp" && e.key !== "ArrowDown") {
+                e.preventDefault();
+            }
+        });
+    });
 
 
     </script>

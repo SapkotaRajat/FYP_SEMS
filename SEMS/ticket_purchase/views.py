@@ -12,10 +12,13 @@ from io import BytesIO
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet
 from django.core.files import File
+from django.utils import timezone
+from django.conf import settings
 
 # Create your views here.
 def ticket_purchase(request):
-    tickets = Ticket.objects.all()
+    # tickets of the upcoming events only
+    tickets = Ticket.objects.filter(event__date__gte=timezone.now())
     return render(request, 'tickets.html' , {'tickets': tickets})
 
 @login_required
@@ -29,7 +32,7 @@ def buy_tickets(request, event_name):
     for ticket_purchase in ticket_purchases:
         ticket_purchased += ticket_purchase.quantity
     
-    return render(request, 'buy-tickets.html', { 'event': event, 'user_has_purchased_tickets': user_has_purchased_tickets, 'ticket_purchased': ticket_purchased, 'ticket_available': ticket_available})
+    return render(request, 'buy-tickets.html', { 'event': event, 'user_has_purchased_tickets': user_has_purchased_tickets, 'ticket_purchased': ticket_purchased, 'ticket_available': int(ticket_available)})
 
 
 @login_required
@@ -52,12 +55,14 @@ def paypal_transaction_complete(request):
         payee_country = data.get('payeeCountry')
 
         # Save the transaction details to the database
-        ticket_purchase = TicketPurchase(order_id=order_id, user=request.user, ticket=ticket, quantity=quantity,
-                                         payment_method=payment_method, payment_amount=payment_amount, event=event,
-                                         email=email, payer_name=payer_name, payee_country=payee_country)
+        ticket_purchase = TicketPurchase(
+            order_id=order_id, user=request.user, ticket=ticket, quantity=quantity,
+            payment_method=payment_method, payment_amount=payment_amount, event=event,
+            email=email, payer_name=payer_name, payee_country=payee_country
+        )
         ticket_purchase.save()
 
-        # reduce the available quantity from the ticket table in the database
+        # Reduce the available quantity from the ticket table in the database
         ticket.available_quantity -= int(quantity)
         ticket.save()
 
@@ -70,46 +75,60 @@ def paypal_transaction_complete(request):
         )
         qr.add_data(f'Purchase ID: {order_id}')
         qr.make(fit=True)
-
-        # Save QR code image as a file
         img = qr.make_image(fill_color="black", back_color="white")
-        img_path = f'qr_{payer_name}_{event}_{ticket}.png'  # Adjusted the file name format
+
+        # Sanitize the file name
+        sanitized_name = sanitize_filename(f'qr_{payer_name}_{event}_{ticket}.png')
+        img_path = os.path.join(settings.MEDIA_ROOT, 'qr_codes', sanitized_name)
+        os.makedirs(os.path.dirname(img_path), exist_ok=True)
         img.save(img_path)
-        # save the qr code image path to the database
-        ticket_purchase.ticket_qr.save(f'qr_{payer_name}_{order_id}_{ticket}.png', File(open(img_path, 'rb')))
+
+        # Save the QR code image path to the database
+        with open(img_path, 'rb') as f:
+            ticket_purchase.ticket_qr.save(sanitized_name, File(f))
         ticket_purchase.save()
+
         # Generate PDF for the ticket
         pdf_content = generate_pdf(order_id, user.first_name, event.title, quantity, payment_amount, event.date, event.start_time, img_path)
 
         # Send an email to the user
         subject = 'Thank You for Your Purchase with Sajilo Events!'
-        message = f'Dear {user.first_name},\n\nThank you for choosing Sajilo Events for your ticket purchase. Your support means a lot to us.\n\n' \
-                    f'We are pleased to confirm your successful purchase for the following event:\n\n' \
-                    f'Event: {event.title}\n' \
-                    f'Date: {event.date}\n' \
-                    f'Quantity: {quantity}\n' \
-                    f'Total Amount: {payment_amount}\n\n' \
-                    F'Payment Details:\n' \
-                    f'Payment Method: {payment_method}\n' \
-                    f'Order ID: {order_id}\n\n' \
-                    f'For your convenience, we have attached a PDF copy of your ticket to this email. Please present the ticket at the event venue for entry.\n\n' \
-                    f'Should you have any questions or need further assistance, feel free to reach out to us at sajiloevents@gmail.com. Our team is here to help.\n\n' \
-                    f'Thank you once again for your purchase. We look forward to welcoming you to the event and ensuring you have a memorable experience.\n\n' \
-                    f'Best regards,\n' \
-                    f'Sajilo Events Team\n' \
-                    f'sajiloevents@gmail.com'
+        message = (
+            f'Dear {user.first_name},\n\nThank you for choosing Sajilo Events for your ticket purchase. Your support means a lot to us.\n\n'
+            f'We are pleased to confirm your successful purchase for the following event:\n\n'
+            f'Event: {event.title}\n'
+            f'Date: {event.date}\n'
+            f'Quantity: {quantity}\n'
+            f'Total Amount: {payment_amount}\n\n'
+            'Payment Details:\n'
+            f'Payment Method: {payment_method}\n'
+            f'Order ID: {order_id}\n\n'
+            'For your convenience, we have attached a PDF copy of your ticket to this email. Please present the ticket at the event venue for entry.\n\n'
+            'Should you have any questions or need further assistance, feel free to reach out to us at sajiloevents@gmail.com. Our team is here to help.\n\n'
+            'Thank you once again for your purchase. We look forward to welcoming you to the event and ensuring you have a memorable experience.\n\n'
+            'Best regards,\n'
+            'Sajilo Events Team\n'
+            'sajiloevents@gmail.com'
+        )
         email = EmailMessage(subject, message, to=[request.user.email])
         email.content_subtype = 'plain'
         email.attach(f'purchase_{order_id}.pdf', pdf_content, 'application/pdf')
         email.send()
-        print('Email sent successfully')
 
-        # Clean up: remove the generated QR code and PDF files
+        # Clean up: remove the generated QR code file
         os.remove(img_path)
 
         return JsonResponse({'message': 'Transaction completed successfully'})
     else:
         return JsonResponse({'error': 'Invalid request method'})
+
+def sanitize_filename(filename):
+    """
+    Sanitize the filename by removing invalid characters and limiting its length.
+    """
+    import re
+    filename = re.sub(r'[^a-zA-Z0-9_-]', '_', filename)
+    return filename[:50]  # Shorten the filename if it's too long
 
 def generate_pdf(order_id, payer_name, event_title, quantity, payment_amount, event_date, event_time, qr_code_image):
     buffer = BytesIO()
@@ -148,7 +167,6 @@ def generate_pdf(order_id, payer_name, event_title, quantity, payment_amount, ev
     buffer.seek(0)
     return buffer.getvalue()
 
-    
 def purchase_successful(request):
     context = {
         'order_id': '1234567890',

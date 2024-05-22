@@ -10,6 +10,7 @@
         <div class="registration-form-contents">
             <div class="input-wrapper left-field">
                 <input type="text" name="first_name" id="id_first_name" placeholder="First Name" autofocus value="{{ first_name }}" required>
+                <p class="error-inline" id="error_first_name"></p>
             </div>
             <div class="input-wrapper right-field">
                 <input type="text" name="last_name" id="id_last_name" placeholder="Last Name" value="{{ last_name }}" required>
@@ -17,25 +18,29 @@
             </div>
             <div class="input-wrapper left-field">
                 <input type="text" name="username" id="id_username" placeholder="Username" value="{{ username }}" required>
+                <p class="error-inline" id="error_username"></p>
                 {% if username_error %}<p class="error-inline" id="error_username">{{ username_error }}</p>{% endif %}
             </div>
             <div class="input-wrapper right-field">
                 <input type="email" name="email" id="id_email" placeholder="Email" value="{{ email }}" required>
+                <p class="error-inline" id="error_email"></p>
                 {% if email_error %}<p class="error-inline" id="error_email">{{ email_error }}</p>{% endif %}
             </div>
             <div class="input-wrapper left-field">
                 <input type="password" name="password1" id="id_password1" class="password" placeholder="Password" value="{{ password1 }}" required>
+                <p class="error-inline" id="error_password1"></p>
                 {% if password_error %}<p class="error-inline" id="error_password1">{{ password_error }}</p>{% endif %}
             </div>
             <div class="input-wrapper right-field">
                 <input type="password" name="password2" id="id_password2" class="password" placeholder="Confirm Password" value="{{ password2 }}" required>
                 <i class="fa fa-eye view-password-icon" onclick="togglePasswordVisibility()"></i>
+                <p class="error-inline" id="error_password2"></p>
                 {% if confirm_password_error %}<p class="error-inline" id="error_password2">{{ confirm_password_error }}</p>{% endif %}
             </div>
             <div class="input-wrapper submit">
                 <button type="submit">Register</button>
             </div>
-            <p class="login-account">Already have an account? <a href="{% url 'login' %}#login">Login</a></p>
+            <p class="login-account">Already have an account? <a href="{% url 'login' %}#login">Login</a></p>            
         </div>
     </form>    
 </div>
@@ -46,17 +51,50 @@
         password.forEach(function (element) {
             if (element.type === "password") {
                 element.type = "text";
-                // toggle icon to eye-slash when password is visible
                 document.querySelector('.view-password-icon').classList.remove('fa-eye');
                 document.querySelector('.view-password-icon').classList.add('fa-eye-slash');
             } else {
                 element.type = "password";
-                // toggle icon to eye when password is hidden
                 document.querySelector('.view-password-icon').classList.remove('fa-eye-slash');
                 document.querySelector('.view-password-icon').classList.add('fa-eye');
             }
         });
-
     }
+
+    function validateForm() {
+        const firstName = document.getElementById('id_first_name').value.trim();
+        const lastName = document.getElementById('id_last_name').value.trim();
+        const username = document.getElementById('id_username').value.trim();
+        let isValid = true;
+
+        if (firstName.length === 0) {
+            document.getElementById('error_first_name').textContent = 'First name cannot be empty or whitespace only.';
+            isValid = false;
+        } else {
+            document.getElementById('error_first_name').textContent = '';
+        }
+
+        if (lastName.length === 0) {
+            document.getElementById('error_last_name').textContent = 'Last name cannot be empty or whitespace only.';
+            isValid = false;
+        } else {
+            document.getElementById('error_last_name').textContent = '';
+        }
+
+        if (username.length === 0) {
+            document.getElementById('error_username').textContent = 'Username cannot be empty or whitespace only.';
+            isValid = false;
+        } else {
+            document.getElementById('error_username').textContent = '';
+        }
+
+        return isValid;
+    }
+
+    document.getElementById('registrationForm').onsubmit = function(event) {
+        if (!validateForm()) {
+            event.preventDefault();
+        }
+    };
 </script>
 {% endblock %}

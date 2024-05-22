@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Past Events{% endblock %}
+{% block page_title %}Past Events{% endblock %}
+{% block css_file_name %}{% static 'css/events-and-tickets.css' %}{% endblock %}
+{% block menu %}
+<li><a href="{% url 'events-categories' %}">Events</a></li>
+<li><a href="{% url 'tickets' %}">Tickets</a></li>
+<li><a href="{% url 'past_events' %}">Past Events</a></li>
+{% endblock %}
+{% block banner_image_src %}{% static 'assets/past-events.jpg' %}{% endblock %}
+{% block content %}
+
+<section class="events">
+    <div class="events-wrap">
+    <div class="information">
+        <p>View the past events that have taken place at our venue. You can view the event details and images from the
+            events that have taken place in the past.</p>
+    </div>
+        {% for event in past_events %}
+        <div class="events-card">
+            <div class="image">
+                <img src="{{ event.image.url }}" alt="{{ event.name }}">
+            </div>
+            <div class="details">
+                <p class="event-date">{{ event.date }}</p>
+                <h3 class="event-title-short">{{ event.title}}</h3>
+                <div class="btns">
+                    <a class="primary-btn" href="{% url 'event-details' event_id=event.id %}">Information</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No past events</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

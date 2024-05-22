@@ -30,7 +30,11 @@
     </div>
     <div class="detail">
         <label for="id_contact_number">Contact Number</label>
+        {% if not user.contact_number %}
+        <input type="text" name="contact_number" id="id_contact_number" placeholder="Enter you contact number">
+        {% else %}
         <input type="text" name="contact_number" id="id_contact_number" value="{{ user.contact_number }}">
+        {% endif %}
     </div>
     <div class="detail">
         <label for="id_address">Address</label>
@@ -42,6 +46,11 @@
     <div class="detail">
         <label for="id_dob">Add Date of Birth</label>
         <input type="date" name="dob" id="id_dob" max="{{ min_age }}">
+    </div>
+    {% else %}
+    <div class="detail">
+        <label for="id_dob">Date of Birth</label>
+        <input type="text"  value="{{ user.dob }}" disabled>
     </div>
     {% endif %}
     <!-- Add more form fields as needed -->

@@ -6,6 +6,7 @@
 {% block menu %}
 <li><a href="{% url 'events-categories' %}">Events</a></li>
 <li><a href="{% url 'tickets' %}">Tickets</a></li>
+<li><a href="{% url 'past_events' %}">Past Events</a></li>
 {% endblock %}
 {% block banner_image_src %}{% static 'assets/events-and-tickets-banner.webp' %}{% endblock %}
 
@@ -36,9 +37,18 @@
         <p>No upcoming events</p>
         {% endfor %}
     </div>
-    <div class="btn-wrap">
-        <a href="{% url 'events-categories' %}" class="btn">Event Categories</a>
-        <a href="{% url 'schedules' %}" class="btn">Full Schedule</a>
+    <div class="schedule">
+        <div class="schedule-wrap">
+            <h2>Full Schedule</h2>
+            <p>View the full schedule of events to plan your attendance and participation. Explore the diverse range of
+                event categories to find the events that interest you.View the full schedule of events to plan your
+                attendance and participation. Explore the diverse range of
+                event categories to find the events that interest you.</p>
+            <div class="schedule-btn-wrap">
+                <a href="{% url 'events-categories' %}" class="btn">Explore More Events</a>
+                <a href="{% url 'schedules' %}" class="btn">See Full Schedule</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

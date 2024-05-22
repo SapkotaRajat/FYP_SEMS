@@ -39,30 +39,69 @@ def redirect_if_logged_in(view_func):
 @redirect_if_logged_in
 def register(request):
     if request.method == 'POST':
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        username = request.POST.get('username')
+        first_name = request.POST.get('first_name').strip()
+        last_name = request.POST.get('last_name').strip()
+        email = request.POST.get('email').strip()
+        username = request.POST.get('username').strip()
         password = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        
-        # Server-side validation for username and email availability
-        if CustomUser.objects.filter(username=username).exists():
-            return render(request, 'register.html', {'username_error': 'Username is already taken.' , 'first_name': first_name, 'last_name': last_name, 'email': email, 'username': username, 'password1': password, 'password2': password2})
 
+        errors = {}
+
+        # Check if the first name is empty or only whitespace
+        if not first_name:
+            errors['first_name_error'] = 'First name cannot be empty or whitespace only.'
+
+        # Check if the last name is empty or only whitespace
+        if not last_name:
+            errors['last_name_error'] = 'Last name cannot be empty or whitespace only.'
+
+        # Check if the username is empty or only whitespace
+        if not username:
+            errors['username_error'] = 'Username cannot be empty or whitespace only.'
+        elif CustomUser.objects.filter(username=username).exists():
+            errors['username_error'] = 'Username is already taken.'
+
+        # Check if the email is already registered
         if CustomUser.objects.filter(email=email).exists():
-            return render(request, 'register.html', {'email_error': 'Email is already registered.' , 'first_name': first_name, 'last_name': last_name, 'email': email, 'username': username, 'password1': password, 'password2': password2})
+            errors['email_error'] = 'Email is already registered.'
 
-        # validate password requirements (e.g. length, special characters, etc.)
+        # Validate password requirements
         if len(password) < 8 or not any(char.isdigit() for char in password) or not any(char.isupper() for char in password):
-            return render(request, 'register.html', {'password_error': 'Password must be at least 8 characters long and contain at least one uppercase letter and one digit.' , 'first_name': first_name, 'last_name': last_name, 'email': email, 'username': username, 'password1': password, 'password2': password2})
+            errors['password_error'] = 'Password must be at least 8 characters long and contain at least one uppercase letter and one digit.'
+
+        # Check if the passwords match
         if password != password2:
-            return render(request, 'register.html', {'confirm_password_error': 'Passwords do not match.' , 'first_name': first_name, 'last_name': last_name, 'email': email, 'username': username, 'password1': password, 'password2': password2})
-        # If all checks pass, proceed with user creation and database update
-        user = CustomUser.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
-        return render(request, 'login.html' , {'username': username, 'password': password, 'registered': 'true'})
+            errors['confirm_password_error'] = 'Passwords do not match.'
+
+        # If there are any errors, re-render the form with errors
+        if errors:
+            return render(request, 'register.html', {
+                **errors,
+                'first_name': first_name,
+                'last_name': last_name,
+                'email': email,
+                'username': username,
+                'password1': password,
+                'password2': password2
+            })
+
+        # If all checks pass, create the user
+        user = CustomUser.objects.create_user(
+            username=username,
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name
+        )
+        return render(request, 'login.html', {
+            'username': username,
+            'password': password,
+            'registered': 'true'
+        })
 
     return render(request, 'register.html')
+
 
 @redirect_if_logged_in
 def login_request(request):
@@ -98,8 +137,6 @@ def profile(request):
 def change_password(request):
     # Implement your password reset logic here
     return render(request, 'change-password.html', {})
-
-
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password-reset.html'

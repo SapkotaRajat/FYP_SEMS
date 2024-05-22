@@ -6,6 +6,7 @@
 {% block menu %}
 <li><a href="{% url 'events-categories' %}">Events</a></li>
 <li><a href="{% url 'tickets' %}">Tickets</a></li>
+<li><a href="{% url 'past_events' %}">Past Events</a></li>
 {% endblock %}
 {% block banner_image_src %}{% static 'assets/events-categories-banner.webp' %}{% endblock %}
 {% block content %}
@@ -16,7 +17,7 @@
         <div class="overlay"></div>
         <!-- number of events -->
         <h3>{{ category.name }}</h3>
-        <p>{{ category.event_set.count }} Events</p>
+        <p>{{ category.num_events }} Events</p>
         
     </a>
     {% endfor %}

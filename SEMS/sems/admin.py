@@ -16,6 +16,11 @@ import json
 import calendar
 from datetime import datetime
 from decimal import Decimal, ROUND_HALF_UP
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.utils.html import strip_tags
+from user_authentication.models import CustomUser as User
+
 
 class CustomAdminSite(admin.AdminSite):
     def index(self, request, extra_context=None):
@@ -249,7 +254,6 @@ class CustomUserAdmin(UserAdmin):
     display_profile_picture.short_description = 'Profile Picture'
 
 custom_admin_site.register(CustomUser, CustomUserAdmin)
-custom_admin_site.register(StaffApplication)
 custom_admin_site.register(Policy)
 custom_admin_site.register(Position)
 custom_admin_site.register(PositionsCategory)
@@ -269,6 +273,67 @@ class BannerImageAdmin(admin.ModelAdmin):
 
 custom_admin_site.register(BannerImage, BannerImageAdmin)
 
+
+
+class StaffApplicationAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'position_desired', 'created_at', 'approval_status')
+    search_fields = ('first_name', 'last_name', 'position_desired')
+    list_filter = ('position_desired', 'created_at', 'approval_status')
+    fieldsets = (
+        (None, {
+            'fields': ('position_desired', 'first_name', 'last_name', 'address', 'street_address', 
+                       'address_line_2', 'city', 'state_province_region', 'zip_postal_code', 'country', 
+                       'email', 'phone', 'referred_by', 'convicted', 'convicted_explanation', 'school_name', 
+                       'highest_grade_completed', 'graduate', 'consent', 'resume', 'class_schedule', 
+                       'approval_status', 'rejection_message')
+        }),
+    )
+
+    def save_model(self, request, obj, form, change):
+        # Check if 'approval_status' has changed
+        if 'approval_status' in form.changed_data:
+            print(f"Approval status changed to: {obj.approval_status}")  # Debugging: Log approval status change
+            try:
+                user = User.objects.get(email=obj.email)
+                if obj.approval_status == 'yes':
+                    if not user.is_staff:
+                        user.is_staff = True
+                        user.save()
+                        messages.success(request, f"The user '{user.email}' has been marked as staff.")
+                    send_mail(
+                        'Staff Application Approved',
+                        'Congratulations! Your application has been approved. You are now a staff member.',
+                        'sapkotarajat59@gmail.com', 
+                        [user.email],
+                        fail_silently=False,
+                    )
+                elif obj.approval_status == 'no':
+                    clean_message = strip_tags(obj.rejection_message)
+                    message_body = f'We regret to inform you that your application has been rejected.\n{clean_message}'
+                    send_mail(
+                        'Staff Application Rejected',
+                        message_body,
+                        'sapkotarajat59@gmail.com',  # Ensure correct spelling of 'gmail'
+                        [obj.email],
+                        fail_silently=False,
+                    )
+                    if user.is_staff:
+                        user.is_staff = False
+                        user.save()
+                        messages.success(request, f"The user '{user.email}' has been removed from staff.")
+            except User.DoesNotExist:
+                messages.error(request, f"No user found with email '{obj.email}'")
+            except Exception as e:
+                messages.error(request, f"An error occurred: {str(e)}")
+            print(f"User status updated based on approval status: {obj.approval_status}")  # Debugging: Confirmation of status update
+
+        if obj.approval_status == 'yes':
+            messages.info(request, "Approval email sent to the user.")
+        elif obj.approval_status == 'no':
+            messages.info(request, "Rejection email sent to the user.")
+        super().save_model(request, obj, form, change)
+        
+custom_admin_site.register(StaffApplication, StaffApplicationAdmin)
 
 # Assign the custom admin site to admin.site
 admin.site = custom_admin_site

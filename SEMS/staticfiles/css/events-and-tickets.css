@@ -122,7 +122,11 @@ section.events {
   margin: 0 auto;
   padding: 100px 20px;
 }
-
+.text-center{
+  text-align: center;
+  width: 100%;
+  font-size: 24px;
+}
 @media (min-width: 1240px) {
   .events-wrap{
   justify-content: start;
@@ -164,9 +168,6 @@ section.events {
 }
 
 .event-date {
-  position: absolute;
-  top: 30px;
-  left: 0;
   width: 100%;
   font-size: 14px;
   font-weight: 600;

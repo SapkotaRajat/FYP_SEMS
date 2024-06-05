@@ -4,6 +4,8 @@ from .models import StaffApplication
 from core.models import Position
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.contrib.admin.models import LogEntry, CHANGE
+from django.contrib.contenttypes.models import ContentType
 
 def staff_management(request):
     return render(request, 'staff_management.html', {})
@@ -44,6 +46,15 @@ def staff_application(request):
             'sapkotarajat59@gmail.com',
             [user.email],
             fail_silently=False
+        )
+        # log to admin panel 
+        LogEntry.objects.log_action(
+            user_id=request.user.id,
+            content_type_id=ContentType.objects.get_for_model(staff_application).pk,
+            object_id=staff_application.id,
+            object_repr='Staff Application',
+            action_flag=CHANGE,
+            change_message='Staff Application submitted'
         )
         return HttpResponseRedirect('/thank-you/')
     

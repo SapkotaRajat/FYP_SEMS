@@ -22,6 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% if vacancies %}
                     {% for vacancy in vacancies %}
                     <tr>
                         <td>{{ vacancy.event.title }}</td>
@@ -38,6 +39,11 @@
                         {% endif %}
                     </tr>
                     {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6">No tasks available currently.</td>
+                    </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>

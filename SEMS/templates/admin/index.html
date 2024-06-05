@@ -58,7 +58,11 @@
                         <td>{{ log.action_time|date:"F d, Y, P" }}</td>
                         <td>{{ log.user }}</td>
                         <td>{{ log.content_type }}</td>
+                        {% if log.change_message %}
                         <td>{{ log.change_message }}</td>
+                        {% else %}
+                        <td>No description available</td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>

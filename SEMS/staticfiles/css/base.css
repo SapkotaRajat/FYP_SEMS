@@ -8,12 +8,12 @@ body {
   overflow-x: hidden;
 }
 header {
-  background-color: rgba(0, 0, 0, 0.2);
-  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
   width: 100%;
   z-index: 1000;
   transition: all 0.3s ease;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(10px);
 }
 header .wrapper {
@@ -130,13 +130,55 @@ header .btn a:hover {
 
 .full-page-image {
   width: 100%;
-  height: 100vh;
+  height: 90vh;
+  background-color: #000;
+  position: relative;
+  overflow: hidden;
 }
+
 .full-page-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: all 0.5s;
+  opacity: 0.4;
 }
+
+.landing-content {
+  position: absolute;
+  top: 220px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+  max-width: 690px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.landing-content h1 span{
+  font-size: 56px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  font-family: "Alice", serif;
+}
+
+.landing-content p {
+  font-size: 20px;
+  font-weight: 300;
+  font-family: "Roboto Condensed", sans-serif;
+  margin: 20px 0;
+  line-height: 1.6;
+}
+.full-page-image p.subtitle,
+.full-page-image p.description {
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
 
 .banner-image {
   width: 100%;
@@ -351,6 +393,20 @@ footer .wrapper {
     position: relative;
     height: 0;
     z-index: 998;
+  }
+  .landing-content {
+    top: 50%;
+    transform: translate(-50%, -50%)
+  }
+
+.landing-content h1 span {
+  font-size: 36px;
+}
+  .landing-content p {
+    font-size: 18px;
+  }
+  .full-page-image {
+    height: 100vh;
   }
 
 }
